@@ -1,0 +1,193 @@
+
+/* ------------------------------------------------------------------------------ */
+
+.group_wrap {
+    margin: 0 auto;
+    padding-top: 100px;
+    width: 800px;
+    height: 800px;
+}
+
+.group_outer {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 2px 4px 8px 0px rgb(9 9 9 / 25%);
+    border-radius: 30px;
+    margin-bottom: 200px;
+}
+.group_head {
+    border-bottom: 1px solid #fdb933;
+    height: 60px;
+    padding: 5px 0 10px 0;
+    font-size: 20px;
+    padding-left: 20px;
+    color: #fdb933;
+    margin-bottom: 30px;
+}
+
+.group_top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.group_pic {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.group_pic > input {
+    padding: 15px;
+    border: none;
+}
+
+#group_img {
+    border: 1px solid #999;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.group_info {
+    width: 100%;
+}
+.group_profile,
+.group_hashtag {
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+}
+.group_cnt {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.group_memberCnt {
+    padding-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    align-items: center;
+    width: 40%;
+    border-bottom: 1px solid #999;
+}
+.group_memberCnt > label {
+    font-size: 17px;
+    color: #999;
+}
+.group_memberCnt > input {
+    text-align: center;
+    height: 20px;
+    border: none;
+    font-size: 15px;
+    color: black;
+    outline: none;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    color: #999;
+    padding-right: 10px;
+}
+
+.group_profile > input,
+.group_hashtag > input {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px;
+    color: black;
+    outline: none;
+}
+.group_hashtag {
+    margin-top: 10px;
+}
+.group_hashtag > input {
+    font-size: 15px;
+}
+
+.group_profile label,
+.group_hashtag > label {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: #999;
+    transition: all 0.5s ease;
+}
+
+.group_profile input:focus + label,
+.group_profile input:valid + label,
+.group_hashtag input:valid + label,
+.group_hashtag input:focus + label {
+    top: -2px;
+    font-size: 13px;
+    color: #fdb933;
+}
+
+.group_content > textarea {
+    resize: none;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #999;
+}
+
+.group_content > textarea:focus {
+    border: 3px solid #fdb933;
+    outline: none;
+}
+
+.group_check {
+    display: flex;
+    justify-content: center;
+}
+
+.group_check input[value='생 성'] {
+    width: 100px;
+    height: 30px;
+    background-color: #fdb933;
+    color: #fff;
+    font-size: 15px;
+    margin: 20px 30px 0 0;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.group_check input[value='생 성']:hover {
+    background-color: #ffcb62;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+}
+.group_check input[value='취 소'] {
+    width: 100px;
+    height: 30px;
+    border: 2px solid red;
+    color: red;
+    background-color: #fff;
+    margin-top: 20px;
+    font-size: 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.group_check input[value='취 소']:hover {
+    background-color: red;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+}
