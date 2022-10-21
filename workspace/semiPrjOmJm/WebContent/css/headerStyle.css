@@ -59,6 +59,25 @@ nav {
     font-size: 18px;
     font-weight: 600;
 }
+#mem-login{
+	display:flex;   
+}
+#mem-nick, #mem-mypage, #mem-temp{
+    color: var(--color-main);
+    border: 1px solid #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#mem-mypage :hover{
+    color: black;
+}
+#mem-mypage > a {
+    color: var(--color-main);
+}
+
+
 
 #login {
     color: var(--color-main);

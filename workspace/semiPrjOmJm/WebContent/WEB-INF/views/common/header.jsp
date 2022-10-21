@@ -1,6 +1,10 @@
+<%@page import="com.kh.semi.member.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <% String root = request.getContextPath(); %>
+<%
+	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
+%>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -42,7 +46,7 @@
                         </ul>
                     </div>
                     <div id="logout">
-                        <a href=""><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a>
+                        <a href="/omjm/member/logout"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a>
                     </div>
                 </div>
             </div>
@@ -50,8 +54,17 @@
                 <a href=""><img src="<%= root %>/resources/오목조목.png" alt="로고임" /></a>
             </div>
             <div class="nav_user">
-                <a href="" id="login">로그인</a>
-                <a href="" id="join">회원가입</a>
+            	<%if(loginMember != null) {%>
+            		<div id="mem-login">
+	            		<a href="/omjm/member/mypage" id="mem-nick"><%= loginMember.getNick() %>님</a>
+	            		<div id="mem-temp">매너온도자리</div>
+	            		<div id="mem-mypage"><a href="/omjm/member/check" >마이페이지</a></div>
+            		</div>
+                <%}else {%>
+                
+                <a href="/omjm/member/login" id="login">로그인</a>
+                <a href="/omjm/member/join" id="join">회원가입</a>
+                <%} %>
             </div>
         </nav>
         

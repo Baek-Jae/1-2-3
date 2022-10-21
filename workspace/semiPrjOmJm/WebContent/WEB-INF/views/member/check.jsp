@@ -1,11 +1,17 @@
+<%@page import="com.kh.semi.member.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%
+	String alertMsg = (String)request.getAttribute("alertMsg");
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>Insert title here</title>
 <style>
     body, html {
         margin: 0;
@@ -35,7 +41,7 @@
         background-color: rgb(163, 163, 162);
         border-radius: 20px;
         display: grid;
-        grid-template-rows: repeat(3, 1fr) repeat(2, 0.5fr);
+        grid-template-rows: repeat(3, 1fr);
         justify-items: center;
         align-items: center;
         padding: 20px;
@@ -71,19 +77,23 @@
     color: #FDB930;
    }
 </style>
+<script>
+	<%if(alertMsg != null){ %>
+			alert('<%=alertMsg%>')
+	<% } %>
+</script>
 </head>
 <body>
-	<div id="header">로그인 화면</div>
+
     <div id="back">
-        <form action= "<%=root %>/member/login" method="post">
+        <form action="/omjm/member/check" method="post">
             <div id="main">
                 
                 
-                <input type="text" name="memberId" placeholder="아이디를 입력해주세요" class="input width-size">
-                <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요" class="input width-size">
-                <input type="submit" value="회원가입" class="label width-size">
-                <div><a href="">비밀번호를 잊어버리셨나요?</a></div>
-                <div><a href="/3jo/member/join">계정을 만드시겠습니까?</a></div>
+                <input type="text" name="checkId" value="<%= loginMember.getId() %>" class="input width-size">
+                <input type="password" name="checkPwd"  class="input width-size">
+                <input type="submit" value="비밀번호확인" class="label width-size">
+                
 
             
             </div>
