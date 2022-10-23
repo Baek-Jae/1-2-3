@@ -54,7 +54,7 @@ public class MemberDao {
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			MemberVo loginMember = new MemberVo();
+			MemberVo loginMember = null;
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -65,7 +65,8 @@ public class MemberDao {
 				
 				if(rs.next()) {
 		
-
+					loginMember = new MemberVo();
+					
 					loginMember.setNo(rs.getString("NO"));
 					loginMember.setId(rs.getString("ID"));
 					loginMember.setPwd(rs.getString("PWD"));

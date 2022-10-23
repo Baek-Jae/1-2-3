@@ -25,11 +25,10 @@
         align-items: center;
         justify-content: center;
     }
-    #header{
-        width: 1920px;
-        height: 100px;
-    
+    #mem-header{
+    	height : 80px
     }
+
     #bot{
         width: 1920px;
         height: 200px;
@@ -84,7 +83,7 @@
 </script>
 </head>
 <body>
-
+	<div id="mem-header"></div>
     <div id="back">
         <form action="/omjm/member/check" method="post">
             <div id="main">

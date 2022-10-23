@@ -55,15 +55,15 @@
             </div>
             <div class="nav_user">
             	<%if(loginMember != null) {%>
-            		<div id="mem-login">
+            		
 	            		<a href="/omjm/member/mypage" id="mem-nick"><%= loginMember.getNick() %>님</a>
-	            		<div id="mem-temp">매너온도자리</div>
-	            		<div id="mem-mypage"><a href="/omjm/member/check" >마이페이지</a></div>
-            		</div>
+	            		<a id="mem-temp">매너온도자리</a>
+	            		<a href="/omjm/member/check" id="mem-mypage">마이페이지</a>
+            		
                 <%}else {%>
                 
-                <a href="/omjm/member/login" id="login">로그인</a>
-                <a href="/omjm/member/join" id="join">회원가입</a>
+                    <a href="/omjm/member/login" id="login">로그인</a>
+                    <a href="/omjm/member/join" id="join">회원가입</a>
                 <%} %>
             </div>
         </nav>

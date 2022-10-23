@@ -38,7 +38,6 @@
 </style>
 </head>
 <body>
-	<div id="header">회원가입 화면</div>
     <div id="back">
         <form action="/omjm/member/join" method="post" enctype="multipart/form-data">
             <div id="main">
