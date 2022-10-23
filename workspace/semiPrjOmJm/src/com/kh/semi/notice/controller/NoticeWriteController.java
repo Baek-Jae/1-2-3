@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.notice.service.NoticeService;
 import com.kh.semi.notice.vo.NoticeVo;
 
