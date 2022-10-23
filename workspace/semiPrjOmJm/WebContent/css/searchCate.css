@@ -1,0 +1,238 @@
+#container, #container2 {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+    padding: 0 25% 0 25%;
+	width: 100vw;
+    justify-content:space-between;
+    height: 45vh;
+}
+#box {
+	height: 25%;
+	width: 20%;
+	margin-left : 5%;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;   
+}
+#container>div {
+	text-align: center;
+}
+/*#box>div{
+	display : inline-block;
+}*/
+/*더보기 접기*/
+.more {
+	display: block;
+    margin : 2% 0 2% 50%;
+	/* margin-left: 50%; */
+	/* margin-bottom: 5%; */
+	width: 55px;
+	height: 16px;
+	background-image:
+		url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+	background-position: 0 -78px;
+}
+.blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
+.more:hover, .close:hover {
+	cursor: pointer;
+}
+.close {
+	display: block;
+	margin-left: 50%;
+	margin-bottom: 5%;
+	background-image:
+		url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png');
+	width: 42px;
+	height: 16px;
+	background-position: -166px -78px;
+}
+#container2 {
+	display : block;
+	/*position: absolute;*/
+	/* visibility: hidden; */
+}
+#container2 > #box{
+	display : inline-block;
+	height: 500px;
+    width: 20%;
+}
+ /* 이미지 체크박스 */
+#box input[type=checkbox]{
+    display: none;
+}
+#box input[type=checkbox]+label>img{
+    font-weight: bold;
+    /* height: 20%; */
+}
+img{
+    height: 50%;
+}
+/* 메뉴 목록*/
+#box .menuitems{
+    visibility: hidden;
+    list-style: none;
+    display: flex;
+    width: 1200px;
+}
+#box .menuitems li{
+    padding: 10px;
+	margin-top: 20px;
+	margin-left: 10px;
+    text-align: center;
+	/* float: left; */
+}
+/* #box .menuitems li a{
+    text-decoration: none;
+} */
+/* 메뉴 펼침 */
+#box input[type=checkbox]:checked~.menuitems{
+    /* display: block; */
+    visibility: visible;
+    /* overflow:  scroll; */
+}
+/* #box:active {
+  cursor:pointer;
+  width: 30%;
+  height: 30%;
+} */
+/* .box2{
+    position: relative;
+    z-index: 3;
+    bottom: 0px;
+} */
+#box:hover{
+  transform: scale(1.2);
+  /* cursor:pointer; */
+  font-size: 1.2em;
+}
+label{
+    cursor:pointer;
+}
+#box .menuitems li:nth-child(2n) {
+    background: #9CB43A;
+    border-radius: 50px;
+    
+}
+#box .menuitems li:nth-child(odd){
+    background: #46A15E;
+    border-radius: 50px;
+}
+/* 모임리스트 부분 */
+/* #place{
+    display: grid;
+    grid-column : span 5; 
+} */
+#group-place{
+    display: inline-block;
+    margin-left:40%;
+    margin-bottom : 5% ;
+    color: var(--color-main);
+    font-weight: bolder;
+}
+#group-list{
+    /* display: grid;
+    grid-column : span 5; */
+    text-align: center;
+    display: inline-block;
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
+}
+#td1{
+    width: 200px;
+    height: 200px;
+}
+table {
+    width: 70%;
+    height: 100px;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+   /*헤더*/
+ #ca-search{
+    padding-top: 40px;
+    width: 100vw;
+   	height: 200px;
+    display:grid;
+    grid-template-columns: 7fr 1fr 1fr;
+}
+/* .ca-title{
+	width: 100%;
+	height : 100%;
+    text-align : center;
+    padding-bottom : 100px;
+    display: flex;
+    justify-content: center;
+ }*/
+.main-search {
+	margin:  60px 0px 20px 400px;
+    display: flex;
+    align-items: center;
+    width: 40vw;
+    height: 70px;
+}
+.main-search-group {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #999;
+    width: 100%;
+    margin-right: 10px;
+}
+.main-search-group input[name='search'] {
+    margin: 0 0 5px 10px;
+    border: none;
+    width: 90%;
+    height: 30px;
+    font-size: 15px;
+    outline: none;
+}
+.main-search input[type='submit'] {
+    border: none;
+    background-color: var(--color-main);
+    font-size: 16px;
+    width: 110px;
+    height: 35px;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+.main-search input[type='submit']:hover {
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.ca-option{
+	width: 80%;
+    height: 23%;
+	display: flex;
+	text-align : center;
+    margin-top: 77px;
+    margin-left: 15px;
+}
+/* #ca-search > input{ */
+#ca-search input[type='button'] {
+	border: none;
+    background-color: var(--color-main);
+    font-size: 16px;
+    width: 110px;
+    height: 35px;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    margin-top: 77px;
+	/* margin-left : 5%;
+	width : 30%;
+	height : 100%;
+	display: flex;
+	justify-content: center; */
+}
+#ca-search input[type='button']:hover {
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+	
