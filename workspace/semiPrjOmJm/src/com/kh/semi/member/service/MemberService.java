@@ -40,6 +40,7 @@ private final MemberDao dao = new MemberDao();
 		MemberVo loginMember = dao.login(conn, vo);
 		
 		close(conn);
+		
 		return loginMember;
 	}
 }

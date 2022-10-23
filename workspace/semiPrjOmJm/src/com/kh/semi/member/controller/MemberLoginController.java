@@ -38,6 +38,9 @@ public class MemberLoginController extends HttpServlet{
 			s.setAttribute("loginMember", loginMember);
 			
 			resp.sendRedirect("/omjm");
-	}
+		}else {
+			req.setAttribute("alertMsg", "로그인 정보가 잘못되었습니다.");
+			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		}
 }
 }

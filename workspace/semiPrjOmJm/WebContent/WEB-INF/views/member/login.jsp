@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%
+	String alertMsg = (String)request.getAttribute("alertMsg");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +23,9 @@
         align-items: center;
         justify-content: center;
     }
-    #header{
+    #mem-header{
         width: 1920px;
-        height: 100px;
+        height: 80px;
     
     }
     #bot{
@@ -71,9 +75,14 @@
     color: #FDB930;
    }
 </style>
+<script>
+	<%if(alertMsg != null){ %>
+			alert('<%=alertMsg%>')
+	<% } %>
+</script>
 </head>
 <body>
-	<div id="header">로그인 화면</div>
+	<div id="mem-header">로그인 화면</div>
     <div id="back">
         <form action= "<%=root %>/member/login" method="post">
             <div id="main">
@@ -81,7 +90,7 @@
                 
                 <input type="text" name="memberId" placeholder="아이디를 입력해주세요" class="input width-size">
                 <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요" class="input width-size">
-                <input type="submit" value="회원가입" class="label width-size">
+                <input type="submit" value="로그인" class="label width-size">
                 <div><a href="">비밀번호를 잊어버리셨나요?</a></div>
                 <div><a href="/3jo/member/join">계정을 만드시겠습니까?</a></div>
 
