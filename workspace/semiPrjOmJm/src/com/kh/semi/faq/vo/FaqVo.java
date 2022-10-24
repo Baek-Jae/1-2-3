@@ -1,56 +1,41 @@
-package com.kh.semi.qna.vo;
+package com.kh.semi.faq.vo;
 
-public class QnAVo {
+public class FaqVo {
 	
-	public QnAVo(String no, String writer, String pwd, String title, String content, String enrollDate, String deleteYn,
-			String hit, String ansContent) {
+	public FaqVo(String no, String title, String content, String hit, String writer, String enrollDate, String deleteYn,
+			String ansContent, String modifyDate) {
 		super();
 		this.no = no;
-		this.writer = writer;
-		this.pwd = pwd;
 		this.title = title;
 		this.content = content;
+		this.hit = hit;
+		this.writer = writer;
 		this.enrollDate = enrollDate;
 		this.deleteYn = deleteYn;
-		this.hit = hit;
 		this.ansContent = ansContent;
+		this.modifyDate = modifyDate;
 	}
 	
-	public QnAVo() {
+	public FaqVo() {
 		super();
 	}
 
 	private String no;
-	private String writer;
-	private String pwd;
 	private String title;
 	private String content;
+	private String hit;
+	private String writer;
 	private String enrollDate;
 	private String deleteYn;
-	private String hit;
 	private String ansContent;
+	private String modifyDate;
+	
 	public String getNo() {
 		return no;
 	}
 
 	public void setNo(String no) {
 		this.no = no;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
 	}
 
 	public String getTitle() {
@@ -69,6 +54,22 @@ public class QnAVo {
 		this.content = content;
 	}
 
+	public String getHit() {
+		return hit;
+	}
+
+	public void setHit(String hit) {
+		this.hit = hit;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
 	public String getEnrollDate() {
 		return enrollDate;
 	}
@@ -85,14 +86,6 @@ public class QnAVo {
 		this.deleteYn = deleteYn;
 	}
 
-	public String getHit() {
-		return hit;
-	}
-
-	public void setHit(String hit) {
-		this.hit = hit;
-	}
-
 	public String getAnsContent() {
 		return ansContent;
 	}
@@ -101,11 +94,19 @@ public class QnAVo {
 		this.ansContent = ansContent;
 	}
 
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
 	@Override
 	public String toString() {
-		return "QnAVo [no=" + no + ", writer=" + writer + ", pwd=" + pwd + ", title=" + title + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", hit=" + hit + ", ansContent="
-				+ ansContent + "]";
+		return "FaqVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", writer=" + writer
+				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", ansContent=" + ansContent
+				+ ", modifyDate=" + modifyDate + "]";
 	}
 	
 }

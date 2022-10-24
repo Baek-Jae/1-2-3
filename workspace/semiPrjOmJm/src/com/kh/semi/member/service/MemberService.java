@@ -43,4 +43,16 @@ private final MemberDao dao = new MemberDao();
 		
 		return loginMember;
 	}
+	
+	
+	//회원정보 수정하기
+	public MemberVo editProfile(MemberVo vo) {
+		
+		Connection conn = getConnection();
+		//회원정보 넣기
+		int  result = new MemberDao().editProfileById()
+		
+		//새로운 회원정보꺼내기
+		return null;
+	}
 }

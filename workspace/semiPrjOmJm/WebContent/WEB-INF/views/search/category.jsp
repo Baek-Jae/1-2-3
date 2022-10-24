@@ -1,14 +1,18 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="cate.vo.CateVo"%>
 <%@page import="place.vo.PlaceVo"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
   List<PlaceVo> placeList = (ArrayList<PlaceVo>)request.getAttribute("placeList");
   List<CateVo> cateVo = (ArrayList<CateVo>)request.getAttribute("cateVo");
+  
+  List<CateVo> keyword = (ArrayList<CateVo>)request.getAttribute("keyword");
  %>
 <!DOCTYPE html>
 <html>
@@ -20,31 +24,29 @@
 </head>
 <body>
 	<div id="ca-search">
-		<!-- <form action="" id="ca-title"> -->
         <form action="" class="main-search">
    	            <div class="main-search-group">
                 	<span class="material-symbols-outlined">search</span>
-                    <input type="text" name="search" placeholder="모임을 찾아보세요" />
+                    <input type="text" id="my_name" name="search" placeholder="모임을 찾아보세요"/>
+                    <%-- <% if(keyword != null){ %> <%= vo.getCaName()%>
+                    <% } %> --%>
                 </div>
-         <input type="submit" value="검  색" />
+         <input type="submit" value="검  색" onclick="test01();"/>
         </form>
-		<!-- <div class="ca-place"></div> -->
-		<select name="place" class="ca-option" onchange="javascript:myListener(this)">
+        
+		<select name="place" class="ca-option" id="select-pl" onchange="javascript:myListener(this)">
                <!-- 지역 테이블로부터 조회해오기 -->
                  <option value="">==지역 선택==</option>
                <% for(int i = 0; i < placeList.size(); ++i){%>
-          			<option value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
-               <%
-              
-               }%>
-               
-		<input type="button" value="변  경">
+          			<option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
+               <%  } %>
+		<!-- <input type="button" value="변  경"> -->
         </select> 
 	</div>
 	<div id="container">
 		
 		<div id="box">
-			<input type="checkbox" class="" id="collapsible">
+			<input type="checkbox" class="" id="collapsible" name="cs_biz_form">
 			<label for="collapsible">
 			<img src="<%= root %>/resources/예술.jpg" alt="카테고리" width="50%" height="20%">문화/예술
 			</label>
@@ -58,7 +60,7 @@
 		</div>
 
 		<div id="box">
-			<input type="checkbox" class="" id="collapsible2">
+			<input type="checkbox" class="" id="collapsible2" name="cs_biz_form">
 			<label for="collapsible2">
 			<img src="<%= root %>/resources/여행3.jpg" alt="카테고리" width="100%" height="50%">아웃도어/여행
 			</label>
@@ -70,8 +72,16 @@
 				</ul>
 		</div>
 		<div id="box">
-			<img src="<%= root %>/resources/운동2.png" alt="카테고리" width="80%"
-				height="50%">운동/스포츠
+			<input type="checkbox" class="" id="collapsible3" name="cs_biz_form">
+			<label for="collapsible3">
+			<img src="<%= root %>/resources/운동2.png" alt="카테고리" width="80%" height="50%">운동/스포츠
+				</label>
+				<ul class="menuitems">
+				 <% for(int i = 0; i < cateVo.size(); ++i){
+          				if("운동/스포츠".equals(cateVo.get(i).getCaName())){ %>
+          			<li><%=cateVo.get(i).getDeName() %></li>
+               <%}}%>
+				</ul>
 		</div>
 		<div id="box">
 			<img src="<%= root %>/resources/책.jpg" alt="카테고리" width="80%"
@@ -134,7 +144,7 @@
 		</div>
 	</div>
 	
-    <div id="group-place">ㅇㅇㅇ</div> 
+    <div id="group-place">ddd</div> 
 	<div id="group-list">의 모임 리스트</div>
        <table border="1" id="recomm">
             <tr id="tr1">
@@ -151,7 +161,9 @@
             </tr>
        </table>
 
-	<script>
+	
+	<script type="text/javascript">
+
 $(document).ready(function(){
   $('.more').click(function(){
     if($('.more').hasClass('more')){
@@ -163,18 +175,65 @@ $(document).ready(function(){
     }
   });
 });
+	
+	$('#select-pl').change(function(){
+		var temp = $('#select-pl option:checked');
+		 console.log(temp.text()); 
+		  $('#group-place').text($(temp).text());
+	});
+ <%-- function myListener(obj) {        
+	alert(obj.value); 
+ 	
+	$.ajax({
+	
+	url : "<%= root %>/search",
+	method : "GET",		
+	data : 
+		{
+		"msg" : obj.value
+		},
+	success : function(){		
+		alert("통신 성공~!");
+		<% for(int i = 0; i < placeList.size(); ++i){ %>
+			<option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
+   		<% } %>
+   		alert($('#place-name').val());
+		$('#group-place').text();
+	}		 
+});
+	} --%>
+	
+	$(document).ready(function() {
+ 
+ $('input[type="checkbox"][name="cs_biz_form"]').click(function(){
+  if($(this).prop('checked')){
+     $('input[type="checkbox"][name="cs_biz_form"]').prop('checked',false);
+     $(this).prop('checked',true);
+    }
+   });
+ });
+/* if()input 값이 있으면 가져와
+ */
+ /* function test01(){
+	var doc = $("input:text").val();
+	alert(doc);
+} */
+
 /* $(document).ready(function(){
-    $(".ca-option").change(function(){
+    $("#my_name").change(function(){
         alert($(this).text())
         var pl = $(this).val()
         if(pl == null){
-            $("#group-place").val(domain) 
+            $("#my_name").val(pl) 
         }                
     })
 }) */
-
-
-
+/* $('input[type=text]').attr('value',"test");*/
+ 
+ /* function printName()  {
+	  const name = document.getElementById('my_name').value;
+	  document.getElementById("my_name").value = name;
+	} */
     </script>
 </body>
 </html>

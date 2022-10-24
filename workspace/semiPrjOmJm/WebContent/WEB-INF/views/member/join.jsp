@@ -7,24 +7,28 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
-    body, html {
+    * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
+        font-family: 'Noto Sans KR', sans-serif;
+}
+    #header{
+    	height : 80px;
     }
     #back{
-    padding-top:80px;
-        width: 1920px;
         height: 780px;
         display: grid;
         background-color: lightslategray;
     }
     #header{
-        width: 1920px;
-        height: 100px;
+        width: 100vw;
+        height: 80px;
     
     }
     #bot{
-        width: 1920px;
+        width: 100vw
+        ;
         height: 200px;
         border: 1px solid black;
     }
@@ -39,6 +43,7 @@
 </style>
 </head>
 <body>
+	<div id="header">헤더</div>
     <div id="back">
         <form action="/omjm/member/join" method="post" enctype="multipart/form-data">
             <div id="main">
@@ -67,7 +72,7 @@
                     남자 <input type="radio" name="memberGender" value="M"> &nbsp;
                     여자 <input type="radio" name="memberGender" value="F">
                 </div>
-                <select>비밀번호 찾기 질문
+                <select>비밀번호 찾기 질문 <!-- 반복문 돌려서 DB-PQ테이블에 있는 것 넣어야함 -->
                     <option value="1" name = "memberPQ">기억에 남는 추억의 장소는?</option>
                     <option value="2" name = "memberPQ">인상 깊게 읽은 책 이름은?</option>
                     <option value="3" name = "memberPQ">자신의 보물 제1호는?</option>

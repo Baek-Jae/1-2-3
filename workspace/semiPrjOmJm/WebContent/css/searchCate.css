@@ -64,12 +64,11 @@
     width: 20%;
 }
  /* 이미지 체크박스 */
-#box input[type=checkbox]{
+ #box input[type=checkbox]{
     display: none;
 }
 #box input[type=checkbox]+label>img{
     font-weight: bold;
-    /* height: 20%; */
 }
 img{
     height: 50%;
@@ -80,14 +79,14 @@ img{
     list-style: none;
     display: flex;
     width: 1200px;
-}
-#box .menuitems li{
+    }
+    #box .menuitems li{
     padding: 10px;
-	margin-top: 20px;
-	margin-left: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
     text-align: center;
-	/* float: left; */
-}
+    /* float: left; */
+    }
 /* #box .menuitems li a{
     text-decoration: none;
 } */
@@ -96,7 +95,7 @@ img{
     /* display: block; */
     visibility: visible;
     /* overflow:  scroll; */
-}
+    }
 /* #box:active {
   cursor:pointer;
   width: 30%;

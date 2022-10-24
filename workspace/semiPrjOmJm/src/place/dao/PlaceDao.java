@@ -71,4 +71,36 @@ public class PlaceDao {
 		return list;
 	}
 
+	public List<CateVo> selectList(Connection conn, String search) {
+		String sql = "SELECT * FROM CATEGORY WHERE CA_NAME LIKE ?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<CateVo> list = new ArrayList<CateVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			String names = '%'+ search +'%';
+			pstmt.setString(1, names); 
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String caNo = rs.getString("CA_NO");
+				String caName = rs.getString("CA_NAME");
+				String deName = rs.getString("DE_NAME");
+				System.out.println(caNo);
+				CateVo cateVo= new CateVo(caNo, caName, deName);
+				
+				list.add(cateVo);
+				System.out.println(cateVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
+
 }
