@@ -190,13 +190,20 @@
         color:var(--semi-green);
     }
 
-/* 공지사항 qnd 버튼 */
-    #notice #qna{
-        display: flex;
-        flex-direction: column;
+    :root{
+        --color-main: #fdb930;
+        --color-1green: #46a15e;
+        --color-2green: #9cb43a;
+        --color-3green: #008676;
     }
 
+/* 공지사항 qna 버튼 */
+    input[type="radio"] {display:none;}
+    input[type="radio"] :checked + label {display: inline-block;padding: 20px;background: var(--color-main); color: var(--color-2green); font-size: 15px; cursor: pointer;}
 
+    .conbox {width: 500px; height: 600px; background: var(--color-3green); margin: 0 auto; display: none;}
+    input[id="tab01"]:checked ~ .con1 {display: block;}
+    input[id="tab02"]:checked ~ .con2 {display: block;}
 
 </style>
 </head>
@@ -204,8 +211,15 @@
 
     <div id="list-main">
        <div id="list-area">
-            <div id="commu-title">
-                <div><button id="notice">공지사항</button><button id="qna">QnA</button></div>
+            <div class="tab_content" id="commu-title">
+                <input type="radio" name="tabmenu" id="tab01">
+                <label for="tab01">공지사항</label>
+                <input type="radio" name="tabmenu" id="tab02">
+                <label for="tab02">QnA</label>
+
+                <div class="conbox con1">공지사항</div>
+                <div class="conbox con2">QnA</div>
+                <!-- <div><button id="notice">공지사항</button><button id="qna">QnA</button></div> -->
             </div>
             <div id="cate-btn">
                 <div id="btn-group">

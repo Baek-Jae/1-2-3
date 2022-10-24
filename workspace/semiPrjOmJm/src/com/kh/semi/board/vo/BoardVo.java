@@ -1,34 +1,34 @@
-package com.kh.semi.qna.vo;
+package com.kh.semi.board.vo;
 
-public class QnAVo {
-	
-	public QnAVo(String no, String writer, String pwd, String title, String content, String enrollDate, String deleteYn,
-			String hit, String ansContent) {
+public class BoardVo {
+
+	public BoardVo(String no, String writer, String gNo, String title, String content, String enrollDate,
+			String deleteYn, String hit, String modifyDate) {
 		super();
 		this.no = no;
 		this.writer = writer;
-		this.pwd = pwd;
+		this.gNo = gNo;
 		this.title = title;
 		this.content = content;
 		this.enrollDate = enrollDate;
 		this.deleteYn = deleteYn;
 		this.hit = hit;
-		this.ansContent = ansContent;
+		this.modifyDate = modifyDate;
 	}
 	
-	public QnAVo() {
+	public BoardVo() {
 		super();
 	}
-
+	
 	private String no;
 	private String writer;
-	private String pwd;
+	private String gNo;
 	private String title;
 	private String content;
 	private String enrollDate;
 	private String deleteYn;
 	private String hit;
-	private String ansContent;
+	private String modifyDate;
 	public String getNo() {
 		return no;
 	}
@@ -45,12 +45,12 @@ public class QnAVo {
 		this.writer = writer;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public String getgNo() {
+		return gNo;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setgNo(String gNo) {
+		this.gNo = gNo;
 	}
 
 	public String getTitle() {
@@ -93,19 +93,20 @@ public class QnAVo {
 		this.hit = hit;
 	}
 
-	public String getAnsContent() {
-		return ansContent;
+	public String getModifyDate() {
+		return modifyDate;
 	}
 
-	public void setAnsContent(String ansContent) {
-		this.ansContent = ansContent;
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	@Override
 	public String toString() {
-		return "QnAVo [no=" + no + ", writer=" + writer + ", pwd=" + pwd + ", title=" + title + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", hit=" + hit + ", ansContent="
-				+ ansContent + "]";
+		return "BoardVo [no=" + no + ", writer=" + writer + ", gNo=" + gNo + ", title=" + title + ", content=" + content
+				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", hit=" + hit + ", modifyDate="
+				+ modifyDate + "]";
 	}
+	
 	
 }
