@@ -17,7 +17,7 @@ public class MemberDao {
 	//회원가입
 		public int join(Connection conn, MemberVo vo) {
 			
-			String sql = "INSERT INTO TMEMBER ( NO , ID , PWD , NICK , PHONE , CATG , GENDER , PQ , PA , LIKE_GROUP ) VALUES ( SEQ_TMEMBER_NO.NEXTVAL , ? , ? , ? , ? , ? , ? , ? ,? , ? )";
+			String sql = "INSERT INTO MEMBER ( NO , ID , PWD , NICK , PHONE , CATG , GENDER , PQ , PA , LIKE_GROUP ) VALUES ( SEQ_MEMBER_NO.NEXTVAL , ? , ? , ? , ? , ? , ? , ? ,? , ? )";
 			
 			PreparedStatement pstmt = null;
 			int result = 0;
@@ -50,7 +50,7 @@ public class MemberDao {
 		//로그인
 		public MemberVo login(Connection conn, MemberVo vo) {
 			
-			String sql = "SELECT * FROM TMEMBER WHERE ID = ? AND PWD = ?";
+			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ?";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;

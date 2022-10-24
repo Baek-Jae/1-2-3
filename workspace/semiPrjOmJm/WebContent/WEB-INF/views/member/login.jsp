@@ -16,7 +16,7 @@
         padding: 0;
     }
     #back{
-        width: 1920px;
+        width: 100vw;
         height: 780px;
         background-color: #FDB930 ;
         display: grid;
@@ -24,12 +24,12 @@
         justify-content: center;
     }
     #mem-header{
-        width: 1920px;
+        width: 100vw;
         height: 80px;
     
     }
     #bot{
-        width: 1920px;
+        width: 100vw;
         height: 200px;
         border: 1px solid black;
     }
@@ -84,7 +84,7 @@
 <body>
 	<div id="mem-header">로그인 화면</div>
     <div id="back">
-        <form action= "<%=root %>/member/login" method="post">
+        <form action= "<%= root %>/member/login" method="post">
             <div id="main">
                 
                 
