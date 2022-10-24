@@ -18,7 +18,7 @@
         padding: 0;
     }
     #back{
-        width: 1920px;
+        width: 100vw;
         height: 780px;
         background-color: #FDB930 ;
         display: grid;
@@ -30,7 +30,7 @@
     }
 
     #bot{
-        width: 1920px;
+        width: 100vw;
         height: 200px;
         border: 1px solid black;
     }
