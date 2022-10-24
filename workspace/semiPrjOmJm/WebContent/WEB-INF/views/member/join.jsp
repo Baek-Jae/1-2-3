@@ -17,7 +17,6 @@
     	height : 80px;
     }
     #back{
-        width: 100vw;
         height: 780px;
         display: grid;
         background-color: lightslategray;

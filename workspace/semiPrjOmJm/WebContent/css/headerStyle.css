@@ -22,7 +22,7 @@ nav {
     align-items: center;
     padding: 0 10px 0 20px;
     background-color: #fff;
-    z-index: 1;
+    z-index: 999;
 }
 .steady:hover {
     animation: steady 0.5s infinite;
@@ -104,7 +104,7 @@ nav {
     height: 15px;
     position: relative;
     cursor: pointer;
-    z-index: 2;
+    z-index: 999;
 }
 
 #menu_icon + label span {
@@ -159,7 +159,7 @@ nav {
     opacity: 0.8;
     top: 0;
     left: -300px;
-    z-index: 1;
+    z-index: 999;
     transition: all 0.5s ease-in-out;
 }
 
@@ -173,7 +173,7 @@ nav {
     margin: 20px 0 20px 10px;
     list-style: none;
     font-weight: 600;
-    z-index: 1;
+    z-index: 999;
 }
 
 .sidebar_wrap > ul:first-child {

@@ -1,5 +1,7 @@
-<%@page import="com.kh.semi.member.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="com.kh.semi.member.vo.MemberVo"%>
 <!DOCTYPE html>
 <% String root = request.getContextPath(); %>
 <%
@@ -9,10 +11,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>Insert title here</title>
-        <link rel="stylesheet" href="<%= root %>/css/headerStyle.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,300,0,0" />
         <script src="https://kit.fontawesome.com/ae846b135b.js" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="stylesheet" href="<%= root %>/css/headerStyle.css" />
     </head>
     <body>
         <nav>
@@ -28,8 +31,9 @@
                         <div></div>
                         <ul>
                             모임
-                            <li><a href="">생성</a></li>
-                            <li><a href="">가입한 모임</a></li>
+                            <li><a href="<%= root %>/group/create">생성</a></li>
+                            <li><a href="<%= root %>/group/list">가입한 모임</a></li> <!-- 테스트 -->
+                            <li><a href="<%= root %>/group/main?gno=1">모임메인</a></li>   <!-- 테스트 -->
                             <li><a href="">찜한 모임</a></li>
                             <span></span>
                         </ul>

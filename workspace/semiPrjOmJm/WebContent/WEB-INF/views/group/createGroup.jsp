@@ -29,17 +29,21 @@
                                 <input type="text" name="group_category" required />
                                 <label for="group_category">카테고리</label>
                             </div>
+                            <div class="group_profile">
+                                <input type="text" name="group_place" required />
+                                <label for="group_place">지역</label>
+                            </div>
                             <div class="group_cnt">
                                 <div class="group_memberCnt">
                                     <span class="material-symbols-outlined"> group </span>
-                                    <input type="number" min="0" max="10" step="1" />
+                                    <input type="number" min="0" max="10" step="1" name="userCnt"/>
                                     <label>/ 10</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="group_content">
-                        <textarea placeholder="모임소개"></textarea>
+                        <textarea placeholder="모임소개" name="group_content"></textarea>
                     </div>
                     <div class="group_hashtag">
                         <input type="text" name="group_hash" required />
