@@ -12,6 +12,7 @@
         padding: 0;
     }
     #back{
+    padding-top:80px;
         width: 1920px;
         height: 780px;
         display: grid;
