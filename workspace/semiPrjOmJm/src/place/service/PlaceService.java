@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import cate.vo.CateVo;
+
 import com.kh.semi.common.JDBCTemplate;
 import place.dao.PlaceDao;
 import place.vo.PlaceVo;
@@ -29,6 +30,20 @@ public class PlaceService {
 
 		JDBCTemplate.close(conn);
 
+		return cateVo;
+	}
+
+	public List<CateVo> wordSearch(String search) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+
+//		CateVo vo = null;
+		List<CateVo> cateVo = new PlaceDao().selectList(conn, search);
+
+		JDBCTemplate.close(conn);
+		
+		System.out.println("service vo " + cateVo);
+		
 		return cateVo;
 	}
 
