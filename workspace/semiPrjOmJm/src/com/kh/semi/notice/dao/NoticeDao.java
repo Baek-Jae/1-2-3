@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.common.JDBCTemplate;
+import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.notice.vo.NoticeVo;
 
 public class NoticeDao {
@@ -212,6 +213,32 @@ public class NoticeDao {
 		return result;
 		
 	}//delete
+
+	//첨부파일 insert
+	public static int insertAttachment(Connection conn, NoticeAttachment attachmentVo) {
+		
+		String sql = "INSERT INTO NOTICE_ATTACHMENT(NO, NOTICE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH) VALUES(SEQ_NOTICE_ATTACHMENT_NO.NEXTVAL, SEQ_NOTICE_NO.CURRVAL , ? , ? , ?)";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, attachmentVo.getOriginName());
+			pstmt.setString(2, attachmentVo.getChangeName());
+			pstmt.setString(3, attachmentVo.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}//insertAttachment
 
 }//class
 
