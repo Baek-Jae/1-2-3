@@ -6,7 +6,6 @@
 <% String root = request.getContextPath(); %>
 <%
 	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
-	String alertMsg = (String)request.getAttribute("alertMsg");
 %>
 <html>
     <head>
