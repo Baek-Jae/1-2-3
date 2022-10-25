@@ -1,6 +1,10 @@
+<%@page import="com.kh.semi.password.PasswordVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,7 @@
     	height : 80px;
     }
     #back{
-        height: 780px;
+        height: 100vh;
         display: grid;
         background-color: lightslategray;
     }
@@ -35,11 +39,33 @@
     #main{
         
         display: grid;
-        grid-template-rows: repeat(12, 1fr);
-        justify-content: center;
+        grid-template-rows: repeat(23, 1fr);
+        place-content: center center;
+       
         
     }
-   
+    .input{
+      
+      border: 1px solid #dddddd;
+      color: #999999;
+      border-radius: 5px;
+    
+    }
+    .label{
+
+    color: #fff;
+    background-color: rgba(0, 53, 109, 0.95);
+    cursor: pointer;
+    border-radius: 5px;
+    }
+    .width-size{
+
+        height: 35px;
+        width: 80%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
 </style>
 </head>
 <body>
@@ -49,38 +75,40 @@
             <div id="main">
                 
                 <div >아이디</div>
-                <div><input type="text" name="memberId"><button>중복체크</button></div>
+                <div><input type="text" name="memberId" class="input width-size"><button>중복체크</button></div>
                 
                 <div class="span-2">비밀번호</div>
-                <div><input type="password" name="memberPwd1"></div>
+                <div><input type="password" name="memberPwd1" class="input width-size"></div>
                 <div>비밀번호 확인</div>
-                <div><input type="password" name="memberPwd2"></div>
+                <div><input type="password" name="memberPwd2" class="input width-size"></div>
                 <div>닉네임</div>
-                <div><input type="text" name="memberNick"></div>
-                <div>첨부파일</div>
-                <div><input type="file" name="f"></div>
+                <div><input type="text" name="memberNick" class="input width-size"></div>
+                <div>첨부파일<input type="file" name="f"></div>
                 <div>이름</div>
-                <div><input type="text" name="memberName"></div>
+                <div><input type="text" name="memberName" class="input width-size"></div>
                 <div>핸드폰번호</div>
-                <div><input type="text" name="memberPhone"><button>중복체크</button></div>
+                <div><input type="text" name="memberPhone" class="input width-size"><button>중복체크</button></div>
                 <div>관심지역</div>
-                <div><input type="text" name="memberPlace"></div>
+                <div><input type="text" name="memberPlace" class="input width-size"></div>
                 <div>카테고리</div>
-                <div><input type="text" name="memberCate"></div>
+                <div><input type="text" name="memberCate" class="input width-size"></div>
                 <div>성별</div>
                 <div>
                     남자 <input type="radio" name="memberGender" value="M"> &nbsp;
                     여자 <input type="radio" name="memberGender" value="F">
                 </div>
-                <select>비밀번호 찾기 질문 <!-- 반복문 돌려서 DB-PQ테이블에 있는 것 넣어야함 -->
-                    <option value="1" name = "memberPQ">기억에 남는 추억의 장소는?</option>
-                    <option value="2" name = "memberPQ">인상 깊게 읽은 책 이름은?</option>
-                    <option value="3" name = "memberPQ">자신의 보물 제1호는?</option>
-                    <option value="4" name = "memberPQ">내가 좋아하는 캐릭터는?</option>
+                <select name="memberPQ">비밀번호 찾기 질문 
+                	<%for(int i = 0; i < pwdQList.size(); i++) { 
+                	%>
+                	
+                	<option value="i"><%=pwdQList.get(i).getQ() %></option>
+                 	 <% } %>
+
                  </select>
                 <div>비밀번호 찾기 답</div>
-                <div><input type="text" name="memberPA"></div>
-                <div><input type="submit" value="회원가입"></div>
+                <div><input type="text" name="memberPA" class="input width-size"></div>
+                
+                <div><input type="submit" value="회원가입"  class="label width-size"></div>
             </div>
         </form>
     </div>

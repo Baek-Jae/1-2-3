@@ -10,6 +10,17 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 <style>
     body, html {
         margin: 0;
@@ -77,7 +88,7 @@
 </style>
 <script>
 	<%if(alertMsg != null){ %>
-			alert('<%=alertMsg%>')
+		alertify.error('<%=alertMsg%>');
 	<% } %>
 </script>
 </head>

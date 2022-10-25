@@ -16,19 +16,50 @@ import com.kh.semi.member.vo.MemberVo;
 public class MemberEditController extends HttpServlet{
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession s = req.getSession();
+		MemberVo loginMember = (MemberVo)s.getAttribute("loginMember");
+		
+		if(loginMember != null) {
+			
+			req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
+		}else {
+			req.setAttribute("alertMsg", "로그인 후 이용해 주세요");
+			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		}
+	
+	}
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession s = req.getSession();
+		//로그인 멤버에서 가져와도될지 아니면 화면에 있는 memberid를 받아와도될지
+		
+		MemberVo sessionMember = (MemberVo)s.getAttribute("loginMember");
 		
 		String nick = req.getParameter("mp-memberNick");
 		String pwd = req.getParameter("mp-memberPwd");
 		String phone = req.getParameter("mp-memberPhone");
+		String pQ = req.getParameter("mp-memberPQ");
+		String pA = req.getParameter("mp-memberPA");
+		
 		
 		MemberVo vo = new MemberVo();
+		vo.setId(sessionMember.getId());
 		vo.setNick(nick);
 		vo.setPwd(pwd);
 		vo.setPhone(phone);
+		vo.setPq(pQ);
+		vo.setPa(pA);
 		
-		MemberVo loginMember = new MemberService().editProfile(vo);
+		MemberVo editMember = new MemberService().editProfile(vo);
+		
+		if(editMember != null) {
+			s.setAttribute("loginMember", editMember);
+			System.out.println(editMember.getPq());
+			resp.sendRedirect("/omjm/member/mypage");
+			
+		}
+		
 		
 	}
 }

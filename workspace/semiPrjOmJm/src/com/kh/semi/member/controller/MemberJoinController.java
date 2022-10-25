@@ -1,6 +1,7 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +14,8 @@ import javax.servlet.http.Part;
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.member.vo.ProfileAttachVo;
-
+import com.kh.semi.password.PasswordController;
+import com.kh.semi.password.PasswordVo;
 
 
 @WebServlet(urlPatterns = "/member/join")
@@ -32,6 +34,12 @@ public class MemberJoinController extends HttpServlet{
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
+			//비밀번호 찾기 질문 가져와야함
+			List<PasswordVo> pwdQList = new PasswordController().getQuestion();
+			
+			
+			req.setAttribute("pwdQList", pwdQList);
+
 			req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
 		}
 		
@@ -54,8 +62,6 @@ public class MemberJoinController extends HttpServlet{
 			//파일업로드 start
 			ProfileAttachVo profileVo = null;
 			//파일 정보 디비에 저장하기 (파일이 있을 때)
-			
-			
 			
 			
 			//데이터 뭉치기

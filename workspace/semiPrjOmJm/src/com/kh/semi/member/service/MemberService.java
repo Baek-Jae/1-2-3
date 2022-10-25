@@ -50,9 +50,18 @@ private final MemberDao dao = new MemberDao();
 		
 		Connection conn = getConnection();
 		//회원정보 넣기
-		int  result = new MemberDao().editProfileById()
+		int  result = new MemberDao().editProfileById(conn, vo);
 		
-		//새로운 회원정보꺼내기
-		return null;
+		MemberVo loginMember = null;
+		
+		if(result ==1) {
+			commit(conn);
+			//새로운 회원정보꺼내기 
+			loginMember = new MemberDao().login(conn, vo);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return loginMember;
 	}
 }
