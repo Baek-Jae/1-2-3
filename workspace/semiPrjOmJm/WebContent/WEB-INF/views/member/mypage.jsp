@@ -1,3 +1,5 @@
+<%@page import="com.kh.semi.password.PasswordVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
@@ -5,6 +7,7 @@
 	String alertMsg = (String)request.getAttribute("alertMsg");
 
 %>
+<% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,12 +140,12 @@
 	                            <div>전화번호 : <input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"><button>중복확인</button></div>
 	                            
                                 <div>
-                                    비밀번호 찾기 질문<%= loginMember.getPq() %><select>
-                                        <option value="1" name = "mp-memberPQ">기억에 남는 추억의 장소는?</option>
-                                        <option value="2" name = "mp-memberPQ">인상 깊게 읽은 책 이름은?</option>
-                                        <option value="3" name = "mp-memberPQ">자신의 보물 제1호는?</option>
-                                        <option value="4" name = "mp-memberPQ">내가 좋아하는 캐릭터는?</option>
-                                    </select>
+                                    <select name="mp-memberPQ" class="select">비밀번호 찾기 질문 
+					                	<%for(int i = 0; i < pwdQList.size(); i++) {%>
+					                	<option value=">"><%=pwdQList.get(i).getQ() %></option>
+					                 	 <% } %>
+
+               					  </select>
                                 </div>
                                 <div>비밀번호 찾기 답</div>
                					<div><input type="text" name="memberPA" value="<%= loginMember.getPa()%>"></div>
@@ -173,13 +176,13 @@
         
     </div>
     <div id="bot"></div>
-    <script>
+    <!-- <script>
 		//마이페이지 비밀번호찾기 체크
 		const pQArr = document.querySelectorAll('option[name=mp-memberPQ]');
 		const pQ = '<%= loginMember.getPq() %>';
         console.log(pQArr);
         console.log(pQ);
-
+        
 //		for(let i = 0; i < hobbyArr.length; i++){
 //			const v = hobbyArr[i].value;
 //			
@@ -188,6 +191,10 @@
 //				hobbyArr[i].checked = true;
 //			}
 //		}
-	</script>
+	</script> -->
+        <script>
+        //비밀번호 찾기 질문 되어있는거 셀렉트하기
+        $('#mp-memberPQ').val('3').prop('selected',true);
+        </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
+import com.kh.semi.password.PasswordController;
+import com.kh.semi.password.PasswordVo;
 
 @WebServlet(urlPatterns = "/member/edit")
 public class MemberEditController extends HttpServlet{
@@ -52,11 +55,14 @@ public class MemberEditController extends HttpServlet{
 		vo.setPa(pA);
 		
 		MemberVo editMember = new MemberService().editProfile(vo);
+		//마이페이지 질문 다 가져오기
+		List<PasswordVo> pwdQList = new PasswordController().getQuestion();
+		req.setAttribute("pwdQList", pwdQList);
 		
 		if(editMember != null) {
 			s.setAttribute("loginMember", editMember);
-			System.out.println(editMember.getPq());
-			resp.sendRedirect("/omjm/member/mypage");
+			
+			req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
 			
 		}
 		

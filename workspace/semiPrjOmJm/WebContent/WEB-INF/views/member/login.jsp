@@ -3,7 +3,6 @@
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
 <%
 	String alertMsg = (String)request.getAttribute("alertMsg");
-
 %>
 <!DOCTYPE html>
 <html>

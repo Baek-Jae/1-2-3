@@ -52,8 +52,12 @@ public class MemberJoinController extends HttpServlet{
 			String nick = req.getParameter("memberNick");
 			String name = req.getParameter("memberName");
 			String phone = req.getParameter("memberPhone");
-			String []place = req.getParameterValues("memberPlace");
-			String []category = req.getParameterValues("memberCate");
+			//임시
+			String place = req.getParameter("memberPlace");
+			String category = req.getParameter("memberCate");
+			System.out.println(req.getParameter("memberPQ"));
+			//String []place = req.getParameterValues("memberPlace");
+			//String []category = req.getParameterValues("memberCate");
 			String gender = req.getParameter("memberGender");
 			String pq = req.getParameter("memberPQ");
 			String pa = req.getParameter("memberPA");
@@ -72,8 +76,10 @@ public class MemberJoinController extends HttpServlet{
 			vo.setNick(nick);
 			vo.setName(name);
 			vo.setPhone(phone);
-			vo.setPlace(String.join(",", place));
-			vo.setCatg(String.join(",", category));
+			//vo.setPlace(String.join(",", place));
+			//vo.setCatg(String.join(",", category));
+			//임시
+			vo.setPlace(place);
 			vo.setGender(gender);
 			vo.setPq(pq);
 			vo.setPa(pa);

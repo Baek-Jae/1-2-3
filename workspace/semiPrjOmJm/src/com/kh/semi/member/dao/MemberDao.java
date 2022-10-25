@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.taglibs.standard.tag.common.fmt.ParseDateSupport;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -30,7 +32,7 @@ public class MemberDao {
 				pstmt.setString(4, vo.getPhone());
 				pstmt.setString(5, vo.getCatg());
 				pstmt.setString(6, vo.getGender());
-				pstmt.setString(7, vo.getPq());
+				pstmt.setInt(7, Integer.parseInt(vo.getPq()));
 				pstmt.setString(8, vo.getPa());
 				pstmt.setString(9, vo.getLikeGroup());
 				
