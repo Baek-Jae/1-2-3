@@ -10,6 +10,7 @@ import java.util.List;
 import com.kh.semi.common.JDBCTemplate;
 
 import cate.vo.CateVo;
+import kh.semi.omjm.group.vo.GroupVo;
 import place.vo.PlaceVo;
 
 public class PlaceDao {
@@ -53,6 +54,7 @@ public class PlaceDao {
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				String caNo = rs.getString("CA_NO");
 				String caName = rs.getString("CA_NAME");
@@ -102,5 +104,54 @@ public class PlaceDao {
 		}
 		return list;
 	}
+
+	/*public List<GroupVo> GroupSearch(Connection conn, String num) {
+		String sql = "SELECT NAME, PLACE_NO, CATE_NO, USER_CNT FROM OMJM_GROUP WHERE CATE_NO= ?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<GroupVo> list = new ArrayList<GroupVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			String names = '%'+ search +'%';
+			pstmt.setString(1, names); 
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String caName = rs.getString("CA_NAME");
+				String deName = rs.getString("DE_NAME");
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader;
+				String place;
+				String category;
+				String maxMember;
+				String userCnt;
+				String rank;
+				String exp;
+				String content;
+				String hashTag;
+				String enrollDate;
+				String modifyDate;
+				String deleteYn;
+				
+				System.out.println(caNo);
+				
+				CateVo cateVo= new CateVo(caNo, caName, deName);
+				
+				list.add(cateVo);
+				System.out.println(cateVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
+
+	}*/
 
 }

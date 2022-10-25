@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.notice.service.NoticeService;
 
 import cate.vo.CateVo;
+import kh.semi.omjm.group.vo.GroupVo;
 import place.service.PlaceService;
 import place.vo.PlaceVo;
 
@@ -30,6 +31,15 @@ public class PlaceController extends HttpServlet{
 		req.setAttribute("cateVo", cateVo);
 		
 		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
+		/*
+		 * PrintWriter out = resp.getWriter();
+		 * 
+		 * String num = req.getParameter("num");
+		 * 
+		 * List<GroupVo> GroupVo = new PlaceService().GroupSearch(num);
+		 */
+
+		
 	}
 	
 	@Override
@@ -42,9 +52,11 @@ public class PlaceController extends HttpServlet{
 		req.setAttribute("cateVo", cateVo);
 
 		String search = req.getParameter("search");
-
+		
 		List<CateVo> cateVo2 = new PlaceService().wordSearch(search);
-		System.out.println("controller vo" + cateVo2);
+		
+		req.setAttribute("search", search);
+		
 		if(cateVo != null) {
 			req.setAttribute("keyword", cateVo2);
 			req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
