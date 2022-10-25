@@ -6,6 +6,7 @@
 <% String root = request.getContextPath(); %>
 <%
 	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
+	String alertMsg = (String)request.getAttribute("alertMsg");
 %>
 <html>
     <head>
@@ -39,8 +40,9 @@
                         </ul>
                         <ul>
                             고객센터
-                            <li><a href="">Q&A</a></li>
-                            <li><a href="">FAQ</a></li>
+                            <li><a href="<%= root %>/notice/list">공지사항</a></li>
+                            <li><a href="<%= root %>/QnA/list">Q&A</a></li>
+                            <li><a href="<%= root %>/FAQ/list">FAQ</a></li>
                         </ul>
                         <ul>
                             나의 정보

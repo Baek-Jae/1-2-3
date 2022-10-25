@@ -43,7 +43,7 @@ public class CreateGroupController extends HttpServlet{
 		String hashTag = req.getParameter("group_hash");
 		
 		
-		Part f = req.getPart("f");
+		Part f = req.getPart("group_file");
 		GroupAttachmentVo groupAttVo = null;
 		
 		String rootPath = req.getServletContext().getRealPath("/");

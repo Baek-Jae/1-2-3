@@ -52,6 +52,18 @@ public class GroupService {
 		
 		return selectGroup;
 	}
+	
+	
+	public GroupAttachmentVo selectGfileByNo(String gno) {
+		
+		Connection conn = getConnection();
+		
+		GroupAttachmentVo vo = gd.selectGfileByNo(conn, gno);
+		
+		close(conn);
+		
+		return vo;
+	}
 
 
 	public ArrayList<GroupMemberVo> GroupMemberByGno(String groupNo) {
@@ -124,6 +136,24 @@ public class GroupService {
 		ArrayList<OffGroupVo> OffGroupListByGno = gd.OffGroupListByGno(groupNo, conn);
 		
 		return OffGroupListByGno;
+	}
+
+
+	public int insertOffGroup(OffGroupVo ofg) {
+		
+		Connection conn = getConnection();
+		
+		int result = gd.insertOffGroup(conn, ofg);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 	
 	
