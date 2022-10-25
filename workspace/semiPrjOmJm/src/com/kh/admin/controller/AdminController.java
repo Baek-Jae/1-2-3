@@ -23,7 +23,7 @@ public class AdminController  extends HttpServlet{
 		
 		
 		//인코딩
-		req.setCharacterEncoding("UTF-8");
+		//req.setCharacterEncoding("UTF-8");
 		
 		//데이터 꺼내기
 		

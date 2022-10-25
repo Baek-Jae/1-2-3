@@ -22,12 +22,12 @@
 		
 		
 		$.ajax({
-			url: "/WEB-INF/omjm/temp/temper" ,
+			url: "/temp/temper" ,
 			method:"get",
 			data:{
-				"ppoff" : true;
+				/* "ppoff" : true;
 				"ppoff : ppoff + 1 ";
-				"manner" : "manner  + 1";
+				"manner" : "manner  + 1"; */
 				
 			}
 			success: function(){
