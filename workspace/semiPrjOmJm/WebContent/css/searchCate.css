@@ -1,3 +1,6 @@
+body{
+width:100vw;	
+}
 #container, #container2 {
 	display: flex;
 	flex-wrap: wrap;
@@ -68,11 +71,10 @@
     display: none;
 }
 #box input[type=checkbox]+label>img{
-    font-weight: bold;
-}
-img{
+   /*  font-weight: bold; */
     height: 50%;
 }
+
 /* 메뉴 목록*/
 #box .menuitems{
     visibility: hidden;
@@ -234,4 +236,111 @@ table {
     font-weight: 600;
     cursor: pointer;
 }
-	
+/* 모임 리스트*/
+
+.group-list {
+    margin-top: 50px;
+    display: flex;
+    width: 100vw;
+    height: 50vh;
+    justify-content: center;
+}
+
+.group-card{
+	width: 20%;
+    height: 100%;
+    margin-right:100px;
+}
+
+.group-card:last-child{
+	margin-right:0;
+}
+
+.group-tag{
+	display:flex;
+	align-items:end;
+	margin-bottom: 20px;
+}
+
+.group-tag span{
+	margin-right: 4px;
+	font-size: 20px;
+}
+
+.group-tag i{
+	margin-right: 4px;
+	font-size: 19px;
+}
+
+
+.group-wrap {
+    width: 100%;
+    height: 100%;
+    box-shadow: 1px 1px 4px 3px rgb(0 0 0 / 25%);
+}
+
+.card-top {
+    height: 60%;
+}
+
+.card-top img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-bottom {
+    width: 100%;
+    height: 40%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.card-bottom > span {
+    font-weight: 600;
+}
+
+.card-bottom > span:first-child {
+	margin: 5px 0 0 5px;
+    color: var(--color-1green);
+    font-size: 10px;
+}
+
+.card-bottom > span:nth-child(2) {
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+.card-bottom > span:nth-child(3) {
+	margin-left: 5px;
+    color: var(--color-2green);
+    font-size: 10px;
+}
+
+.card-bottom > span:nth-child(4) {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+
+
+.card-bottom a {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-decoration: none;
+    width: 100px;
+    font-size: 15px;
+    background-color: var(--color-main);
+    color: #fff;
+    text-align: center;
+    padding: 8px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-bottom a:hover {
+    font-weight: 600;
+    border-radius: 30px;
+}
+
