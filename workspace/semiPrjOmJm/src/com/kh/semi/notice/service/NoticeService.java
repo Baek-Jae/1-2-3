@@ -1,10 +1,16 @@
 package com.kh.semi.notice.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.notice.dao.NoticeDao;
+import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.notice.vo.NoticeVo;
 
 public class NoticeService {
@@ -12,7 +18,7 @@ public class NoticeService {
 	private NoticeDao dao = new NoticeDao();
 	
 	//공지사항 작성
-	public int write(NoticeVo vo) {
+	public int write(NoticeVo vo , NoticeAttachment attachmentVo) {
 		
 		//커넥션 준비
 		//SQL
@@ -20,17 +26,23 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 		
+		//게시글 insert
 		int result = dao.insertNotice(conn , vo);
 		
-		if(result == 1) {
-			commit(conn);
+		//첨부파일 insert
+		int result2 = 1;
+		if(attachmentVo != null) {
+			result2 = NoticeDao.insertAttachment(conn , attachmentVo);
+		}
+		if(result * result2 == 1) {
+			JDBCTemplate.commit(conn);
 		}else {
-			rollback(conn);
+			JDBCTemplate.rollback(conn);
 		}
 		
-		close(conn);
+		JDBCTemplate.close(conn);
 		
-		return result;
+		return result * result2;
 		
 	}//write
 	
