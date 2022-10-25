@@ -8,10 +8,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.vo.MemberVo;
+
+import kh.semi.omjm.group.service.GroupService;
+import kh.semi.omjm.group.vo.GroupVo;
+import kh.semi.omjm.group.vo.OffGroupVo;
+
 @WebServlet(urlPatterns = "/offgroup/create")
 public class CreateOffGroupController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/views/group/createOffGroup.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
+		String leaderNo = loginMember.getNo();
+		
+		GroupVo gv = (GroupVo)req.getSession().getAttribute("groupInfo");
+		String groupNo = gv.getNo();
+		
+		String name = req.getParameter("off_name");
+		String date = req.getParameter("off_date");
+		String userCnt = req.getParameter("user_cnt");
+		String content = req.getParameter("off_content");
+		
+		OffGroupVo ofg = new OffGroupVo();
+		ofg.setName(name);
+		ofg.setOffDate(date);
+		ofg.setUserCnt(userCnt);
+		ofg.setContent(content);
+		ofg.setLeaderNo(leaderNo);
+		ofg.setGroupNo(groupNo);
+		
+		int insertOffGroup = new GroupService().insertOffGroup(ofg);
+		
+		if(insertOffGroup != 1 ) {
+			resp.sendRedirect("/omjm");
+			return;
+		}
+		
+		resp.sendRedirect("/omjm/group/main?gno="+ groupNo);
+		
 	}
 }

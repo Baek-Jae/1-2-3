@@ -15,7 +15,7 @@
                 <div class="off_head">
                     <h2>Create Offline</h2>
                 </div>
-                <form action="" method="post">
+                <form action="<%= root %>//offgroup/create" method="post">
                     <div class="off_top">
                         <div class="off_info">
                             <div class="off_profile">
@@ -29,7 +29,7 @@
                             <div class="off_cnt">
                                 <div class="off_memberCnt">
                                     <span class="material-symbols-outlined">group</span>
-                                    <input type="range" min="0" max="10" step="1" />
+                                    <input type="range" min="0" max="10" step="1" name="user_cnt"/>
                                     <label>/ 10</label>
                                 </div>
                             </div>

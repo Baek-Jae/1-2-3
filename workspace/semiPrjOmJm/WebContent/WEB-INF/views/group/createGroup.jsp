@@ -14,7 +14,7 @@
                 <div class="group_head">
                     <h2>나만의 그룹 만들기</h2>
                 </div>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="group_top">
                         <div class="group_pic">
                             <div id="group_img"><img src="<%= root %>/resources/testImg.png" alt="프로필사진" /></div>

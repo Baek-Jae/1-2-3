@@ -41,7 +41,7 @@ public class GroupDao {
 	public GroupVo selectGroupByNo(String groupNo, Connection conn) {
 		
 		GroupVo selectGroup = null;
-		String sql = "SELECT O.NO , O.NAME , M.NICK AS LEADER_NO , P.P_NAME AS PLACE_NO , C.DE_NAME AS CATE_NO , O.USER_CNT , O.RANK_NO , O.EXP , O.CONTENT , O.ENROLL_DATE , O.MODIFY_DATE , O.DELETE_YN FROM OMJM_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE O.NO = ?"; 
+		String sql = "SELECT O.NO , O.NAME , M.NICK AS LEADER_NO , P.P_NAME AS PLACE_NO , C.DE_NAME AS CATE_NO , O.USER_CNT , O.RANK_NO , O.EXP , O.CONTENT , O.ENROLL_DATE , O.MODIFY_DATE , O.DELETE_YN FROM OMJM_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE  O.DELETE_YN = 'N' AND O.NO = ?"; 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -74,14 +74,56 @@ public class GroupDao {
 		
 		return selectGroup;
 	}
-
+	
+	public GroupAttachmentVo selectGfileByNo(Connection conn, String gno) {
+		GroupAttachmentVo AttVo = null;
+		String sql = "SELECT NO, GROUP_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, ENROLL_DATE, THUMB_YN, STATUS FROM GROUP_ATTACHMENT WHERE STATUS = 'O' AND GROUP_NO = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gno);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+	            String no = rs.getString("NO");
+	            String groupNo = rs.getString("GROUP_NO");
+	            String originName = rs.getString("ORIGIN_NAME");
+	            String changeName = rs.getString("CHANGE_NAME");
+	            String filePath = rs.getString("FILE_PATH");
+	            String enrollDate = rs.getString("ENROLL_DATE");
+	            String thumbYn = rs.getString("THUMB_YN");
+	            String status = rs.getString("STATUS");
+	            
+	            AttVo = new GroupAttachmentVo();
+	            AttVo.setNo(no);
+	            AttVo.setGroupNo(groupNo);
+	            AttVo.setOriginName(originName);
+	            AttVo.setChangeName(changeName);
+	            AttVo.setFilePath(filePath);
+	            AttVo.setEnrollDate(enrollDate);
+	            AttVo.setThumbYn(thumbYn);
+	            AttVo.setStatus(status);
+	         }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return AttVo;
+	}
+	
 	public ArrayList<GroupMemberVo> GroupMemberByGno(String groupNo, Connection conn) {
 		
 		PreparedStatement pstmt = null;
 		ArrayList<GroupMemberVo> groupMemberList = new ArrayList<GroupMemberVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.NO = ?";
+		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND A.NO = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -202,7 +244,7 @@ public class GroupDao {
 		ArrayList<OffGroupVo> OffGroupList = new ArrayList<OffGroupVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.NO = ?";
+		String sql = "SELECT O.NO , O.NAME , M.NICK AS LEADER_NO , G.NAME AS GROUP_NO , O.USER_CNT , O.OFF_DATE , O.ENROLL_DATE , O.MODIFY_DATE , O.DELETE_YN FROM OFF_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN OMJM_GROUP G ON O.GROUP_NO = G.NO WHERE O.DELETE_YN = 'N' AND O.GROUP_NO = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -213,11 +255,15 @@ public class GroupDao {
 			while(rs.next()) {
 				OffGroupVo ogv = new OffGroupVo();
 				ogv.setNo(rs.getString("NO"));
+				ogv.setName(rs.getString("NAME"));
+				ogv.setLeaderNo(rs.getString("LEADER_NO"));
 				ogv.setGroupNo(rs.getString("GROUP_NO"));
-				ogv.setName(rs.getString("USER_NO"));
+				ogv.setUserCnt(rs.getString("USER_CNT"));
+				ogv.setOffDate(rs.getString("OFF_DATE"));
 				ogv.setEnrollDate(rs.getString("ENROLL_DATE"));
-				ogv.setUserCnt(rs.getString("EXCLUDE_YN"));
-				ogv.setLeaderNo(rs.getString("QUIT_YN"));
+				ogv.setModifyDate(rs.getString("MODIFY_DATE"));
+				ogv.setDeleteYn(rs.getString("DELETE_YN"));
+				
 				
 				OffGroupList.add(ogv);
 			}
@@ -231,6 +277,34 @@ public class GroupDao {
 		
 		return OffGroupList;
 	}
+
+	public int insertOffGroup(Connection conn, OffGroupVo ofg) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO OFF_GROUP( NO , NAME , LEADER_NO , GROUP_NO , USER_CNT , OFF_DATE, OFF_CONTENT )VALUES ( SEQ_OFFGROUP_NO.NEXTVAL ,? ,? , ? , ? , ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ofg.getName());
+			pstmt.setString(2, ofg.getLeaderNo());
+			pstmt.setString(3, ofg.getGroupNo());
+			pstmt.setString(4, ofg.getUserCnt());
+			pstmt.setString(5, ofg.getOffDate());
+			pstmt.setString(6, ofg.getContent());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
 
 	
 }

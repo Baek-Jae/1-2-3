@@ -8,11 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%= root %>/css/groupMain.css" />
+<script src="<%= root %>/javaScript/groupMain.js"></script>
 </head>
 <body>
 	<section class="content-wrap">
             <div class="group-profile-pic">
-                <img src="/login/login.png" alt="" />
+                <img src="<%= root %>/${GroupMainPic.filePath}/${GroupMainPic.changeName}" alt="프로필사진" />
             </div>
             <div class="group-info-wrap">
                 <div class="group-name">
@@ -39,88 +40,28 @@
                         <div class="group-info-detail">
                             <textarea readonly class="addr">${groupInfo.content}</textarea>
                         </div>
-                        <script>
-                            var txtArea = $('.addr');
-                            if (txtArea) {
-                                txtArea.each(function () {
-                                    $(this).height(this.scrollHeight);
-                                });
-                            }
-                        </script>
                         <div class="menu-title"><h3>오프라인</h3></div>
                         <div class="group-menu-content">
+                        <c:forEach items="${offList}" var="i">
                             <div class="off-group">
                                 <div class="off-title">
-                                    <span>삼겹살 드실분</span>
+                                    <span>${i.name}</span>
                                 </div>
                                 <div class="off-leader">
                                     <span class="material-symbols-outlined" id="off-leader-icon">workspace_premium</span>
-                                    <span>리더</span>
+                                    <span>${i.leaderNo}</span>
                                 </div>
                                 <div class="off-date">
                                     <span class="material-symbols-outlined" id="off-date-icon">calendar_month</span>
-                                    <span>2022/10/31</span>
+                                    <span>${i.offDate}</span>
                                 </div>
                                 <div class="off-max-member">
                                     <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>10 /10</span>
+                                    <span>${i.userCnt} /10</span>
                                 </div>
                                 <a href=""> 참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
                             </div>
-                            <div class="off-group">
-                                <div class="off-title">
-                                    <span>삼겹살 드실분</span>
-                                </div>
-                                <div class="off-leader">
-                                    <span class="material-symbols-outlined" id="off-leader-icon">workspace_premium</span>
-                                    <span>리더</span>
-                                </div>
-                                <div class="off-date">
-                                    <span class="material-symbols-outlined" id="off-date-icon">calendar_month</span>
-                                    <span>2022/10/31</span>
-                                </div>
-                                <div class="off-max-member">
-                                    <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>10 /10</span>
-                                </div>
-                                <a href=""> 참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-                            </div>
-                            <div class="off-group">
-                                <div class="off-title">
-                                    <span>삼겹살 드실분</span>
-                                </div>
-                                <div class="off-leader">
-                                    <span class="material-symbols-outlined" id="off-leader-icon">workspace_premium</span>
-                                    <span>리더</span>
-                                </div>
-                                <div class="off-date">
-                                    <span class="material-symbols-outlined" id="off-date-icon">calendar_month</span>
-                                    <span>2022/10/31</span>
-                                </div>
-                                <div class="off-max-member">
-                                    <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>10 /10</span>
-                                </div>
-                                <a href=""> 참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-                            </div>
-                            <div class="off-group">
-                                <div class="off-title">
-                                    <span>삼겹살 드실분</span>
-                                </div>
-                                <div class="off-leader">
-                                    <span class="material-symbols-outlined" id="off-leader-icon">workspace_premium</span>
-                                    <span>리더</span>
-                                </div>
-                                <div class="off-date">
-                                    <span class="material-symbols-outlined" id="off-date-icon">calendar_month</span>
-                                    <span>2022/10/31</span>
-                                </div>
-                                <div class="off-max-member">
-                                    <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>10 /10</span>
-                                </div>
-                                <a href=""> 참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-                            </div>
+						</c:forEach>
                         </div>
                         <a href="<%= root %>/offgroup/create"><span class="material-symbols-outlined" id="add-icon"> add </span>오프라인</a>
                     </div>

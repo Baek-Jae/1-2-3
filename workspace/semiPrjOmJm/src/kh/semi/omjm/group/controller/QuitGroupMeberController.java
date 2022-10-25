@@ -14,16 +14,16 @@ import kh.semi.omjm.group.service.GroupService;
 
 @WebServlet(urlPatterns = "/group/quit")
 public class QuitGroupMeberController extends HttpServlet {
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
-		
+
 		String userNo = loginMember.getNo();
-		
+
 		int quitGroup = new GroupService().quitGroupByNo(userNo);
-		
+
 		req.setAttribute("quitGroup", quitGroup);
-		
+
 	}
 }
