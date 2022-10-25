@@ -1,6 +1,13 @@
+<%@page import="com.kh.semi.password.PasswordVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%
+	String alertMsg = (String)request.getAttribute("alertMsg");
+
+%>
+<% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,32 +85,43 @@
     input[id="like-group"]:checked ~ .mp-main2{ display: block;}
     input[id="mem-group"]:checked ~ .mp-main3{display: block;}
     input[id="mem-manner"]:checked ~ .mp-main4{display: block;}
+    input[id="mem-liked-place"]:checked ~ .mp-main5{display: block;}
+    input[id="mem-liked-catg"]:checked ~ .mp-main6{display: block;}
 
     label {
         width: 100%;
         height: 100%;
         text-align: center;
         
+        
     }
-    
+    /* mp-main1 부분 */
+    #mem-mp1-info{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .material-icons.md-24 { font-size: 24px; }
 </style>
 </head>
 <body>
+	<%if(alertMsg != null){ %>	
+			alertify.error('<%=alertMsg%>');
+	<% } %>
     <div id="mem-header"></div>
     <div id="mem-full">
         
             <input type="radio" id="edit-mypage" name="mem-navi" checked>
-            <label for="edit-mypage" ><span id="icon1" class="material-symbols-outlined">person</span>&nbsp;개인정보수정</label>
+            <label for="edit-mypage" ><span id="icon1" class="material-symbols-outlined md-24">person&nbsp;개인정보수정</span>&nbsp;</label>
             <input type="radio" id="like-group" name="mem-navi">
-            <label for="like-group" ><span class="material-symbols-outlined md-24" >favorite찜한모임</span></label>
+            <label for="like-group" ><span class="material-symbols-outlined md-24" >favorite&nbsp;찜한모임</span></label>
             <input type="radio" id="mem-group" name="mem-navi">
-            <label for="mem-group" ><span class="material-symbols-outlined">group</span>&nbsp;가입한모임</label>
+            <label for="mem-group" ><span class="material-symbols-outlined">group&nbsp;가입한모임</span></label>
             <input type="radio" id="mem-manner" name="mem-navi">
-            <label for="mem-manner" ><span class="material-symbols-outlined">sentiment_satisfied</span>&nbsp;매너온도</label>
+            <label for="mem-manner" ><span class="material-symbols-outlined">sentiment_satisfied&nbsp;매너온도</span></label>
             <input type="radio" id="mem-liked-place" name="mem-navi">
-            <label for="mem-liked-place" >&nbsp;관심지역</label>
+            <label for="mem-liked-place" ><span class="material-symbols-outlined">pin_drop&nbsp;관심지역</span></label>
             <input type="radio" id="mem-liked-catg" name="mem-navi">
-            <label for="mem-liked-catg" >&nbsp;관심카테고리</label>
+            <label for="mem-liked-catg" ><span class="material-symbols-outlined">heart_plus&nbsp;관심카테고리</span></label>
 
 
             <div class="mp-main1 main">
@@ -113,6 +131,7 @@
                         <form action="/omjm/member/edit" method="post">
 	                        <div>로그인 정보</div>
 	                    	    <div>아이디 : <%=loginMember.getId()%></div>
+                                
 	                    	</div>
 	                    	<div id="mem-mp1-content">
 	                            <div>개인정보 수정</div>
@@ -121,15 +140,15 @@
 	                            <div>전화번호 : <input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"><button>중복확인</button></div>
 	                            
                                 <div>
-                                    <select>비밀번호 찾기 질문
-                                    <option value="1" name = "memberPQ">기억에 남는 추억의 장소는?</option>
-                                    <option value="2" name = "memberPQ">인상 깊게 읽은 책 이름은?</option>
-                                    <option value="3" name = "memberPQ">자신의 보물 제1호는?</option>
-                                    <option value="4" name = "memberPQ">내가 좋아하는 캐릭터는?</option>
-                                    </select>
+                                    <select name="mp-memberPQ" class="select">비밀번호 찾기 질문 
+					                	<%for(int i = 0; i < pwdQList.size(); i++) {%>
+					                	<option value=">"><%=pwdQList.get(i).getQ() %></option>
+					                 	 <% } %>
+
+               					  </select>
                                 </div>
                                 <div>비밀번호 찾기 답</div>
-               					<div><input type="text" name="memberPA"></div>
+               					<div><input type="text" name="memberPA" value="<%= loginMember.getPa()%>"></div>
 	                            <input type="submit" value="수정하기">
                    			</div>
                    		</form>
@@ -148,8 +167,34 @@
             <div class="mp-main4 main">
                 컨텐츠내용4
             </div>
+            <div class="mp-main5 main">
+                컨텐츠내용4
+            </div>
+            <div class="mp-main6 main">
+                컨텐츠내용4
+            </div>
         
     </div>
     <div id="bot"></div>
+    <!-- <script>
+		//마이페이지 비밀번호찾기 체크
+		const pQArr = document.querySelectorAll('option[name=mp-memberPQ]');
+		const pQ = '<%= loginMember.getPq() %>';
+        console.log(pQArr);
+        console.log(pQ);
+        
+//		for(let i = 0; i < hobbyArr.length; i++){
+//			const v = hobbyArr[i].value;
+//			
+//			let result = hobbyStr.search(v);
+//			if(result >= 0){
+//				hobbyArr[i].checked = true;
+//			}
+//		}
+	</script> -->
+        <script>
+        //비밀번호 찾기 질문 되어있는거 셀렉트하기
+        $('#mp-memberPQ').val('3').prop('selected',true);
+        </script>
 </body>
 </html>

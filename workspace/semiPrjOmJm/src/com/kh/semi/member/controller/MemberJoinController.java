@@ -1,6 +1,7 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +14,8 @@ import javax.servlet.http.Part;
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.member.vo.ProfileAttachVo;
-
+import com.kh.semi.password.PasswordController;
+import com.kh.semi.password.PasswordVo;
 
 
 @WebServlet(urlPatterns = "/member/join")
@@ -32,6 +34,12 @@ public class MemberJoinController extends HttpServlet{
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
+			//비밀번호 찾기 질문 가져와야함
+			List<PasswordVo> pwdQList = new PasswordController().getQuestion();
+			
+			
+			req.setAttribute("pwdQList", pwdQList);
+
 			req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
 		}
 		
@@ -44,8 +52,12 @@ public class MemberJoinController extends HttpServlet{
 			String nick = req.getParameter("memberNick");
 			String name = req.getParameter("memberName");
 			String phone = req.getParameter("memberPhone");
-			String []place = req.getParameterValues("memberPlace");
-			String []category = req.getParameterValues("memberCate");
+			//임시
+			String place = req.getParameter("memberPlace");
+			String category = req.getParameter("memberCate");
+			System.out.println(req.getParameter("memberPQ"));
+			//String []place = req.getParameterValues("memberPlace");
+			//String []category = req.getParameterValues("memberCate");
 			String gender = req.getParameter("memberGender");
 			String pq = req.getParameter("memberPQ");
 			String pa = req.getParameter("memberPA");
@@ -56,8 +68,6 @@ public class MemberJoinController extends HttpServlet{
 			//파일 정보 디비에 저장하기 (파일이 있을 때)
 			
 			
-			
-			
 			//데이터 뭉치기
 			MemberVo vo = new MemberVo();
 			
@@ -66,8 +76,10 @@ public class MemberJoinController extends HttpServlet{
 			vo.setNick(nick);
 			vo.setName(name);
 			vo.setPhone(phone);
-			vo.setPlace(String.join(",", place));
-			vo.setCatg(String.join(",", category));
+			//vo.setPlace(String.join(",", place));
+			//vo.setCatg(String.join(",", category));
+			//임시
+			vo.setPlace(place);
 			vo.setGender(gender);
 			vo.setPq(pq);
 			vo.setPa(pa);

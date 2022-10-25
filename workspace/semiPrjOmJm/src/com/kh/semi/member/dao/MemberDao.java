@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.taglibs.standard.tag.common.fmt.ParseDateSupport;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -30,7 +32,7 @@ public class MemberDao {
 				pstmt.setString(4, vo.getPhone());
 				pstmt.setString(5, vo.getCatg());
 				pstmt.setString(6, vo.getGender());
-				pstmt.setString(7, vo.getPq());
+				pstmt.setInt(7, Integer.parseInt(vo.getPq()));
 				pstmt.setString(8, vo.getPa());
 				pstmt.setString(9, vo.getLikeGroup());
 				
@@ -94,12 +96,39 @@ public class MemberDao {
 				e.printStackTrace();
 				
 			}finally {
-				close(pstmt);
-				close(rs);
+				close(pstmt, rs);
 				
 			}
 			
 			return loginMember;
+		}
+
+		public int editProfileById(Connection conn, MemberVo vo) {
+			
+			String sql = "UPDATE MEMBER SET  PWD = ? , NICK = ?, PHONE = ?, PQ = ?, PA = ?, MODIFY_DATE = SYSDATE WHERE ID = ?";
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, vo.getPwd());
+				pstmt.setString(2, vo.getNick());
+				pstmt.setString(3, vo.getPhone());
+				pstmt.setString(4, vo.getPq());
+				pstmt.setString(5, vo.getPa());
+				pstmt.setString(6, vo.getId());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			
+			
+			
+			return result;
 		}
 
 }
