@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.admin.service.AdminService;
 import com.kh.semi.member.vo.MemberVo;
 
 @WebServlet(urlPatterns = "/admin/rest")
@@ -25,13 +26,19 @@ public class AdminRestController extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		//데이터 꺼내기
-		String memberId = req.getParameter("memberId");
-		String memberNick = req.getParameter("memberNick");
-		String memberNppOff = req.getParameter("memberNppOff");
-		String memberSup = req.getParameter("memberSup");
 		
 		MemberVo restMember = (MemberVo)session.getAttribute("restMember");
 		String no = restMember.getNo();
+		
+		int result = new AdminService().quit(no);
+		
+		if(result==1) {
+			session.invalidate();
+			resp.sendRedirect("/omjm");
+		}else {
+			req.setAttribute("msg", "제제 실패");
+			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
+		}
 		
 	}
 	
