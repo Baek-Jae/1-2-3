@@ -3,11 +3,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String alertMsg = (String)request.getAttribute("alertMsg");
 
 %>
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,15 +94,74 @@
         width: 100%;
         height: 100%;
         text-align: center;
-        
-        
+   
+    }
+    .input{
+      
+      border: 1px solid #dddddd;
+      color: black;
+      border-radius: 5px;
+  
+    }
+    .span2{
+        grid-column: span 2;
+    }
+    .label{
+
+    color: #fff;
+    background-color: #fdb930;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+
+    }
+    .doublecheck{
+        padding: 1px 3px 3px 1px;
+        margin-left: 15px;
+        font-size: 15px;
+        width: 100px;
     }
     /* mp-main1 부분 */
-    #mem-mp1-info{
+    
+    .back{
+        width: 40vw;
+        height: 700px;
+        background-color: rgba(0, 53, 109, 0.95);
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 2fr 7fr;
+        justify-content: center;
+        margin: 100px auto;
+        border-radius: 30px;
+        color: white;
     }
-    .material-icons.md-24 { font-size: 24px; }
+    #mp-id{
+        margin: 0 0px 0px 50px;
+        padding: 50px;
+
+    }
+    #mem-mp1-content{
+        display: grid;
+        grid-template-columns: 0.5fr 1.5fr;
+        border: 1px solid white;
+        border-radius: 10px;
+        height: 95%;
+        padding: 30px;
+    }
+    #mp-login-info{
+        padding: 10px;
+        text-align: center;
+        margin: 0 auto;
+        border-bottom: 1px solid white;
+    }
+  /* 찜한 모임 부분 css */
+  #mem-mp2-content{
+    background-color: rgb(163, 163, 162);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: ;
+    height: 95%;
+    padding: 30px;
+  }
 </style>
 </head>
 <body>
@@ -110,10 +171,10 @@
     <div id="mem-header"></div>
     <div id="mem-full">
         
-            <input type="radio" id="edit-mypage" name="mem-navi" checked>
-            <label for="edit-mypage" ><span id="icon1" class="material-symbols-outlined md-24">person&nbsp;개인정보수정</span>&nbsp;</label>
+            <input type="radio" id="edit-mypage" name="mem-navi" >
+            <label for="edit-mypage" ><span id="icon1" class="material-symbols-outlined">person&nbsp;개인정보수정</span>&nbsp;</label>
             <input type="radio" id="like-group" name="mem-navi">
-            <label for="like-group" ><span class="material-symbols-outlined md-24" >favorite&nbsp;찜한모임</span></label>
+            <label for="like-group" ><span class="material-symbols-outlined md-24"  >favorite&nbsp;찜한모임</span></label>
             <input type="radio" id="mem-group" name="mem-navi">
             <label for="mem-group" ><span class="material-symbols-outlined">group&nbsp;가입한모임</span></label>
             <input type="radio" id="mem-manner" name="mem-navi">
@@ -124,43 +185,70 @@
             <label for="mem-liked-catg" ><span class="material-symbols-outlined">heart_plus&nbsp;관심카테고리</span></label>
 
 
-            <div class="mp-main1 main">
-                
-                <div id="mem-mp-main">
-                    <div id="mem-mp1-info">
-                        <form action="/omjm/member/edit" method="post">
-	                        <div>로그인 정보</div>
-	                    	    <div>아이디 : <%=loginMember.getId()%></div>
-                                
-	                    	</div>
-	                    	<div id="mem-mp1-content">
-	                            <div>개인정보 수정</div>
-		                        <div>닉네임 : <input type="text" name ="mp-memberNick" value="<%= loginMember.getNick()%>"><button>중복확인</button></div>
-	                            <div>패스워드 : <input type="password" name="mp-memberPwd" value="<%= loginMember.getPwd()%>"></div>
-	                            <div>전화번호 : <input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"><button>중복확인</button></div>
-	                            
-                                <div>
-                                    <select name="mp-memberPQ" class="select">비밀번호 찾기 질문 
-					                	<%for(int i = 0; i < pwdQList.size(); i++) {%>
-					                	<option value=">"><%=pwdQList.get(i).getQ() %></option>
-					                 	 <% } %>
+            
+            <div id="mem-mp-main" class="mp-main1 main" >
+                    <div class="back">
+                        <div class="mem-mp-info">
+                            <form action="/omjm/member/edit" method="post">
+                                <div id="mp-login-info"><h1>로그인 정보</h1></div>
+                                <div id="mp-id">아이디 : <%=loginMember.getId()%></div>
+                                                
+                        </div>
+                        <div id="mem-mp1-content">
 
-               					  </select>
-                                </div>
-                                <div>비밀번호 찾기 답</div>
-               					<div><input type="text" name="memberPA" value="<%= loginMember.getPa()%>"></div>
-	                            <input type="submit" value="수정하기">
-                   			</div>
-                   		</form>
+                                    <div class="span2" align="center">수정할 값을 입력해주세요</div>
+                                    <div>닉네임 </div>
+                                    <div>: <input type="text" name ="mp-memberNick" value="<%= loginMember.getNick()%>"  class="input">
+                                        <button class="label doublecheck">중복확인</button>
+                                    </div>
+                                    <div>패스워드 </div>
+                                    <div>: <input type="password" name="mp-memberPwd" value="<%= loginMember.getPwd()%>"  class="input"></div>
+                                    <div>전화번호 </div>
+                                    <div>: <input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"  class="input">
+                                        <button class="label doublecheck">중복확인</button>
+                                    </div>
+                                    <div>비밀번호  질문</div>
+                                    <div>: 
+                                        <%-- <select name="mp-memberPQ" class="select">
+                                            <%for(int i = 0; i < pwdQList.size(); i++) {%>
+                                            <option selected value="<%= pwdQList.get(i).getNo() %>" ><%=pwdQList.get(i).getQ() %></option>
+                                                <% } %>
+                                        </select> --%>
+                                        <select name="mp-memberPQ">
+                                            <c:forEach items="${pwdQList}" var="vo">
+                                            <option <c:if test="${vo.no == sessionScope.loginMember.pq }">selected</c:if> value="${vo.no}" >${vo.q}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                        <div> 비밀번호 답</div>
+                                       
+                                       <div>: <input type="text" name="mp-memberPA" value="<%= loginMember.getPa()%>"  class="input"></div>
+                                        
+                                    <input type="submit" value="수정하기" class="span2 input">
+                            </form>
+                        </div>
                 </div>
-                
-            </div>
+            </div>    
+           
 
-
+            <!-- 컨텐츠 2 -->
 
             <div class="mp-main2 main">
-                컨텐츠내용2
+                <div class="back">
+                    <div class="mem-mp-info">
+                        <form action="/omjm/member/edit" method="post">
+                            <div id="mp-login-info"><h1>찜한모임</h1></div>                       
+                    </div>
+                    <div id="mem-mp2-content">
+                        <!-- 반복 찜한 모임 보이게 해야함 반복문으로--> 
+                        
+                    </div>
+                </div>
             </div>
+
+
+
+
             <div class="mp-main3 main">
                 컨텐츠내용3
             </div>
@@ -176,25 +264,27 @@
         
     </div>
     <div id="bot"></div>
-    <!-- <script>
-		//마이페이지 비밀번호찾기 체크
-		const pQArr = document.querySelectorAll('option[name=mp-memberPQ]');
-		const pQ = '<%= loginMember.getPq() %>';
-        console.log(pQArr);
-        console.log(pQ);
+  <script>
+
+    const page = ${x};
+    // $('input[type=radio]')
+    const btnArr = document.querySelectorAll('input[type=radio]');
+    
+    for (let i = 0; i < btnArr.length; i++) {
+        const element = btnArr[i];
+
+        if(page==i){
+            element.click();        
+        }
         
-//		for(let i = 0; i < hobbyArr.length; i++){
-//			const v = hobbyArr[i].value;
-//			
-//			let result = hobbyStr.search(v);
-//			if(result >= 0){
-//				hobbyArr[i].checked = true;
-//			}
-//		}
-	</script> -->
-        <script>
-        //비밀번호 찾기 질문 되어있는거 셀렉트하기
-        $('#mp-memberPQ').val('3').prop('selected',true);
-        </script>
+    }
+
+    btnArr[0].addEventListener('click', function(){
+        location.href = "/omjm/member/check";
+    })
+
+    
+
+  </script>
 </body>
 </html>
