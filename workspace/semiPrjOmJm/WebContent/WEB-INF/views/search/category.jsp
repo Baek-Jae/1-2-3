@@ -58,7 +58,7 @@
 				<% for(int i = 0; i < cateVo.size(); ++i){
 					String cate = cateVo.get(i).getCaName();
           				if("문화/예술".equals(cate)){ %>
-				<li><%=cateVo.get(i).getDeName() %></li>
+				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
 				<%}}%>
 			</ul>
 		</div>
@@ -154,81 +154,83 @@
 	<div id="group-list">의 모임 리스트</div>
 	
 	<div class="group-list">
-	<div class="group-card">
-		<div class="group-tag">
-			<i class="fa-sharp fa-solid fa-tag"></i>
-			<label>서울시 베스트</label>
-		</div>
-		<div class="group-wrap">
-			<div class="card-top">
-				<img src="<%=root%>/resources/testImg.png" alt="그룹사진" />
-			</div>
-			<div class="card-bottom">
-				<span>모임명</span> <span>아자자</span> <span>그룹장</span> <span>아자자</span>
-				<div>
-					<span class="material-symbols-outlined" id="location-icon">location_on</span>
-					<span> 강남구</span>
-				</div>
-				<div>
-					<span class="material-symbols-outlined" id="group-icon">group</span>
-					<span>9/10</span>
-				</div>
-				<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-			</div>
-		</div>
 		<div class="group-card">
-                	<div class="group-tag">
-                		<i class="fa-sharp fa-solid fa-tag"></i>
-                		<label>서울시 베스트</label>
-                	</div>
-            		<div class="group-wrap">    
-	                    <div class="card-top">
-	                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
+			<div class="group-tag">
+				<i class="fa-sharp fa-solid fa-tag"></i>
+				<label>서울시 베스트</label>
+			</div>
+			<div class="group-wrap">
+				<div class="card-top">
+					<img src="<%=root%>/resources/testImg.png" alt="그룹사진" />
+				</div>
+				<div class="card-bottom">
+					<span>모임명</span> <span>아자자</span> <span>그룹장</span> <span>아자자</span>
+					<div>
+						<span class="material-symbols-outlined" id="location-icon">location_on</span>
+						<span> 강남구</span>
+					</div>
+					<div>
+						<span class="material-symbols-outlined" id="group-icon">group</span>
+						<span>9/10</span>
+					</div>
+					<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
+				</div>
+			</div>
+		</div>
+			<div class="group-card">
+	                	<div class="group-tag">
+	                		<i class="fa-sharp fa-solid fa-tag"></i>
+	                		<label>서울시 베스트</label>
+	                	</div>
+	            		<div class="group-wrap">    
+		                    <div class="card-top">
+		                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
+		                    </div>
+		                    <div class="card-bottom">
+		                        <span class="group-name">모임명</span>
+		                        <span class="group-ca">아자자</span>
+		                        <span class="group-pl">그룹장</span>
+		                        <span class="group-cnt">아자자</span>
+		                        <div>
+		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
+		                            <span> 강남구</span>
+		                        </div>
+		                        <div>
+		                            <span class="material-symbols-outlined" id="group-icon">group</span>
+		                            <span>9/10</span>
+		                        </div>
+		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
+	                    	</div>
 	                    </div>
-	                    <div class="card-bottom">
-	                        <span class="group-name">모임명</span>
-	                        <span class="group-ca">아자자</span>
-	                        <span class="group-pl">그룹장</span>
-	                        <span class="group-cnt">아자자</span>
-	                        <div>
-	                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-	                            <span> 강남구</span>
-	                        </div>
-	                        <div>
-	                            <span class="material-symbols-outlined" id="group-icon">group</span>
-	                            <span>9/10</span>
-	                        </div>
-	                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-                    	</div>
-                    </div>
-                </div>
-                
-                <div class="group-card">
-                	<div class="group-tag">
-                		<span class="material-symbols-outlined">sell</span>
-                		<label>서울시 베스트</label>
-                	</div>
-            		<div class="group-wrap">    
-	                    <div class="card-top">
-	                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
+	                </div>
+	                
+	                <div class="group-card">
+	                	<div class="group-tag">
+	                		<span class="material-symbols-outlined">sell</span>
+	                		<label>서울시 베스트</label>
+	                	</div>
+	            		<div class="group-wrap">    
+		                    <div class="card-top">
+		                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
+		                    </div>
+		                    <div class="card-bottom">
+		                        <span>모임명</span>
+		                        <span>아자자</span>
+		                        <span>그룹장</span>
+		                        <span>아자자</span>
+		                        <div>
+		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
+		                            <span> 강남구</span>
+		                        </div>
+		                        <div id="group-info">
+		                            <span class="material-symbols-outlined" id="group-icon">group</span>
+		                            <span>9/10</span>
+		                        </div>
+		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
+	                    	</div>
 	                    </div>
-	                    <div class="card-bottom">
-	                        <span>모임명</span>
-	                        <span>아자자</span>
-	                        <span>그룹장</span>
-	                        <span>아자자</span>
-	                        <div>
-	                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-	                            <span> 강남구</span>
-	                        </div>
-	                        <div id="group-info">
-	                            <span class="material-symbols-outlined" id="group-icon">group</span>
-	                            <span>9/10</span>
-	                        </div>
-	                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-                    	</div>
-                    </div>
-                </div>
+	                </div>
+	            </div>
             </div>
 		<%-- <table border="1" id="recomm">
 		<tr id="tr1">
@@ -247,7 +249,7 @@
 	</table> --%>
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 
 $(document).ready(function(){
   $('.more').click(function(){
@@ -284,6 +286,7 @@ $(document).ready(function(){
 });
 	} --%>
 	
+
 	$(document).ready(function() {
  $('input[type="checkbox"][name="cs_biz_form"]').click(function(){
   if($(this).prop('checked')){
@@ -300,29 +303,32 @@ $(document).ready(function(){
 			   return;
 			  }
 	 }
-	
-	function searchcate(num){
+	searchcate = function(num2){
+	 /* function searchcate(num2){ */
+		  console.log(num2);
 		$.ajax({
-			url : "<%= root %>/search",
+			url : "<%=root%>/desearch",
 			method : "GET",	
 			data :	{
-				"num" : num
+				num : num2
 			},
 			success : function(x){
-				o = JSON.parse(x);
-				console.log(o);
+				var o = JSON.parse(x);
+
+				for(var i=0 in o){    
+					alert(o[i].name);}       
+				 $('.group-cnt').text(o[i].userCnt); 
+				 $('.group-ca').text(o[i].name); 
+				
 			},
 			error : function(){
 				alert("통신 에러!");
 			}
 		});
-	}
+	} 
 	
-	<%-- $(function () {
-		$("li").on("click", getData);
-		alert($("li").val);
-	});
 	
+	<%--
 	function getData() {
 		$.ajax({
 			url : "<%= root %>/search",
@@ -333,6 +339,9 @@ $(document).ready(function(){
 			},
 			dataType:"text",  //응답타입
 			success: function (data) {
+				
+				o = JSON.parse(x);
+				console.log(o);
 				
 				var name = data.username;
 				var place = data.age;
@@ -351,7 +360,7 @@ $(document).ready(function(){
 				$("#result").append(status); */
 			}
 		});
-	}  --%>
+	}   --%>
 /* if()input 값이 있으면 가져와
  */
  /* function test01(){

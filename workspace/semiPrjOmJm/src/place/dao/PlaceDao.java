@@ -37,8 +37,7 @@ public class PlaceDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(pstmt, rs);
 		}
 		return list;
 	}
@@ -67,8 +66,7 @@ public class PlaceDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(pstmt, rs);
 		}
 		return list;
 	}
@@ -105,8 +103,8 @@ public class PlaceDao {
 		return list;
 	}
 
-	/*public List<GroupVo> GroupSearch(Connection conn, String num) {
-		String sql = "SELECT NAME, PLACE_NO, CATE_NO, USER_CNT FROM OMJM_GROUP WHERE CATE_NO= ?";
+	public List<GroupVo> GroupSearch(Connection conn, int num) {
+		String sql = "SELECT * FROM OMJM_GROUP WHERE CATE_NO= ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -114,35 +112,40 @@ public class PlaceDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			String names = '%'+ search +'%';
-			pstmt.setString(1, names); 
+			pstmt.setInt(1, num); 
 			
 			rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
-				String caName = rs.getString("CA_NAME");
-				String deName = rs.getString("DE_NAME");
 				String no = rs.getString("NO");
 				String name = rs.getString("NAME");
-				String leader;
-				String place;
-				String category;
-				String maxMember;
-				String userCnt;
-				String rank;
-				String exp;
-				String content;
-				String hashTag;
-				String enrollDate;
-				String modifyDate;
-				String deleteYn;
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("PLACE_NO");
+				String category= rs.getString("CATE_NO");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
 				
-				System.out.println(caNo);
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
 				
-				CateVo cateVo= new CateVo(caNo, caName, deName);
-				
-				list.add(cateVo);
-				System.out.println(cateVo);
+				list.add(vo);
+				System.out.println(vo);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,6 +155,5 @@ public class PlaceDao {
 		return list;
 	}
 
-	}*/
-
+	
 }
