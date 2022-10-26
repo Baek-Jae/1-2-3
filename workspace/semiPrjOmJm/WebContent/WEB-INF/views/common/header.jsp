@@ -39,9 +39,9 @@
                         </ul>
                         <ul>
                             고객센터
-                            <li><a href="<%= root %>/notice/list">공지사항</a></li>
-                            <li><a href="<%= root %>/QnA/list">Q&A</a></li>
-                            <li><a href="<%= root %>/FAQ/list">FAQ</a></li>
+                            <li><a href="<%= root %>/notice/list?lno=1">공지사항</a></li>
+                            <li><a href="<%= root %>/QnA/list?qno=1">Q&A</a></li>
+                            <li><a href="<%= root %>/FAQ/list?fno=1">FAQ</a></li>
                         </ul>
                         <ul>
                             나의 정보

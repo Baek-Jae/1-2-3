@@ -11,11 +11,13 @@ import static com.kh.semi.common.JDBCTemplate.*;
 import kh.semi.omjm.group.vo.GroupAttachmentVo;
 import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
+import kh.semi.omjm.group.vo.OffComentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
 
 public class GroupDao {
 
 	public int insertGroup(Connection conn, GroupVo gv) {
+		
 		int result = 0;
 		String sql = "INSERT INTO OMJM_GROUP(NO, NAME, LEADER_NO, PLACE_NO, CATE_NO, USER_CNT, CONTENT)VALUES (SEQ_OMJMGROUP_NO.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
@@ -244,7 +246,7 @@ public class GroupDao {
 		ArrayList<OffGroupVo> OffGroupList = new ArrayList<OffGroupVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT O.NO , O.NAME , M.NICK AS LEADER_NO , G.NAME AS GROUP_NO , O.USER_CNT , O.OFF_DATE , O.ENROLL_DATE , O.MODIFY_DATE , O.DELETE_YN FROM OFF_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN OMJM_GROUP G ON O.GROUP_NO = G.NO WHERE O.DELETE_YN = 'N' AND O.GROUP_NO = ?";
+		String sql = "SELECT O.NO , O.NAME , M.NICK AS LEADER_NO , G.NAME AS GROUP_NO , O.OFF_CONTENT, O.USER_CNT , O.OFF_DATE , O.ENROLL_DATE , O.MODIFY_DATE , O.DELETE_YN FROM OFF_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN OMJM_GROUP G ON O.GROUP_NO = G.NO WHERE O.DELETE_YN = 'N' AND O.GROUP_NO = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -260,6 +262,7 @@ public class GroupDao {
 				ogv.setGroupNo(rs.getString("GROUP_NO"));
 				ogv.setUserCnt(rs.getString("USER_CNT"));
 				ogv.setOffDate(rs.getString("OFF_DATE"));
+				ogv.setContent(rs.getString("OFF_CONTENT"));
 				ogv.setEnrollDate(rs.getString("ENROLL_DATE"));
 				ogv.setModifyDate(rs.getString("MODIFY_DATE"));
 				ogv.setDeleteYn(rs.getString("DELETE_YN"));
@@ -302,6 +305,62 @@ public class GroupDao {
 		}
 		
 		return result;
+	}
+
+	public int insertOffComment(Connection conn, OffComentVo ocv) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO OFF_COMMENT( NO, GMEMBER_NO, OFF_NO, CONTENT )VALUES( SEQ_OFFCOMMENT_NO.NEXTVAL ,? ,? ,? )";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ocv.getGmemberNo());
+			pstmt.setString(2, ocv.getOffNo());
+			pstmt.setString(3, ocv.getContent());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public OffComentVo selectMyCommentByNo(Connection conn, OffComentVo ocv) {
+		
+		OffComentVo selectMyComment = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT O.NO , M.NICK AS GMEMBER_NO , G.NAME AS OFF_NO , O.CONTENT , O.DELETE_YN FROM OFF_COMMENT O JOIN (SELECT G.NO, M.NICK FROM GROUP_MEMBER G JOIN MEMBER M ON G.USER_NO = M.NO ) M ON O.GMEMBER_NO = M.NO JOIN OFF_GROUP G ON O.OFF_NO = G.NO WHERE G.NO = ? AND M.NO = ? AND DELETE_YN = 'N' ORDER BY O.NO DESC";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ocv.getOffNo());
+			pstmt.setString(1, ocv.getGmemberNo());
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				selectMyComment = new OffComentVo();
+				selectMyComment.setNo(rs.getString("NO"));
+				selectMyComment.setGmemberNo(rs.getString("GROUP_NO"));
+				selectMyComment.setOffNo(rs.getString("OFF_NO"));
+				selectMyComment.setContent(rs.getString("CONTENT"));
+				selectMyComment.setDeleteYn("DELETN_YN");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		return selectMyComment;
 	}
 
 	
