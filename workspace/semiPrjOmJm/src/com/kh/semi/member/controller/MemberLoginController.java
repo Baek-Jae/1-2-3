@@ -36,7 +36,6 @@ public class MemberLoginController extends HttpServlet{
 			
 			HttpSession s = req.getSession();
 			s.setAttribute("loginMember", loginMember);
-			
 			resp.sendRedirect("/omjm");
 		}else {
 			req.setAttribute("alertMsg", "로그인 정보가 잘못되었습니다.");
