@@ -24,6 +24,7 @@
 		$.ajax({
 			url: "/temp/temper" ,
 			method:"get",
+			
 			data:{
 				/* "ppoff" : true;
 				"ppoff : ppoff + 1 ";
