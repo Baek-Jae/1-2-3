@@ -45,6 +45,7 @@ public class MemberCheckController extends HttpServlet{
 		req.setAttribute("pwdQList", pwdQList);
 		
 		if(pwd.equals(loginMember.getPwd())) {
+			req.setAttribute("x","0");
 			req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
 		}else {
 			req.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");			

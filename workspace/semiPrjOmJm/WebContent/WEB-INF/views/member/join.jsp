@@ -5,7 +5,8 @@
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
-
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +46,9 @@
     }
     .input{
       
-      border: 1px solid #dddddd;
-      color: #999999;
-      border-radius: 5px;
+        border: 1px solid #dddddd;
+        color: #999999;
+        border-radius: 5px;
     
     }
     .label{
@@ -98,7 +99,7 @@
             <div id="main">
                 
                 <div >아이디</div>
-                <div id="check"><input type="text" name="memberId" class="input width-size"><button class="label doublecheck">중복체크</button></div>
+                <div id="check"><input type="text" name="memberId" class="input width-size"><button class="label doublecheck" onclick="idCheck()">중복체크</button></div>
                 
                 <div class="span-2">비밀번호</div>
                 <div><input type="password" name="memberPwd1" class="input width-size"></div>
@@ -134,9 +135,29 @@
     </div>
     <div id="bot"></div>
 
-    <script>
-        //비밀번호 찾기 질문 되어있는거 셀렉트하기
-        $('#testSelect').val('test2').prop("selected",true);
-    </script>
+<script>
+    function idCheck(){
+
+        $.ajax({
+            url : "/omjm/member/idDoubleCheck",
+            type : "post",
+            data : {
+                
+            },
+            success : funtion(){
+                alert('성공');
+            } ,
+            error : function(){
+
+            },alert(' 실패');
+            
+            
+
+        });
+    }
+
+
+
+</script>
 </body>
 </html>
