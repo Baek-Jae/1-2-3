@@ -31,7 +31,7 @@ public class QnAListController extends HttpServlet{
 		int endPage;
 		
 		listCount = new QnAService().selectCount();
-		currentPage = Integer.parseInt(req.getParameter("pno"));
+		currentPage = Integer.parseInt(req.getParameter("qno"));
 		pageLimit = 5;
 		QnALimit = 10;
 		

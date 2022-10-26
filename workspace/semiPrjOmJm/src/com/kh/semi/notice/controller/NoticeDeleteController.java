@@ -31,7 +31,7 @@ public class NoticeDeleteController extends HttpServlet{
 		}else {
 			//실패 => 메시지 , 에러페이지
 			req.setAttribute("msg", "공지사항 삭제 실패...");
-			req.getRequestDispatcher("/views/common/errorPage.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
 		}
 		
 	}//doget

@@ -1,6 +1,9 @@
+<%@page import="com.kh.semi.notice.vo.NoticeVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<% List<NoticeVo> voList = (List<NoticeVo>)request.getAttribute("voList"); %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -137,72 +140,14 @@
                         <div class="first">일시</div>
                         <div class="first">조회수</div>
          
-                        <div>1</div>
-                        <div>공지사항제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
-         
-         
-                        <div>1</div>
-                        <div>테스트 제목</div>
-                        <div>하이염</div>
-                        <div>2022/10/15</div>
-                        <div>12</div>
+  				          <% for(int i = 0; i < voList.size(); ++i){ %>
+					          <div><%= voList.get(i).getNo() %></div>
+					          <div><a href="/omjm/notice/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+					          <div><%= voList.get(i).getWriter() %></div>
+					          <div><%= voList.get(i).getEnrollDate() %></div>
+					          <div><%= voList.get(i).getHit() %></div>
+				          <%}%>
+                        
                         
                      </div>
          

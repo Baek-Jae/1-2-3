@@ -45,7 +45,7 @@ public class NoticeDao {
 	public List<NoticeVo> selectNoticeList(Connection conn) {
 		//SQL
 		
-		String sql = "SELECT * FROM NOTICE WHERE STATUS = 'O' ORDER BY NO DESC";
+		String sql = "SELECT * FROM NOTICE WHERE DELETE_YN = 'O' ORDER BY NO DESC";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -93,7 +93,7 @@ public class NoticeDao {
 	public NoticeVo selectNoticeOne(Connection conn, String no) {
 		//SQL (준비 , 완성 , 실행 및 결과저장)
 		
-		String sql = "SELECT N.NO , N.TITLE , N.CONTENT , N.HIT , N.ENROLL_DATE , N.MODIFY_DATE , N.STATUS , M.NICK AS WRITER FROM NOTICE N JOIN MEMBER M ON N.WRITER = M.NO WHERE N.NO = ? AND N.STATUS = 'O'";
+		String sql = "SELECT N.NO , N.TITLE , N.CONTENT , N.HIT , N.ENROLL_DATE , N.MODIFY_DATE , N.DELETE_YN , M.NICK AS WRITER FROM NOTICE N JOIN MEMBER M ON N.WRITER = M.NO WHERE N.NO = ? AND N.DELETE_YN = 'O'";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -193,7 +193,7 @@ public class NoticeDao {
 	public int delete(Connection conn, String no) {
 		//SQL (준비 , 완성 , 실행)
 		
-		String sql = "UPDATE NOTICE SET STATUS = 'X' WHERE NO = ?";
+		String sql = "UPDATE NOTICE SET DELETE_YN = 'X' WHERE NO = ?";
 		
 		PreparedStatement pstmt = null;
 		int result = 0;

@@ -194,6 +194,104 @@ public class QnADao {
 		
 	}//selectOne
 
+	public int updateOneByNo(Connection conn, QnAVo vo) {
+		
+		String sql = "UPDATE QNA SET TITLE = ? , CONTENT = ? , MODIFY_DATE = SYSDATE WHERE NO = ?";
+				
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	//공지사항 상세조회
+	public QnAVo selectQnAOne(Connection conn, String no) {
+		
+		String sql = "SELECT Q.NO , Q.WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.NO = ? AND Q.DELETE_YN = 'O'";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnAVo vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String writer = rs.getString("WRITER");
+				String pwd = rs.getString("PWD");
+				String title = rs.getString("TITLE");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
+				String hit = rs.getString("HIT");
+				String ansContent = rs.getString("ANS_CONTENT");
+				
+				vo = new QnAVo();
+				vo.setWriter(writer);
+				vo.setPwd(pwd);
+				vo.setTitle(title);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setDeleteYn(deleteYn);
+				vo.setHit(hit);
+				vo.setAnsContent(ansContent);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs, pstmt);
+		}
+		
+		return vo;
+		
+	}
+
+	//QnA 삭제
+	public int delete(Connection conn, String no) {
+		//SQL (준비 , 완성 , 실행)
+		
+		String sql = "UPDATE QNA SET DELETE_YN = 'X' WHERE NO = ?";	//확인
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+		
+	}//delete
+
 }//class
 
 
