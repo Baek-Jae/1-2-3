@@ -2,6 +2,7 @@ package place.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.notice.service.NoticeService;
 
 import cate.vo.CateVo;
@@ -31,14 +33,6 @@ public class PlaceController extends HttpServlet{
 		req.setAttribute("cateVo", cateVo);
 		
 		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
-		/*
-		 * PrintWriter out = resp.getWriter();
-		 * 
-		 * String num = req.getParameter("num");
-		 * 
-		 * List<GroupVo> GroupVo = new PlaceService().GroupSearch(num);
-		 */
-
 		
 	}
 	

@@ -47,19 +47,21 @@ public class PlaceService {
 		return cateVo;
 	}
 
-	/*public List<GroupVo> GroupSearch(String num) {
+	public List<GroupVo> GroupSearch(int num) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
 		List<GroupVo> GroupVo = new PlaceDao().GroupSearch(conn, num);
-
+		
+		System.out.println(GroupVo);
+		
 		JDBCTemplate.close(conn);
 
 		return GroupVo;
 	}
 		
-	}*/
+	}
 
 	
 
-}
+

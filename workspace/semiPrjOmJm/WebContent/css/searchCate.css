@@ -1,6 +1,4 @@
-body{
-width:100vw;	
-}
+
 #container, #container2 {
 	display: flex;
 	flex-wrap: wrap;
@@ -343,4 +341,14 @@ table {
     font-weight: 600;
     border-radius: 30px;
 }
-
+#group-icon,
+#location-icon {
+	margin: 0 0 0 3px;
+    font-size: 17px;
+    color: black;
+    font-weight: 500;
+}
+#location-icon + span,
+#group-icon + span {
+    font-size: 15px;
+}
