@@ -34,7 +34,7 @@
                             <li><a href="<%= root %>/group/create">생성</a></li>
                             <li><a href="<%= root %>/group/list">가입한 모임</a></li> <!-- 테스트 -->
                             <li><a href="<%= root %>/group/main?gno=1">모임메인</a></li>   <!-- 테스트 -->
-                            <li><a href="">찜한 모임</a></li>
+                            <li><a href="<%= root %>/member/mypage?x=1">찜한 모임</a></li>
                             <span></span>
                         </ul>
                         <ul>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="nav_logo steady">
-                <a href=""><img src="<%= root %>/resources/오목조목.png" alt="로고임" /></a>
+                <a href="<%= root %>"><img src="<%= root %>/resources/오목조목.png" alt="로고임" /></a>
             </div>
             <div class="nav_user">
             	<%if(loginMember != null) {%>

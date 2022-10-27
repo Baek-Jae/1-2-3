@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import kh.semi.omjm.group.service.GroupService;
-import kh.semi.omjm.group.vo.OffComentVo;
+import kh.semi.omjm.group.vo.OffCommentVo;
 
 @WebServlet(urlPatterns = "/offgroup/comment/write")
 public class WriteCommentOffGroupController extends HttpServlet{
@@ -23,20 +23,22 @@ public class WriteCommentOffGroupController extends HttpServlet{
 		String memberNo = req.getParameter("memberNo");
 		String content = req.getParameter("content");
 
-		OffComentVo ocv = new OffComentVo();
+		OffCommentVo ocv = new OffCommentVo();
 		ocv.setOffNo(offNo);
 		ocv.setGmemberNo(memberNo);
 		ocv.setContent(content);
+		System.out.println(ocv);
 		
 		int myComment = new GroupService().insertOffComment(ocv);
-		
-		OffComentVo lastInsertComment = new GroupService().selectMyCommentByNo(ocv);
-		
-		Gson gson = new Gson();
-		
-		String result = gson.toJson(lastInsertComment);
-		
-		
-		resp.getWriter().write(result);
+		if(myComment == 1) {
+			OffCommentVo lastInsertComment = new GroupService().selectMyCommentByNo(ocv);
+			
+			Gson gson = new Gson();
+			
+			String result = gson.toJson(lastInsertComment);
+			
+			
+			resp.getWriter().write(result);
+		}
 	}
 }

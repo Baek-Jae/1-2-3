@@ -13,7 +13,6 @@ const openmodalArr = document.querySelectorAll('.show');
 const offContent = document.querySelectorAll('.offGroup_content');
 const offInfo = document.querySelectorAll('.offGroup_info');
 
-console.log(offContent);
 
 for (let i = 0; i < offModalArr.length; ++i) {
   closebtnArr[i].addEventListener('click', function () {

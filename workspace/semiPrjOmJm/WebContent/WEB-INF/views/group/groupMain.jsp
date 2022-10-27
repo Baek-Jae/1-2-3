@@ -59,6 +59,7 @@
                                     <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
                                     <span>${i.userCnt} /10</span>
                                 </div>
+                                <a href="<%=root %>/group/off?ono=${i.no}">참여하기</a>
                                 <button class="show">참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></button>
                             </div>
 						</c:forEach>
@@ -93,23 +94,18 @@
 	                <div class="off_comment_header">
 	                	<span>Comment</span>
 	                </div>
-	                
-	                
-	                
 	                <div class="offGroup_comment_bottom">
-	                	<span>usernick</span>
-	                	<span>댓글내용</span>
-	                	<button>수정</button>
-	                	<button>삭제</button>
+	                	<div class="offGroup_comment_List">
+		                	<span>usernick</span>
+		                	<span>댓글내용</span>
+		                	<button>수정</button>
+		                	<button>삭제</button>
+	                	</div>
 	                </div>
-	                
-	                <div class="my_comment">
-	                
-	                </div>
-	                
+	                <div class="my_comment"></div>
 	                <div class="offGroup_comment">
-	                	<input type="text" name="off_Comment" id="off_comment">
-	                	<button class="comment-submit">작성</button>
+	                	<input type="text" name="off_Comment" class="off_comment">
+	                	<button class="comment-submit" onclick="insertMyComment(this, ${i.no})">작성</button>
 	                </div>
 	                
 	                <c:if test="${ad}"></c:if>
@@ -123,34 +119,38 @@
 	        
         </section>
         <script>
-       		const returnIndex = $('.comment-submit').on('click', function() {
-        	  var indexNo = returnIndex.index(this);
-        	  console.log(indexNo)
-        	  return indexNo;
-        	});
-	    	function addComent(returnIndex){
-	        	console.log($('.comment-submit'));
+        	
+       		
+        
+       		function insertMyComment(obj, offNo) {
+        	  	const indexNo = $('.comment-submit').index(obj);
 		        $.ajax({
-		        	url: "/offgroup/comment/write",
+		        	url: "<%= root %>/offgroup/comment/write",
 		            type: "post",
 		            data: {
-		            	"offNo" : ${offList[returnIndex].no},
-		                "member" : ${loginMember.no},
-		                "content" : $('#off_comment')[returnIndex].val()
+		            	"offNo" : offNo,
+		                "memberNo" : ${loginMember.no},
+		                "content" : $($('.off_comment')[indexNo]).val()
+		                
 		                },
 	               	success: function (result) {
 			              		alert("자가보자~");
 			              		const myComment = JSON.parse(result);
-			              		let newComment = "<span>"+myComment.nick+"</span>";
-			              		newComment += "<span>"+myComment.content+"</span>";
-			              		newComment += "<button class=\"comment-submit\">수정</button>";
-			              		newComment += "<button class=\"comment-submit\">삭제</button>";
-			              		$('.my_comment')[returnIndex].append(myComment);
+			              		let newComment = "<span>"+myComment.nick+"</span>"+
+			              		"<span>"+myComment.content+"</span>"+
+			              		"<button class=\"comment-edit\">수정</button>"+
+			              		"<button class=\"comment-delete\">삭제</button>";
+			              		console.log(newComment);
+			              		$($('.my_comment')[indexNo]).append(newComment);
 							},
                 	error: function () {
                 		alert("작성실패...ㅜㅜ");
 					}
                 })
+			}    	
+   
+      		
+       	
         </script>
 </body>
 </html>

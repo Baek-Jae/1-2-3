@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kh.semi.omjm.group.service.GroupService;
 import kh.semi.omjm.group.vo.GroupAttachmentVo;
 import kh.semi.omjm.group.vo.GroupVo;
+import kh.semi.omjm.group.vo.OffCommentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
 
 @WebServlet(urlPatterns = "/group/main")
