@@ -10,7 +10,7 @@ import kh.semi.omjm.group.dao.GroupDao;
 import kh.semi.omjm.group.vo.GroupAttachmentVo;
 import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
-import kh.semi.omjm.group.vo.OffComentVo;
+import kh.semi.omjm.group.vo.OffCommentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
 
 public class GroupService {
@@ -158,7 +158,7 @@ public class GroupService {
 	}
 
 
-	public int insertOffComment(OffComentVo ocv) {
+	public int insertOffComment(OffCommentVo ocv) {
 		
 		Connection conn = getConnection();
 		
@@ -176,14 +176,25 @@ public class GroupService {
 	}
 
 
-	public OffComentVo selectMyCommentByNo(OffComentVo ocv) {
+	public OffCommentVo selectMyCommentByNo(OffCommentVo ocv) {
 		Connection conn = getConnection();
 		
-		OffComentVo myLastComment = gd.selectMyCommentByNo(conn, ocv);
+		OffCommentVo myLastComment = gd.selectMyCommentByNo(conn, ocv);
 		
 		close(conn);
 		
 		return myLastComment;
+	}
+
+
+	public OffGroupVo selectOffGroupByNo(String offNo) {
+		Connection conn = getConnection();
+		
+		OffGroupVo offGroup = gd.selectOffGroupByNo(conn, offNo);
+		
+		close(conn);
+		
+		return offGroup;
 	}
 	
 	

@@ -1,6 +1,6 @@
 package kh.semi.omjm.group.vo;
 
-public class OffComentVo {
+public class OffCommentVo {
 
 	private String no;
 	private String gmemberNo;
@@ -8,10 +8,10 @@ public class OffComentVo {
 	private String content;
 	private String deleteYn;
 
-	public OffComentVo() {
+	public OffCommentVo() {
 	}
 
-	public OffComentVo(String no, String gmemberNo, String offNo, String content, String deleteYn) {
+	public OffCommentVo(String no, String gmemberNo, String offNo, String content, String deleteYn) {
 		this.no = no;
 		this.gmemberNo = gmemberNo;
 		this.offNo = offNo;
@@ -21,7 +21,7 @@ public class OffComentVo {
 
 	@Override
 	public String toString() {
-		return "OffComentVo [no=" + no + ", gmemberNo=" + gmemberNo + ", offNo=" + offNo + ", content=" + content
+		return "OffCommentVo [no=" + no + ", gmemberNo=" + gmemberNo + ", offNo=" + offNo + ", content=" + content
 				+ ", deleteYn=" + deleteYn + "]";
 	}
 
