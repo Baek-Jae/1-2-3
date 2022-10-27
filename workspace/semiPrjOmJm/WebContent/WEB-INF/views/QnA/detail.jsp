@@ -19,6 +19,7 @@
 		display: grid;
 		grid-template-columns: 4fr 2fr 2fr 1fr;
 		grid-template-rows: 30px;
+		padding: 100px;
 	}
 	#main > div{
 		border: 1px dashed black;

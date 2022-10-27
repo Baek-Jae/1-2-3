@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import com.kh.semi.qna.service.QnAService;
 import com.kh.semi.qna.vo.QnAVo;
 
 @WebServlet(urlPatterns = "/QnA/list")
+@MultipartConfig
 public class QnAListController extends HttpServlet{
 
 	//QnA 목록 조회 (화면)
