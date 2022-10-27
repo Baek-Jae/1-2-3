@@ -53,11 +53,20 @@ public class PlaceService {
 		
 		List<GroupVo> GroupVo = new PlaceDao().GroupSearch(conn, num);
 		
-		System.out.println(GroupVo);
-		
 		JDBCTemplate.close(conn);
 
 		return GroupVo;
+	}
+
+	public List<GroupVo> selectPlace(int temp) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+
+		List<GroupVo> list = new PlaceDao().selectPlace(conn, temp);
+
+		JDBCTemplate.close(conn);
+		
+		return list;
 	}
 		
 	}
