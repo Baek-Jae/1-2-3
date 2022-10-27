@@ -32,8 +32,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;    
-    }
+    font-family: 'Noto Sans KR', sans-serif;
+}
     #mem-full{
         width: 100vw;
         height: 780px;
@@ -153,31 +153,15 @@
         margin: 0 auto;
         border-bottom: 1px solid white;
     }
- 
-  
-  /* 매너온도 부분 css */
-  #mem-mp4-content{
-    
+  /* 찜한 모임 부분 css */
+  #mem-mp2-content{
     background-color: rgb(163, 163, 162);
     border-radius: 10px;
     display: grid;
-    grid-template-columns: repeat(3,2fr) repeat(3,1fr);
+    grid-template-columns: ;
     height: 95%;
     padding: 30px;
-    margin: 30px;
   }
-  .back4{
-        width: 50vw;
-        height: 700px;
-        background-color: rgba(0, 53, 109, 0.95);
-        display: grid;
-        grid-template-rows: 2fr 7fr;
-        justify-content: center;
-        margin: 100px auto;
-        border-radius: 30px;
-        color: white;
-    }
-  
 </style>
 </head>
 <body>
@@ -199,6 +183,7 @@
             <label for="mem-liked-place" ><span class="material-symbols-outlined">pin_drop&nbsp;관심지역</span></label>
             <input type="radio" id="mem-liked-catg" name="mem-navi">
             <label for="mem-liked-catg" ><span class="material-symbols-outlined">heart_plus&nbsp;관심카테고리</span></label>
+
 
             
             <div id="mem-mp-main" class="mp-main1 main" >
@@ -249,59 +234,26 @@
             <!-- 컨텐츠 2 -->
 
             <div class="mp-main2 main">
-                <div class="back4">
+                <div class="back">
                     <div class="mem-mp-info">
-                        
+                        <form action="/omjm/member/edit" method="post">
                             <div id="mp-login-info"><h1>찜한모임</h1></div>                       
                     </div>
-                    <div id="mem-mp4-content">
+                    <div id="mem-mp2-content">
                         <!-- 반복 찜한 모임 보이게 해야함 반복문으로--> 
-                       	<div>큰 카테고리</div>
-                       	<div>작은 카테고리</div>
-                        <div>그룹이름</div>
-                        <div>찜하기 하트</div>
-                       	
+                        
                     </div>
                 </div>
             </div>
 
 
 
-            <!-- 컨텐츠 내용 3 -->
+
             <div class="mp-main3 main">
-                <div class="back4">
-                    <div class="mem-mp-info">
-                       
-                            <div id="mp-login-info"><h1>가입한모임</h1></div>                       
-                    </div>
-                    <div id="mem-mp4-content">
-                        <!-- 반복 가입한 모임 보이게 해야함 반복문으로--> 
-                       	<div>큰 카테고리</div>
-                       	<div>작은 카테고리</div>
-                        <div>그룹이름</div>
-                        <div>찜하기 하트</div>
-                       	
-                    </div>
-                </div>
+                컨텐츠내용3
             </div>
-
             <div class="mp-main4 main">
-                <div class="back4">
-                    <div class="mem-mp-info">
-                            <div id="mp-login-info"><h1>매너온도</h1></div>                       
-                    </div>
-                    <div id="mem-mp4-content">
-                        <!-- 참여 및 불참여 목록 뜨게해야함--> 
-                       	<div>일자</div>
-                       	<div>그룹이름</div>
-                        <div>오프그룹이룸</div>
-                        <div>참여 불참 여부</div>
-                        <div>+1 -1 </div>
-                        <div>매너온도 점수</div>
-                       	
-                    </div>
-                </div>
-                
+                컨텐츠내용4
             </div>
             <div class="mp-main5 main">
                 컨텐츠내용4
@@ -314,16 +266,15 @@
     <div id="bot"></div>
   <script>
 
-    
-      const page = ${x};
+    const page = ${x};
+    // $('input[type=radio]')
     const btnArr = document.querySelectorAll('input[type=radio]');
     
     for (let i = 0; i < btnArr.length; i++) {
         const element = btnArr[i];
 
         if(page==i){
-            element.click();
-           
+            element.click();        
         }
         
     }
@@ -331,8 +282,6 @@
     btnArr[0].addEventListener('click', function(){
         location.href = "/omjm/member/check";
     })
-
-    
 
     
 

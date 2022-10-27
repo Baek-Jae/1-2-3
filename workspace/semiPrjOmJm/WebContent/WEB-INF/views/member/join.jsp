@@ -136,27 +136,17 @@
     <div id="bot"></div>
 
 <script>
-    function idCheck(){
+   
 
-        $.ajax({
-            url : "/omjm/member/idDoubleCheck",
-            type : "post",
-            data : {
-                
-            },
-            success : funtion(){
-                alert('성공');
-            } ,
-            error : function(){
+    let place = document.querySelector('input[name=memberPlace]');
+   
 
-            },alert(' 실패');
-            
-            
-
-        });
-    }
-
-
+    console.log(place);
+   
+    
+    place.addEventListener('click', function(){
+        location.href = "/omjm/member/likeplace";
+    })
 
 </script>
 </body>
