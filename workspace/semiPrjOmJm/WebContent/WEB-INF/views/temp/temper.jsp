@@ -10,7 +10,7 @@
 <body>
 
 	<input type="checkbox" id=tempclick>
-	<button onclick="clicked();"> 버튼클릭 </button>
+	<button onclick=""> 버튼클릭 </button>
 	
 	<div id=click>클릭해</div>
 	<script type="text/javascript">
@@ -20,22 +20,21 @@
 	
 	function clicked(){
 		
-		
 		$.ajax({
-			url: "/temp/temper" ,
+			url: "/WEB-INF/temp/temper" ,
 			method:"get",
 			
-			data:{
-				/* "ppoff" : true;
-				"ppoff : ppoff + 1 ";
-				"manner" : "manner  + 1"; */
-				
+			data:{9.0.689.0.689.0.689.0.68
+				 "ppoff" : true;
 			}
 			success: function(){
-				alert("온도가 상승했습니다.")
+				alert("온도가 상승했습니다.");
+				/* "ppoff : ppoff + 1 ";
+				"manner" : "manner  + 1";  */
+				
 			} ,
 			error : function(){
-				alert("정보 인식이 안되었습니다.")
+				alert("정보 인식이 안되었습니다.");
 			},
 			complete : function(){
 				alert("수정끝")

@@ -13,9 +13,11 @@ public class AdminVo {
 	private String modify_Date;
 	private String status;
 	private String sup;
+	
+	
 	public AdminVo(String no, String type, String category, String title, String content, String writer, String hit,
 			String enroll_Date, String modify_Date, String status, String sup) {
-		super();
+		
 		this.no = no;
 		this.type = type;
 		this.category = category;
@@ -29,8 +31,7 @@ public class AdminVo {
 		this.sup = sup;
 	}
 	public AdminVo() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public String getNo() {
 		return no;
