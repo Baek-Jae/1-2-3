@@ -144,8 +144,56 @@ public class PlaceDao {
 				vo.setDeleteYn(deleteYn);
 				
 				list.add(vo);
-				System.out.println(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
 
+	public List<GroupVo> selectPlace(Connection conn, int temp) {
+		String sql = "SELECT * FROM OMJM_GROUP WHERE PLACE_NO= ?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<GroupVo> list = new ArrayList<GroupVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, temp); 
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("PLACE_NO");
+				String category= rs.getString("CATE_NO");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
+				
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
+				
+				list.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

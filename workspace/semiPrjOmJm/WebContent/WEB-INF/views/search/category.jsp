@@ -85,29 +85,74 @@
 			<ul class="menuitems">
 				<% for(int i = 0; i < cateVo.size(); ++i){
           				if("운동/스포츠".equals(cateVo.get(i).getCaName())){ %>
-				<li><%=cateVo.get(i).getDeName() %></li>
+				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
 				<%}}%>
 			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible4" name="cs_biz_form">
+			<label for="collapsible4"> 
 			<img src="<%= root %>/resources/책.jpg" alt="카테고리" width="80%"
 				height="50%">인문학/책/글
+				</label>
+			<ul class="menuitems">
+				<% for(int i = 0; i < cateVo.size(); ++i){
+          				if("인문학/책/글".equals(cateVo.get(i).getCaName())){ %>
+				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+				<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible5" name="cs_biz_form">
+			<label for="collapsible5"> 
 			<img src="<%= root %>/resources/업종직무2.jpg" alt="카테고리" width="80%"
 				height="50%">업종/직무
+				</label>
+			<ul class="menuitems">
+				<% for(int i = 0; i < cateVo.size(); ++i){
+          				if("업종/직무".equals(cateVo.get(i).getCaName())){ %>
+				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+				<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible6" name="cs_biz_form">
+			<label for="collapsible6"> 
 			<img src="<%= root %>/resources/언어.jpg" alt="카테고리" width="80%"
 				height="50%">외국/언어
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("외국/언어".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible7" name="cs_biz_form">
+			<label for="collapsible7"> 
 			<img src="<%= root %>/resources/음악악기2.jpg" alt="카테고리" width="80%"
 				height="50%">음악/악기
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("음악/악기".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible8" name="cs_biz_form">
+			<label for="collapsible8"> 
 			<img src="<%= root %>/resources/만들기.jpg" alt="카테고리" width="80%"
 				height="50%">공예/만들기
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("공예/만들기".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 
 	</div>
@@ -117,36 +162,107 @@
 
 	<div id="container2" style="display: none;">
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible9" name="cs_biz_form">
+			<label for="collapsible9"> 
 			<img src="<%= root %>/resources/환경봉사.jpg" alt="카테고리" width="80%"
 				height="50%">봉사활동
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("봉사활동".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible10" name="cs_biz_form">
+			<label for="collapsible10">
 			<img src="<%= root %>/resources/사교.jpg" alt="카테고리" width="80%"
 				height="50%">사교/인맥
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("사교/인맥".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible11" name="cs_biz_form">
+			<label for="collapsible11">
 			<img src="<%= root %>/resources/차오토바이.jpg" alt="카테고리" width="80%"
 				height="50%">차/오토바이
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("차/오토바이".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible12" name="cs_biz_form">
+			<label for="collapsible12">
 			<img src="<%= root %>/resources/야구관람3.png" alt="카테고리" width="80%"
 				height="50%">야구관람
+					</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("야구관람".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible13" name="cs_biz_form">
+			<label for="collapsible13">
 			<img src="<%= root %>/resources/게임오락.jpg" alt="카테고리" width="80%"
 				height="50%">게임/오락
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("게임/오락".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible14" name="cs_biz_form">
+			<label for="collapsible14">
 			<img src="<%= root %>/resources/요리.jpg" alt="카테고리" width="80%"
 				height="50%">요리/레시피
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("요리/레시피".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible15" name="cs_biz_form">
+			<label for="collapsible15">
 			<img src="<%= root %>/resources/반려동물2.jpg" alt="카테고리" width="80%"
 				height="50%">반려동물
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("반려동물".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible16" name="cs_biz_form">
+			<label for="collapsible16">
 			<img src="<%= root %>/resources/기타.jpg" alt="카테고리" width="80%"
 				height="50%">자유주제
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("자유주제".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
 		</div>
 	</div>
 
@@ -164,14 +280,17 @@
 					<img src="<%=root%>/resources/testImg.png" alt="그룹사진" />
 				</div>
 				<div class="card-bottom">
-					<span>모임명</span> <span>아자자</span> <span>그룹장</span> <span>아자자</span>
+						<span>모임명</span>
+                        <span class="group-na">아자자</span>
+                        <span>그룹장</span>
+                        <span class="group-lea">아자자</span>
 					<div>
 						<span class="material-symbols-outlined" id="location-icon">location_on</span>
-						<span> 강남구</span>
+						<span class="group-pl"> 강남구</span>
 					</div>
 					<div>
 						<span class="material-symbols-outlined" id="group-icon">group</span>
-						<span>9/10</span>
+						<span class="group-cnt">9/10</span>
 					</div>
 					<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 				</div>
@@ -187,17 +306,17 @@
 		                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
 		                    </div>
 		                    <div class="card-bottom">
-		                        <span class="group-name">모임명</span>
-		                        <span class="group-ca">아자자</span>
-		                        <span class="group-pl">그룹장</span>
-		                        <span class="group-cnt">아자자</span>
+		                        <span>모임명</span>
+		                        <span class="group-na">아자자</span>
+		                        <span>그룹장</span>
+		                        <span class="group-lea">아자자</span>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span> 강남구</span>
+		                            <span class="group-pl"> 강남구</span>
 		                        </div>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span>9/10</span>
+		                            <span class="group-cnt">9/10</span>
 		                        </div>
 		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 	                    	</div>
@@ -215,16 +334,16 @@
 		                    </div>
 		                    <div class="card-bottom">
 		                        <span>모임명</span>
-		                        <span>아자자</span>
+		                        <span class="group-na">아자자</span>
 		                        <span>그룹장</span>
-		                        <span>아자자</span>
+		                        <span class="group-lea">아자자</span>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span> 강남구</span>
+		                            <span class="group-pl"> 강남구</span>
 		                        </div>
 		                        <div id="group-info">
 		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span>9/10</span>
+		                            <span class="group-cnt">9/10</span>
 		                        </div>
 		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 	                    	</div>
@@ -265,25 +384,46 @@ $(document).ready(function(){
 	
 	$('#select-pl').change(function(){
 		var temp = $('#select-pl option:checked');
-		 /* console.log(temp.text());  */
-		  $('#group-place').text($(temp).text());
+		//console.log(temp.val());  
+		  if($(temp)!= null){
+			  $('#group-place').text($(temp).text());
+			  
+					  // function searchcate(num2){ 
+						$.ajax({
+							url : "<%=root%>/plsearch",
+							method : "GET",	
+							data :	{
+								"temp" : temp.val()
+							},
+							success : function(z){
+								var sp = JSON.parse(z);
+
+								for(var i=0 in sp){    
+									//alert(sp[i].name);      
+									}       
+									//for(var i = 0; i < sp.legnth; ++i){
+										//console.log("여기까지" + sp[i].name);
+								 		$('.group-cnt').text(sp[i].userCnt); 
+								 		$('.group-na').text(sp[i].name); 
+								 		$('.group-pl').text(sp[i].place); 
+								 		$('.group-pl').text(sp[i].category); 
+										
+									}
+							},
+							error : function(){
+								alert("통신 에러!");
+							}
+						});
+					} 
+		  
 	});
- <%-- function myListener(obj) {        
-	alert(obj.value); 
- 	
-	$.ajax({
+	/* if($('#group-place').length > 2){
+		alert("검색어를 넣어주세요");
+	} */
 	
-	url : "<%= root %>/search",
-	method : "GET",		
-	data : 
-		{
-		"msg" : obj.value
-		},
-	success : function(){		
-   		alert($('#place-name').val());
-		$('#group-place').text();
-	}		 
-});
+	<%--
+  function myListener(obj) {        
+	alert(obj.value); }
 	} --%>
 	
 
@@ -303,66 +443,32 @@ $(document).ready(function(){
 			   return;
 			  }
 	 }
+	
 	searchcate = function(num2){
 	 /* function searchcate(num2){ */
-		  console.log(num2);
 		$.ajax({
 			url : "<%=root%>/desearch",
 			method : "GET",	
 			data :	{
-				num : num2
+				dese : num2
 			},
 			success : function(x){
 				var o = JSON.parse(x);
 
 				for(var i=0 in o){    
-					alert(o[i].name);}       
-				 $('.group-cnt').text(o[i].userCnt); 
-				 $('.group-ca').text(o[i].name); 
-				
+				//	alert(o[i].name);
+				}       
+				 	$('.group-cnt').text(o[i].userCnt); 
+				 	$('.group-na').text(o[i].name); 
+		 		 	$('.group-pl').text(o[i].place); 
+			 		$('.group-pl').text(o[i].category);
 			},
 			error : function(){
-				alert("통신 에러!");
+				alert("num2 통신 에러!");
 			}
 		});
 	} 
 	
-	
-	<%--
-	function getData() {
-		$.ajax({
-			url : "<%= root %>/search",
-			method : "GET",		
-			data : 
-				v1: $("#v1").val(),
-				v2: $("#v2").val()
-			},
-			dataType:"text",  //응답타입
-			success: function (data) {
-				
-				o = JSON.parse(x);
-				console.log(o);
-				
-				var name = data.username;
-				var place = data.age;
-				var category = data.age;
-				var cnt = data.age;
-				
-				$(".group-name").text(name);
-				$(".group-ca").text(place);
-				$(".group-pl").text(category);
-				$(".group-cnt").text(cnt);
-			},
-			error: function (xhr) {
-				alert("통신 에러~!");
-				console.log(xhr);
-				/* $("#result").append(error);
-				$("#result").append(status); */
-			}
-		});
-	}   --%>
-/* if()input 값이 있으면 가져와
- */
  /* function test01(){
 	var doc = $("input:text").val();
 	alert(doc);
