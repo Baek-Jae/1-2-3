@@ -24,6 +24,7 @@
         grid-template-columns: 1fr 5fr 3fr 3fr 1fr;
         grid-template-rows: repeat(13 , 30px);
         align-content: center;
+		padding-top: 200px;
     }
 
     #main>div{

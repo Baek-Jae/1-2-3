@@ -45,7 +45,7 @@ public class NoticeDao {
 	public List<NoticeVo> selectNoticeList(Connection conn) {
 		//SQL
 		
-		String sql = "SELECT * FROM NOTICE WHERE DELETE_YN = 'O' ORDER BY NO DESC";
+		String sql = "SELECT N.NO , N.TITLE , N.CONTENT , N.HIT , N.ENROLL_DATE , N.MODIFY_DATE , N.DELETE_YN , M.NICK AS WRITER FROM NOTICE N JOIN MEMBER M ON N.WRITER = M.NO WHERE N.DELETE_YN = 'O' ORDER BY NO DESC";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
