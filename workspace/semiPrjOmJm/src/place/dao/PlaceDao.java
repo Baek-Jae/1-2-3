@@ -71,12 +71,12 @@ public class PlaceDao {
 		return list;
 	}
 
-	public List<CateVo> selectList(Connection conn, String search) {
-		String sql = "SELECT * FROM CATEGORY WHERE CA_NAME LIKE ?";
+	public List<GroupVo> selectList(Connection conn, String search) {
+		String sql = "SELECT * FROM OMJM_GROUP WHERE NAME LIKE ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<CateVo> list = new ArrayList<CateVo>();
+		List<GroupVo> list = new ArrayList<GroupVo>();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -86,14 +86,35 @@ public class PlaceDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				String caNo = rs.getString("CA_NO");
-				String caName = rs.getString("CA_NAME");
-				String deName = rs.getString("DE_NAME");
-				System.out.println(caNo);
-				CateVo cateVo= new CateVo(caNo, caName, deName);
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("PLACE_NO");
+				String category= rs.getString("CATE_NO");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
 				
-				list.add(cateVo);
-				System.out.println(cateVo);
+				//System.out.println(caNo);
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
+				
+				list.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

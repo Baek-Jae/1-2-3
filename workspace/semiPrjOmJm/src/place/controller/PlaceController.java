@@ -47,12 +47,12 @@ public class PlaceController extends HttpServlet{
 
 		String search = req.getParameter("search");
 		
-		List<CateVo> cateVo2 = new PlaceService().wordSearch(search);
-		
+		List<GroupVo> groupName = new PlaceService().wordSearch(search);
+		System.out.println(groupName);
 		req.setAttribute("search", search);
 		
 		if(cateVo != null) {
-			req.setAttribute("keyword", cateVo2);
+			req.setAttribute("keyword", groupName);
 			req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
 		}else {
 			req.setAttribute("msg", "결과 오류");

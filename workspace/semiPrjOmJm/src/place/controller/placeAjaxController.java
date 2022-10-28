@@ -21,7 +21,7 @@ public class placeAjaxController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int temp = Integer.parseInt(req.getParameter("temp"));
-		System.out.println(temp);
+		/* System.out.println(temp); */
 		
 		List<GroupVo> placeList = new PlaceService().selectPlace(temp);
 		
