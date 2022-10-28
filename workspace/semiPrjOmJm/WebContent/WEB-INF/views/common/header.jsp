@@ -11,6 +11,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>Insert title here</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Montserrat:wght@500;700&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Oleo+Script+Swash+Caps&family=Permanent+Marker&family=Prata&family=Silkscreen&display=swap"
+            rel="stylesheet"
+        />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,300,0,0" />
         <script src="https://kit.fontawesome.com/ae846b135b.js" crossorigin="anonymous"></script>
@@ -33,7 +37,7 @@
                             모임
                             <li><a href="<%= root %>/group/create">생성</a></li>
                             <li><a href="<%= root %>/group/list">가입한 모임</a></li> <!-- 테스트 -->
-                            <li><a href="<%= root %>/group/main?gno=1">모임메인</a></li>   <!-- 테스트 -->
+                            <li><a href="<%= root %>/group/main?gno=2">모임메인</a></li>   <!-- 테스트 -->
                             <li><a href="<%= root %>/member/mypage?x=1">찜한 모임</a></li>
                             <span></span>
                         </ul>

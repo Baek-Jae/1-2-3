@@ -59,8 +59,7 @@
                                     <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
                                     <span>${i.userCnt} /10</span>
                                 </div>
-                                <a href="<%=root %>/group/off?ono=${i.no}">참여하기</a>
-                                <button class="show">참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></button>
+                                <a href="<%=root %>/group/off?ono=${i.no}">참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
                             </div>
 						</c:forEach>
                         </div>
@@ -134,7 +133,6 @@
 		                
 		                },
 	               	success: function (result) {
-			              		alert("자가보자~");
 			              		const myComment = JSON.parse(result);
 			              		let newComment = "<span>"+myComment.nick+"</span>"+
 			              		"<span>"+myComment.content+"</span>"+

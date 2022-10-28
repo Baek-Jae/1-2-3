@@ -12,6 +12,7 @@ import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
 import kh.semi.omjm.group.vo.OffCommentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
+import kh.semi.omjm.group.vo.OffMemberVo;
 
 public class GroupService {
 	
@@ -196,6 +197,45 @@ public class GroupService {
 		
 		return offGroup;
 	}
+
+
+	public List<OffMemberVo> selectOffMemeberByOno(String offNo) {
+		Connection conn = getConnection();
+		
+		List<OffMemberVo> OffMember = gd.selectOffMemeberByOno(conn, offNo);
+		
+		close(conn);
+		
+		return OffMember;
+	}
+
+
+	public int updateMyCommentByCno(OffCommentVo ofv) {
+		Connection conn = getConnection();
+		
+		int result = gd.updateMyCommentByCno(conn, ofv);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public String selectGroupByName(String name) {
+		Connection conn = getConnection();
+		
+		String groupNo = gd.selectGroupByName(conn, name);
+		
+		return groupNo;
+	}
+
+
 	
 	
 

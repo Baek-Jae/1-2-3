@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -13,6 +14,7 @@ import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
 import kh.semi.omjm.group.vo.OffCommentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
+import kh.semi.omjm.group.vo.OffMemberVo;
 
 public class GroupDao {
 
@@ -166,6 +168,7 @@ public class GroupDao {
 			pstmt.setString(1, gno);
 			pstmt.setString(2, mno);
 			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -393,6 +396,64 @@ public class GroupDao {
 		}
 		
 		return offGroup;
+	}
+
+	public List<OffMemberVo> selectOffMemeberByOno(Connection conn, String offNo) {
+		String sql = "SELECT O.NO, O.OFF_NO, M.NICK AS USER_NO, O.QUIT_YN, O.INVITE_TN FROM OFF_MEMBER O JOIN MEMBER M ON O.USER_NO = M.NO WHERE OFF_NO = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<OffMemberVo> memberArr = new ArrayList<OffMemberVo>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, offNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				OffMemberVo omv = new OffMemberVo();
+				omv.setNo(rs.getString("NO"));
+				omv.setOffNo(rs.getString("OFF_NO"));
+				omv.setUserNo(rs.getString("USER_NO"));
+				omv.setQuitYn(rs.getString("QUIT_NO"));
+				omv.setInviteYn(rs.getString("INVITE_NO"));
+				
+				memberArr.add(omv);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return memberArr;
+	}
+
+	public int updateMyCommentByCno(Connection conn, OffCommentVo ofv) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = "UPDATE OFF_COMMENT SET CONTENT = ? WHERE NO = ?";
+		
+		
+		return result;
+	}
+
+	public String selectGroupByName(Connection conn, String name) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT NO FROM OMJM_GROUP WHERE NAME = ?";
+		String groupNo = "";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				groupNo = rs.getString("NO"); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return groupNo;
 	}
 
 	

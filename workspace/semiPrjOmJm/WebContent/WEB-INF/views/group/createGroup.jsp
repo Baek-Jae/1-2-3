@@ -49,11 +49,13 @@
                         <input type="text" name="group_hash" required />
                         <label for="group_hash">#해시태그</label>
                     </div>
+                        <br><br>
                     <div class="group_check">
                         <input type="submit" value="생 성" />
                         <input type="button" value="취 소" />
                     </div>
                 </form>
+                <br><br>
             </div>
         </section>
 </body>

@@ -33,7 +33,7 @@ public class CreateGroupController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
-		String no = loginMember.getNo();
+		String mno = loginMember.getNo();
 		
 		String name = req.getParameter("group_name");
 		String category = req.getParameter("group_category");
@@ -54,7 +54,7 @@ public class CreateGroupController extends HttpServlet{
 		
 		
 		GroupVo gv = new GroupVo();
-		gv.setLeader(no);
+		gv.setLeader(mno);
 		gv.setCategory(category);
 		gv.setName(name);
 		gv.setPlace(place);
@@ -63,13 +63,16 @@ public class CreateGroupController extends HttpServlet{
 		gv.setHashTag(hashTag);
 		
 		int newGroup = new GroupService().insertGroup(gv, groupAttVo);
-		 
-		if(newGroup != 1) {
-			resp.sendRedirect("/omjm/views/notice/list2.jsp");
-		}
+		String gno = new GroupService().selectGroupByName(name);
+		int firstMember = new GroupService().insertGroupMember(gno ,mno);
 		
+		
+		if(newGroup*firstMember != 1) {
+			resp.sendRedirect("/omjm/views/notice/list2.jsp");
+		} 
 		
 		resp.sendRedirect("/omjm");
+		
 		
 	}
 }
