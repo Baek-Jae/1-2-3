@@ -102,7 +102,7 @@
                 <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요" class="input width-size">
                 <input type="submit" value="로그인" class="label width-size">
                 <div><a href="">비밀번호를 잊어버리셨나요?</a></div>
-                <div><a href="/3jo/member/join">계정을 만드시겠습니까?</a></div>
+                <div><a href="/omjm/member/join">계정을 만드시겠습니까?</a></div>
 
             
             </div>

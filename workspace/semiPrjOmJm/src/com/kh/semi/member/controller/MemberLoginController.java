@@ -32,6 +32,7 @@ public class MemberLoginController extends HttpServlet{
 		MemberVo loginMember = new MemberService().login(vo);
 		
 		
+		
 		if(loginMember != null) {
 			
 			HttpSession s = req.getSession();

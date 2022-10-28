@@ -61,7 +61,7 @@ public class MemberEditController extends HttpServlet{
 		
 		if(editMember != null) {
 			s.setAttribute("loginMember", editMember);
-			
+			req.setAttribute("x", "0");
 			req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
 			
 		}

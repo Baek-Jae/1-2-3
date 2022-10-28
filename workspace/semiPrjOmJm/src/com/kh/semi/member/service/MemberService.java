@@ -2,9 +2,13 @@ package com.kh.semi.member.service;
 
 
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 
-import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.member.dao.MemberDao;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -50,18 +54,31 @@ private final MemberDao dao = new MemberDao();
 		
 		Connection conn = getConnection();
 		//회원정보 넣기
-		int  result = new MemberDao().editProfileById(conn, vo);
+		int  result = dao.editProfileById(conn, vo);
 		
 		MemberVo loginMember = null;
 		
 		if(result ==1) {
 			commit(conn);
 			//새로운 회원정보꺼내기 
-			loginMember = new MemberDao().login(conn, vo);
+			loginMember = dao.login(conn, vo);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		return loginMember;
+	}
+
+	public int editPlace(MemberVo vo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.editPlace(vo, conn);
+		if(result ==1) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
 	}
 }

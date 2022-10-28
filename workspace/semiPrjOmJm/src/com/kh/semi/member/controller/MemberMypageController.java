@@ -26,13 +26,14 @@ public class MemberMypageController extends HttpServlet{
 		HttpSession s = req.getSession();
 		MemberVo loginMember = (MemberVo)s.getAttribute("loginMember");
 		
+		
 		//찜한 모임 리스트를 보여줘야함
 		//List<GroupVo> likeGList = new ListGroupController().selectLiked(loginMember);
 		
 		
 	
 		
-		req.setAttribute("x", x);
+		req.setAttribute("x", "0");
 		req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
 	}
 	

@@ -3,8 +3,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "/WEB-INF/views/common/header.jsp" %>
+
 <%List<PlaceVo> placeList = (ArrayList<PlaceVo>)request.getAttribute("placeList");%>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <style>
 *{
     margin: 0;
@@ -14,26 +15,68 @@
 }
 .full{
 
-    width: 100vw;
+    width: 60vw;
     height: 80vh;
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    border: 5px solid #fdb930;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 50px;
+    font-size: 18px;
     
 }
 .select{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 500px;
+    height: 100%;
+}
+
+.full > form {
+    height: 700px;
+    width: 500px;
+}
+
+.select div {
+    width: 250px;
+    height: 100%;
+}
+.select-place{
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #dddddd;
+      color: #999999;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 35px;
+    width: 100%;
+    text-align: center
+    ;
+}
+.small{
+    padding-top: 50px;
+}
+#submit{
+    background-color: rgba(0, 53, 109, 0.95);
+    color: #fff;
+}
+.yellow{
+    color: #fdb930;
+}
+#interest{
+    height: 100px;
     display: grid;
-    grid-template-rows: repeat(4,1fr);
-}
-#header{
-        width: 100vw;
-        height: 90px;
+    align-content: center;
     
-}
-full > * {
-    height: 500px;
 }
 </style>
 <!DOCTYPE html>
@@ -43,42 +86,75 @@ full > * {
 <title>Insert title here</title>
 </head>
 <body>
-    <div id="header">헤더</div>
+  
     <div class="full">
-        <h1>관심지역을 골라주세요</h1>
-        <form action="/member/likeplace" method="post">
+        <div id="interest"><h3>관심지역을 골라주세요</h3></div>
+        
             <div class="select">
-                <div>o
-                관심 지역1 
-                    <select name="place" class="ca-option" id="select-pl" onchange="javascript:myListener(this)"
-                    oninvalid="this.setCustomValidity('관심지역 1은 선택해주셔야합니다')" required>
+                <div class="small"><span class="material-symbols-outlined yellow" >home_pin서울시</span></div>
+                <div><select name="place" class="select-place">
                         <option value="">==지역 선택==</option>
                         <% for(int i = 0; i < placeList.size(); ++i){%>
-                        <option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
+                        <option id="place-name" value="<%= placeList.get(i).getpName() %>"><%= placeList.get(i).getpName() %></option>
                         <%  } %>
                     </select>
                 </div>
-                <div>o
-                    관심 지역 2 
-                    <select name="place" class="ca-option" id="select-pl" onchange="javascript:myListener(this)">
+                <div class="small"><span class="material-symbols-outlined">pin_drop서울시</span></div>
+                <div><select name="place" class="select-place">
                         <option value="">==지역 선택==</option>
                         <% for(int i = 0; i < placeList.size(); ++i){%>
-                        <option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
+                        <option id="place-name" value="<%= placeList.get(i).getpName() %>"><%= placeList.get(i).getpName() %></option>
                         <%  } %>
                     </select>
                 </div>
-                <div>o
-                    관심 지역 3 
-                    <select name="place" class="ca-option" id="select-pl" onchange="javascript:myListener(this)">
+                <div class="small"><span class="material-symbols-outlined">pin_drop서울시</span></div>
+                <div> <select name="place" class="select-place">
                         <option value="">==지역 선택==</option>
                         <% for(int i = 0; i < placeList.size(); ++i){%>
-                        <option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
+                        <option id="place-name" value="<%= placeList.get(i).getpName() %>"><%= placeList.get(i).getpName() %></option>
                         <%  } %>
                     </select>
                 </div>
-                <div><input type="submit" value="관심지역 선택하기"></div>
+                <div><input type="button" value="관심지역 선택하기" class="select-place" id="submit"></div>
             </div>
-        </form> 
+        
     </div>
+
+<script>
+    //타입이 버튼인 것을 가져옴
+    const btn = document.querySelector('input[type=button]');
+    //이름이 place인것을 가져옴 
+    const place = document.querySelectorAll('select[name=place]');
+
+    console.log(place.length);
+    btn.addEventListener('click', function(){
+
+     let likeplace = "";
+
+       for(let i = 0; i < place.length; i++){
+       
+            if(place[i].value !=null && place[i].value != ""){
+
+                if(i == 0){
+                    likeplace += place[i].value;
+                }else if(likeplace != ""){
+                    likeplace += "," + place[i].value;
+                }else{
+                    likeplace += place[i].value;
+                }
+            }
+        }
+        if(likeplace != ""){
+            opener.document.querySelector('#likeplace').value = likeplace;
+           
+            window.close();
+
+        }else {
+            alert('관심지역 선택 1개는 필수 입니다')
+        }
+
+    })
+
+</script>
 </body>
 </html>

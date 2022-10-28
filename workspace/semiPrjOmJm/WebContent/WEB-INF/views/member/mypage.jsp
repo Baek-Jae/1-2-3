@@ -4,10 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String alertMsg = (String)request.getAttribute("alertMsg");
-
-%>
+<%String alertMsg = (String)request.getAttribute("alertMsg");%>
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 
 <!DOCTYPE html>
@@ -28,7 +25,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 <style>
-    *{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -154,14 +151,46 @@
         border-bottom: 1px solid white;
     }
   /* 찜한 모임 부분 css */
+  /* 매너온도 부분 css */
+  #mem-mp4-content{
+    
+    background-color: rgb(163, 163, 162);
+    width: 800px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3,2fr) repeat(3,1fr);
+    height: 90%;
+    padding: 30px;
+    margin: 30px;
+  }
   #mem-mp2-content{
+    width: 800px;
     background-color: rgb(163, 163, 162);
     border-radius: 10px;
     display: grid;
-    grid-template-columns: ;
-    height: 95%;
+    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
+    height: 90%;
     padding: 30px;
+    margin: 30px;
   }
+  .back4{
+        width: 50vw;
+        height: 700px;
+        background-color: rgba(0, 53, 109, 0.95);
+        display: grid;
+        grid-template-rows: 2fr 7fr;
+        justify-content: center;
+        margin: 100px auto;
+        border-radius: 30px;
+        color: white;
+
+    }
+    /* 관심지역 css */
+    #mem-mp5-content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 </style>
 </head>
 <body>
@@ -231,17 +260,21 @@
             </div>    
            
 
-            <!-- 컨텐츠 2 -->
+             <!-- 컨텐츠 2 -->
 
-            <div class="mp-main2 main">
-                <div class="back">
+             <div class="mp-main2 main">
+                <div class="back4">
                     <div class="mem-mp-info">
-                        <form action="/omjm/member/edit" method="post">
+                        
                             <div id="mp-login-info"><h1>찜한모임</h1></div>                       
                     </div>
                     <div id="mem-mp2-content">
                         <!-- 반복 찜한 모임 보이게 해야함 반복문으로--> 
-                        
+                       	<div>큰 카테고리</div>
+                       	<div>작은 카테고리</div>
+                        <div>그룹이름</div>
+                        <div>찜하기 하트</div>
+                       	
                     </div>
                 </div>
             </div>
@@ -249,15 +282,60 @@
 
 
 
-            <div class="mp-main3 main">
-                컨텐츠내용3
+             <!-- 컨텐츠 내용 3 -->
+             <div class="mp-main3 main">
+                <div class="back4">
+                    <div class="mem-mp-info">
+                       
+                            <div id="mp-login-info"><h1>가입한모임</h1></div>                       
+                    </div>
+                    <div id="mem-mp2-content">
+                        <!-- 반복 가입한 모임 보이게 해야함 반복문으로--> 
+                       	<div>큰 카테고리</div>
+                       	<div>작은 카테고리</div>
+                        <div>그룹이름</div>
+                        <div>찜하기 하트</div>
+                       	
+                    </div>
+                </div>
             </div>
+
             <div class="mp-main4 main">
-                컨텐츠내용4
+                <div class="back4">
+                    <div class="mem-mp-info">
+                            <div id="mp-login-info"><h1>매너온도</h1></div>                       
+                    </div>
+                    <div id="mem-mp4-content">
+                        <!-- 참여 및 불참여 목록 뜨게해야함--> 
+                       	<div>일자</div>
+                       	<div>그룹이름</div>
+                        <div>오프그룹이룸</div>
+                        <div>참여 불참 여부</div>
+                        <div>+1 -1 </div>
+                        <div>매너온도 점수</div>
+                       	
+                    </div>
+                </div>
+                
             </div>
             <div class="mp-main5 main">
-                컨텐츠내용4
+                <div class="back4">
+                    <div class="mem-mp-info">
+                            <div id="mp-login-info"><h1>관심지역</h1></div>                       
+                    </div>
+                    <div id="mem-mp5-content">
+                        <div>관심지역</div>
+                        <div>
+                            <input type="text" id="likeplace" value="<%= loginMember.getPlace()%>"> 입니다
+                        </div>
+                        
+                        <button onclick="editplaceAjax()" >관심지역 수정하기</button>
+                        
+                    </div>
+                </div>
             </div>
+
+
             <div class="mp-main6 main">
                 컨텐츠내용4
             </div>
@@ -283,8 +361,40 @@
         location.href = "/omjm/member/check";
     })
 
-    
+    //마이페이지 화면에서 수정하기 하기
+    function openSelectPlace(){
+         // window.name = "부모창 이름";
+        window.name = "parentForm";
 
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션"); 
+        openWin=window.open("likeplace","childForm","width=600,height=750,resizable=no,scrollbars=no");
+        
+    }
+   
+    const editplace = document.querySelector('#likeplace');
+
+    editplace.addEventListener('click', function(){
+        openSelectPlace();
+    })
+
+    function editplaceAjax(){
+        $.ajax({
+
+            url = "/omjm/member/likeplace",
+            type : "post",
+            data : {
+                "likeplace" : "$('#likeplace').val()"
+            },
+            success : function(){
+                alert('수정성공');
+            },
+            error : function(){
+                alert('실패');
+            }
+
+
+        })
+    }
   </script>
 </body>
 </html>

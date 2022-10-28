@@ -5,6 +5,11 @@
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
+<% String place = (String)request.getAttribute("place");%>
+<%
+	String alertMsg = (String)request.getAttribute("alertMsg");
+%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -82,10 +87,10 @@
         font-size: 20px;
     }
     .select {
-    -o-appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
     }
     select{
         font-size: 18px;
@@ -113,14 +118,15 @@
                 <div>핸드폰번호</div>
                 <div id="check"><input type="text" name="memberPhone" class="input width-size"><button class="label doublecheck">중복체크</button></div>
                 <div>관심지역</div>
-                <div><input type="text" name="memberPlace" class="input width-size"></div>
+                <div><input type="text" name="memberPlace" class="input width-size" id="likeplace"></div>
                 <div>카테고리</div>
                 <div><input type="text" name="memberCate" class="input width-size"></div>
                 <div>
                     남자 <input type="radio" name="memberGender" value="M"> &nbsp;
                     여자 <input type="radio" name="memberGender" value="F">
                 </div>
-                <select name="memberPQ" class="select">비밀번호 찾기 질문 
+                <select name="memberPQ" class="select">
+                    <option value="">비밀번호찾기 질문</option>
                 	<%for(int i = 0; i < pwdQList.size(); i++) { %>
                 	<option value="<%= pwdQList.get(i).getNo() %>"><%=pwdQList.get(i).getQ() %></option>
                  	 <% } %>
@@ -136,17 +142,35 @@
     <div id="bot"></div>
 
 <script>
-   
+    //비밀번호 질문은 무조건 클릭해야하는데 이걸 어떻게 구현하지
+    <%if(alertMsg != null){ %>
+		Swal.fire({
+        icon: 'error',
+        title: '회원가입 실패하셨습니다.',
+         text: '입력값이 전부 채워지지 않았습니다.',
+        //footer: '<a href="">Why do I have this issue?</a>'
+    })
 
+	<% } %>
+
+    //지역을 가져오는 인풋 클릭하면 새 창이뜬다 
     let place = document.querySelector('input[name=memberPlace]');
    
-
-    console.log(place);
-   
-    
     place.addEventListener('click', function(){
-        location.href = "/omjm/member/likeplace";
+        openSelectPlace();
     })
+
+
+    function openSelectPlace(){
+         // window.name = "부모창 이름";
+        window.name = "parentForm";
+
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션"); 
+        openWin=window.open("likeplace","childForm","width=600,height=750,resizable=no,scrollbars=no");
+        
+        }
+
+      
 
 </script>
 </body>

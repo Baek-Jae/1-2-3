@@ -22,6 +22,10 @@ public MemberVo() {
 	private String nick;
 	private String name;
 	private String place;
+	private String [] placeArr;
+	
+
+
 	private String phone;
 	private String catg;
 	private String gender;
@@ -165,7 +169,13 @@ public MemberVo() {
 	public void setPq(String pq) {
 		this.pq = pq;
 	}
+	public String[] getPlaceArr() {
+		return placeArr;
+	}
 
+	public void setPlaceArr(String[] placeArr) {
+		this.placeArr = placeArr;
+	}
 
 
 	@Override

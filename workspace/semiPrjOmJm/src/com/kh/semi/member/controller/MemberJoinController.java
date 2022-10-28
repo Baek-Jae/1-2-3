@@ -53,10 +53,8 @@ public class MemberJoinController extends HttpServlet{
 			String name = req.getParameter("memberName");
 			String phone = req.getParameter("memberPhone");
 			//임시
-			String place = req.getParameter("memberPlace");
 			String category = req.getParameter("memberCate");
-			System.out.println(req.getParameter("memberPQ"));
-			//String []place = req.getParameterValues("memberPlace");
+			String place = req.getParameter("memberPlace");
 			//String []category = req.getParameterValues("memberCate");
 			String gender = req.getParameter("memberGender");
 			String pq = req.getParameter("memberPQ");
@@ -92,7 +90,13 @@ public class MemberJoinController extends HttpServlet{
 				
 				resp.sendRedirect("/omjm/member/login");
 			}else {
-				System.out.println("회원가입실패");
+				//비밀번호 찾기 질문 가져와야함
+				List<PasswordVo> pwdQList = new PasswordController().getQuestion();
+				
+				req.setAttribute("pwdQList", pwdQList);
+				req.setAttribute("alertMsg", "회원가입실패");
+				
+				req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
 			}
 			
 			
