@@ -12,6 +12,7 @@ public class TempService {
 
 	//private final TempDao dao = new TempDao();
 
+	//Temp온도 수정
 	public MemberVo edit(MemberVo vo) {
 		
 		Connection conn = JDBCTemplate.getConnection();

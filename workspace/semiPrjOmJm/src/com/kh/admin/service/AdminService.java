@@ -5,6 +5,8 @@ import java.sql.Connection;
 import com.kh.admin.dao.AdminDao;
 import com.kh.admin.dao.AdminVo;
 import com.kh.semi.common.JDBCTemplate;
+import com.kh.semi.member.vo.MemberVo;
+import com.kh.semi.board.vo.BoardVo;
 
 public class AdminService {
 
@@ -30,14 +32,14 @@ public class AdminService {
 	}
 	
 	//제
-	public AdminVo selectOne(String lno) {
+	public MemberVo selectOne(String lno) {
 		
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = dao.increaseHit(conn,lno);
 		
-		AdminVo vo = null;
+		MemberVo vo = null;
 		if(result ==1) {
 			JDBCTemplate.commit(conn);
 			vo = dao.selectOne(conn,lno);

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.admin.dao.AdminVo;
 import com.kh.admin.service.AdminService;
+import com.kh.semi.board.vo.BoardVo;
+import com.kh.semi.member.vo.MemberVo;
 
 
 @WebServlet(urlPatterns = "/admin/list")
@@ -21,10 +23,12 @@ public class AdminRestListController extends HttpServlet {
 		
 		String lno = req.getParameter("lno");
 		
-		AdminVo vo = new AdminService().selectOne(lno);
+		MemberVo vo = new AdminService().selectOne(lno);
 		
 		req.setAttribute("vo", vo);
-		req.getRequestDispatcher("/views/admin/list.jsp").forward(req, resp);
 		
+		
+		req.getRequestDispatcher("/views/admin/list.jsp").forward(req, resp);
+
 	}
 }

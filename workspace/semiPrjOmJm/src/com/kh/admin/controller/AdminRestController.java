@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.admin.service.AdminService;
 import com.kh.semi.member.vo.MemberVo;
+import com.kh.semi.board.vo.BoardVo;
 
 @WebServlet(urlPatterns = "/admin/rest")
 public class AdminRestController extends HttpServlet{
@@ -34,7 +35,7 @@ public class AdminRestController extends HttpServlet{
 		
 		if(result==1) {
 			session.invalidate();
-			resp.sendRedirect("/omjm");
+			resp.sendRedirect("/omjm/");
 		}else {
 			req.setAttribute("msg", "제제 실패");
 			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
