@@ -52,7 +52,7 @@
 
 		<div class="outer">
 		  <br>
-		  <h2 align="center">일반게시판 작성하기</h2>
+		  <h2 align="center">공지사항 작성하기</h2>
 		  <br>
   
 		  <form id="enroll-form" action="" method="post" enctype="multipart/form-data">

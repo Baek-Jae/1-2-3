@@ -1,11 +1,11 @@
-<%@page import="com.kh.semi.faq.vo.FaqVo"%>
+<%@page import="com.kh.semi.notice.vo.NoticeVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<% List<FaqVo> voList = (List<FaqVo>)request.getAttribute("voList"); %>    
+<% List<NoticeVo> voList = (List<NoticeVo>)request.getAttribute("voList"); %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -94,7 +94,7 @@
     }
 
     #notice-h {
-        /* border: 1px solid red; */
+        border: 1px solid red;
         display: flex;
     }
 
@@ -106,14 +106,15 @@
     input[id="tab01"]:checked ~ .con1 {display: block;}
     input[id="tab02"]:checked ~ .con2 {display: block;}
 
+    
 </style>
 </head>
 <body>
     <div class="main-slider">
         <div class="main-slider-content">
-            <h1><strong>FAQ</strong></h1>
-            <h3>자주묻는 질문
-                <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 고객센터를 통해 문의사항을 남겨주세요. -->
+            <h1><strong>고객센터</strong></h1>
+            <h3>질문 또는 상담을 원하시면 아래 대표 연락처로 연락 주시거나
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 고객센터를 통해 문의사항을 남겨주세요.
             </h3>
         </div>
     </div>
@@ -124,11 +125,11 @@
             <input type="radio" name="tabmenu" id="tab02">
             <div id="notice-h">
                 <div class="notice-btn">
-                    <label for="tab01">목록</label>
+                    <label for="tab01">공지사항</label>
                 </div>
-<!--                 <div class="qna-btn">
+                <div class="qna-btn">
                     <label for="tab02">QnA</label>
-                </div> -->
+                </div>
             </div>
             
             <div class="conbox con1">
@@ -142,7 +143,7 @@
          
   				          <% for(int i = 0; i < voList.size(); ++i){ %>
 					          <div><%= voList.get(i).getNo() %></div>
-					          <div><a href="/omjm/FAQ/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+					          <div><a href="/omjm/notice/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
 					          <div><%= voList.get(i).getWriter() %></div>
 					          <div><%= voList.get(i).getEnrollDate() %></div>
 					          <div><%= voList.get(i).getHit() %></div>
@@ -152,7 +153,7 @@
                      </div>
          
                      <div id="write">
-                         <input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
+                         <input type="button" value="작성하기" onclick="location.href='/omjm/notice/write';">
                      </div>
          
                      <div id="page-area">
@@ -185,11 +186,72 @@
                        <div>하이염</div>
                        <div>2022/10/15</div>
                        <div>12</div>
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
+        
+        
+                       <div>1</div>
+                       <div>테스트 제목</div>
+                       <div>하이염</div>
+                       <div>2022/10/15</div>
+                       <div>12</div>
                        
                     </div>
         
                     <div id="write">
-                        <input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
+                        <input type="button" value="작성하기" onclick="location.href='/omjm/notice/write';">
                     </div>
         
                     <div id="page-area">
@@ -206,6 +268,7 @@
                            </ul>
                    </div>
                </div>
+
             </div>
         </div>
     </div>        

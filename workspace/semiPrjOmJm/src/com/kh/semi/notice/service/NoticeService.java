@@ -32,7 +32,7 @@ public class NoticeService {
 		//첨부파일 insert
 		int result2 = 1;
 		if(attachmentVo != null) {
-			result2 = NoticeDao.insertAttachment(conn , attachmentVo);
+			result2 = dao.insertAttachment(conn , attachmentVo);
 		}
 		if(result * result2 == 1) {
 			JDBCTemplate.commit(conn);

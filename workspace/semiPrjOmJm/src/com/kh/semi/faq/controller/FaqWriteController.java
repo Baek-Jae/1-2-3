@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.kh.semi.common.FileUploader;
+import com.kh.semi.faq.service.FaqService;
+import com.kh.semi.faq.vo.FaqAttachment;
+import com.kh.semi.faq.vo.FaqVo;
 import com.kh.semi.member.vo.MemberVo;
-import com.kh.semi.notice.service.NoticeService;
-import com.kh.semi.notice.vo.NoticeAttachment;
-import com.kh.semi.notice.vo.NoticeVo;
 
 @WebServlet(urlPatterns = "/FAQ/write")
 @MultipartConfig(
@@ -58,31 +58,31 @@ public class FaqWriteController extends HttpServlet{
 		String content = req.getParameter("content");
 		Part f = req.getPart("f");
 		
-		NoticeAttachment attachmentVo = null;
+		FaqAttachment attachmentVo = null;
 		//--------------- 파일업로드 start -------------------
 		
 		//파일정보 디비에 저장(파일이 있을 때)
 		String rootPath = req.getServletContext().getRealPath("/");	//최상단 경로
 		if(f.getSubmittedFileName().length() > 0) {
-			attachmentVo = FileUploader.NoticeuploadFile(f , rootPath);			
+			attachmentVo = FileUploader.FaquploadFile(f , rootPath);			
 		}
 		
 		//--------------- 파일업로드 end -------------------		
 		
 		//데이터 뭉치기
-		NoticeVo vo = new NoticeVo();
+		FaqVo vo = new FaqVo();
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(loginMember.getNo());
 		
 		//디비 다녀오고
-		int result = new NoticeService().write(vo , attachmentVo);
+		int result = new FaqService().write(vo , attachmentVo);
 		
 		//화면 선택
 		if(result == 1) {
 			//작성 성공 => 알람메세지 , 리스트 화면으로 리다이렉트
 			s.setAttribute("alertMsg", "공지사항 작성 완료 !");
-			resp.sendRedirect("/omjm/notice/list?pno=1");
+			resp.sendRedirect("/omjm/FAQ/list?pno=1");
 		}else {
 			//작성 실패 => 업로드된파일삭제 , 메세지 , 에러페이지 포워딩
 			if(attachmentVo != null) {
