@@ -203,14 +203,16 @@ li a:hover{
               </nav>
               </div>
         </div>
+        
+        <form action="/omjm/admin/rest" method="post"onsubmit="return check();">
         <div id="content">
             
             <div id="membersyo"> 
-            회원이름: <input type="text" id="in1" placeholder="회원이름 을 입력하세요 .  ">
+            회원이름: <input type="text" id="in1" placeholder="회원이름" <%=  %> >
             <br><br>
-            회원등급: <input type="text" id="in2" placeholder="회원등급 을 입력하세요 .">
+            회원등급: <input type="text" id="in2" placeholder="회원등급">
             <br><br>
-            회원제제:<input type="text" id="in3" placeholder= "회원 제제내역을 입력하세요 .">
+            회원제제:<input type="button>" id="in3" placeholder= "회원 제제시키기">
             <br><br><br><br>
             <button onclick="printOrder();">정보 출력</button>
             <br>
@@ -222,6 +224,7 @@ li a:hover{
                 <h3>id</h3>
                 
             </div>
+            </form>
         
             <script>
                 function printOrder(){

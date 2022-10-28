@@ -113,7 +113,7 @@
         <div id="content">
             
             <div id="membersyo"> 
-            회원이름: <input type="text" id="in1" placeholder="회원이름 을 입력하세요 .  ">
+            회원이름: <input type="text" id="in1" placeholder="회원이름 을 입력하세요 .">
             <br><br>
             회원등급: <input type="text" id="in2" placeholder="회원등급 을 입력하세요 .">
             <br><br>

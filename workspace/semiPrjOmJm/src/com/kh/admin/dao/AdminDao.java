@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.kh.semi.board.vo.BoardVo;
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.member.vo.MemberVo;
+import com.kh.semi.board.vo.BoardVo;
+
 
 public class AdminDao {
 
@@ -38,13 +39,13 @@ public class AdminDao {
 
 	
 	//제제 상세조회
-	public AdminVo selectOne(Connection conn, String lno) {
+	public MemberVo selectOne(Connection conn, String lno) {
 		
-		String sql = "SELECT B.NO , B.CONTENT , B.HIT , B.STATUS , M.NICK AS WRITER , FROM BOARD B JOIN MEMBER M WHERE B.NO = ? AND M.SUP = 'O'";
+		String sql = "SELECT M.NO ,M.NICK , M.STATUS , M.SUP  , FROM MEMBER M WHERE M.NO = ? AND M.SUP = 'O'";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		AdminVo vo = null;
+		MemberVo vo = null;
 		
 		
 		try {
@@ -56,17 +57,14 @@ public class AdminDao {
 			
 			if(rs.next()) {
 				String no = rs.getString("NO");
-				String content = rs.getString("CONTENT");
-				String hit = rs.getString("HIT");
-				//String sup = rs.getString("SUP");
-				String writer = rs.getString("WRITER");
+				String nick = rs.getString("NICK");
+				String sup = rs.getString("SUP");
 				String status = rs.getString("STATUS");
 				
-				vo = new AdminVo();
+				vo = new MemberVo();
 				vo.setNo(no);
-				vo.setContent(content);
-				vo.setHit(hit);
-				vo.setWriter(writer);
+				vo.setNick(nick);
+				vo.setSup(sup);
 				vo.setStatus(status);
 			}
 			
@@ -86,8 +84,26 @@ public class AdminDao {
 
 	public int increaseHit(Connection conn, String lno) {
 		
+		String sql = "UPDATE BOARD SET HIT = HIT + 1 WHERE NO = ? AND STATUS = 'O'";
 		
-		return 0;
+		PreparedStatement pstmt = null;
+		int result = 0;
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, lno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+		
 		
 	}
 
