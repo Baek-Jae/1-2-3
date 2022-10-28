@@ -34,17 +34,15 @@ public class PlaceService {
 		return cateVo;
 	}
 
-	public List<CateVo> wordSearch(String search) {
+	public List<GroupVo> wordSearch(String search) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 
-		List<CateVo> cateVo = new PlaceDao().selectList(conn, search);
+		List<GroupVo> list = new PlaceDao().selectList(conn, search);
 
 		JDBCTemplate.close(conn);
 		
-		System.out.println("service vo " + cateVo);
-		
-		return cateVo;
+		return list;
 	}
 
 	public List<GroupVo> GroupSearch(int num) {

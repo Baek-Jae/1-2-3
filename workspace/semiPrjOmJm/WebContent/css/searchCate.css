@@ -9,18 +9,22 @@
     height: 45vh;
 }
 #box {
-	height: 25%;
+	height: 30%;
 	width: 20%;
-	margin-left : 5%;
+	margin-left : 2.5%;
+	margin-right : 2.5%;
     transform: scale(1);
     transition: all 0.3s ease-in-out;   
 }
 #container>div {
 	text-align: center;
 }
-/*#box>div{
-	display : inline-block;
-}*/
+#container2 div {
+	text-align: center;
+}
+#group-list{
+	visibility: hidden;
+}
 /*더보기 접기*/
 .more {
 	display: block;
@@ -61,17 +65,17 @@
 }
 #container2 > #box{
 	display : inline-block;
-	height: 500px;
+	height: 100px;
     width: 20%;
 }
  /* 이미지 체크박스 */
  #box input[type=checkbox]{
     display: none;
 }
-#box input[type=checkbox]+label>img{
-   /*  font-weight: bold; */
+/* #box input[type=checkbox]+label>img{
+    font-weight: bold;
     height: 50%;
-}
+} */
 
 /* 메뉴 목록*/
 #box .menuitems{
@@ -80,13 +84,13 @@
     display: flex;
     width: 1200px;
     }
-    #box .menuitems li{
+#box .menuitems li{
     padding: 10px;
-    margin-top: 20px;
-    margin-left: 10px;
+    margin-top: 5px;
+    margin-left: 10px; 
     text-align: center;
     /* float: left; */
-    }
+}
 /* #box .menuitems li a{
     text-decoration: none;
 } */
@@ -170,7 +174,7 @@ table {
     justify-content: center;
  }*/
 .main-search {
-	margin:  60px 0px 20px 400px;
+	margin:  60px 0px 20px 450px;
     display: flex;
     align-items: center;
     width: 40vw;
