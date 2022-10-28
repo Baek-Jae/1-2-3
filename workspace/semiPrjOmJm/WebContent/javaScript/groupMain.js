@@ -19,10 +19,10 @@ for (let i = 0; i < offModalArr.length; ++i) {
       offModalArr[i].classList.add('close');
   });
 
-  openmodalArr[i].addEventListener('click', function () {
-      offModalArr[i].classList.remove('close');
-      offContent[i].style.height = offContent[i].scrollHeight + 'px';
-      offInfo[i].style.height = 300 + offContent[i].scrollHeight + 'px';
-  });
+//  openmodalArr[i].addEventListener('click', function () {
+//      offModalArr[i].classList.remove('close');
+//      offContent[i].style.height = offContent[i].scrollHeight + 'px';
+//      offInfo[i].style.height = 300 + offContent[i].scrollHeight + 'px';
+//  });
 }
 

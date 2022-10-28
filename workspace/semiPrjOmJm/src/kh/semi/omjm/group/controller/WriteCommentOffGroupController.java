@@ -19,15 +19,16 @@ public class WriteCommentOffGroupController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		resp.setContentType("text/html; charset=UTF-8;");
+		
 		String offNo = req.getParameter("offNo");
 		String memberNo = req.getParameter("memberNo");
 		String content = req.getParameter("content");
-
 		OffCommentVo ocv = new OffCommentVo();
 		ocv.setOffNo(offNo);
 		ocv.setGmemberNo(memberNo);
 		ocv.setContent(content);
-		System.out.println(ocv);
+		
 		
 		int myComment = new GroupService().insertOffComment(ocv);
 		if(myComment == 1) {

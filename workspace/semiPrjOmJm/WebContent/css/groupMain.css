@@ -133,7 +133,7 @@
     margin-right: 5px;
 }
 
-.off-group button {
+.off-group a {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -146,7 +146,7 @@
     background-color: transparent;
 }
 
-.off-group button:hover {
+.off-group a:hover {
     background-color: var(--color-1green);
     color: #fff;
     font-weight: 600;

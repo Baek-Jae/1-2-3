@@ -28,7 +28,7 @@ public class DetailGroupController extends HttpServlet{
 		
 		req.setAttribute("offList", offlistArr);
 		req.getSession().setAttribute("groupInfo", groupInfo);
-		req.setAttribute("GroupMainPic", groupAttachmentVo);
+		req.getSession().setAttribute("GroupMainPic", groupAttachmentVo);
 		
 		req.getRequestDispatcher("/WEB-INF/views/group/groupMain.jsp").forward(req, resp);
 	}

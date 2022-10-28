@@ -1,0 +1,344 @@
+body {
+    background-color: var(--color-main);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    float: left;
+    display: block;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+.offGroup_wrap {
+    position: relative;
+    padding-top: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainGroup_img {
+    position: absolute;
+    z-index: 0;
+    top: 150px;
+    width: 400px;
+    height: 300px;
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(152, 152, 152, 0.5);
+}
+.mainGroup_img img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offGroup_info {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    box-sizing: border-box;
+    padding: 200px 24px 24px 24px;
+    line-height: 22px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 700px;
+    border-radius: 12px 12px 0 0;
+}
+
+.offGroup_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.offGroup_name {
+    height: 40px;
+}
+
+.offGroup_name span {
+    font-size: 40px;
+    color: #ffbb34;
+    font-family: 'Nanum Pen Script', cursive;
+}
+.offGroup_leader {
+    display: flex;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 10px;
+    color: var(--color-2green);
+}
+
+.offGroup_leader span {
+    margin-right: 5px;
+}
+.offGroup_body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.offGroup_date {
+    color: rgb(119, 119, 119);
+    display: flex;
+    font-size: 15px;
+}
+.offGroup_date span {
+    margin-right: 10px;
+}
+.offGroup_MemberList {
+    position: relative;
+    text-align: end;
+    font-size: 15px;
+    border: none;
+    width: 70px;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(119, 119, 119);
+}
+
+.offGroup_MemberList:hover {
+    color: var(--color-main);
+}
+
+#offGroup_member {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 23px;
+}
+
+.offGroup_content {
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 15px 0;
+    font-size: 15px;
+    outline: none;
+    resize: none;
+    width: 100%;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 30px;
+}
+
+.comment_list {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.show_comment_list {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0 10px;
+    margin-right: 10px;
+}
+
+.comment_count {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    padding: 3px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 13px;
+    background-color: rgba(255, 82, 82, 0.864);
+    border-radius: 50%;
+    color: #fff;
+}
+
+#offGroup_comment_list {
+    border-top: 1px solid;
+    padding-top: 10px;
+}
+.offGroup_comment {
+    display: flex;
+    font-size: 15px;
+    color: #008676;
+    border-bottom: 1px solid var(--color-3green);
+    padding: 10px;
+}
+
+.offGroup_comment span {
+    margin-right: 10px;
+}
+.comment_user span {
+    color: var(--color-1green);
+    font-size: 13px;
+}
+
+.comment_content {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+.comment_controller {
+	position: relative;
+    align-self: flex-end;
+}
+
+.comment_controller button {
+    padding: 0 6px;
+    border: none;
+    background-color: transparent;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+}
+
+.comment_controller .comment_modify:hover {
+    color: var(--color-main);
+}
+
+.comment_controller .comment_delete:hover {
+    color: rgb(254, 68, 68);
+}
+
+.my_comment {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.my_comment input {
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.438);
+    border: none;
+    outline: none;
+}
+
+.comment_submit {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+}
+
+.comment_submit:hover {
+    color: var(--color-2green);
+}
+
+.offGroup_invite {
+    width: 700px;
+    padding: 24px;
+    background-color: var(--color-main);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    margin-bottom: 100px;
+    cursor: pointer;
+}
+
+.offGroup_invite:hover {
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 0 0 20px 20px;
+}
+
+.close {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.offModal_member_wrap {
+    position: absolute;
+    left: 75%;
+    top: 600px;
+    max-width: 350px;
+    background-color: #ffda91;
+    padding: 10px;
+    border-radius: 5px;
+}
+.off_member_info {
+    display: flex;
+}
+
+.offMember_info * {
+    font-size: 13px;
+    margin: 3px;
+}
+
+.member_controller {
+    display: flex;
+    justify-content: center;
+}
+
+.offMember_info button {
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.expulsion:hover,
+.absence:hover {
+    color: rgba(255, 82, 82, 0.864);
+}
+
+.participation:hover {
+    color: #46a15e;
+}
+
+.memberlist_close {
+    background-color: transparent;
+    color: #fff;
+    font-size: 15px;
+    position: absolute;
+    top: -50px;
+    right: 0;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.memberlist_close {
+    background-color: rgba(0, 0, 0, 0.183);
+    padding: 5px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+
+.comment{
+	background-color: transparent;
+	border:none;
+	outline:none;
+}
+
+.complate{
+	width: 41px;
+    position: absolute;
+    right: 42px;
+    top: 2px;
+}
+
+.complate:hover{
+	color: #46a15e;
+}
