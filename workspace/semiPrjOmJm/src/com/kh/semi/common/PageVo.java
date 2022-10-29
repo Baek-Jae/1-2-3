@@ -5,10 +5,10 @@ public class PageVo {
 	public PageVo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
 			int endPage) {
 		super();
-		this.listCount = listCount;
+		this.listCount = listCount;			
 		this.currentPage = currentPage;
-		this.pageLimit = pageLimit;
-		this.boardLimit = boardLimit;
+		this.pageLimit = pageLimit;				//5
+		this.boardLimit = boardLimit;			//10	
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
