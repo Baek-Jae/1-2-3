@@ -1,3 +1,4 @@
+<%@page import="com.kh.semi.member.vo.MemberLikeVo"%>
 <%@page import="com.kh.semi.password.PasswordVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,12 +26,12 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 <style>
-*{
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
-}
+    }
     #mem-full{
         width: 100vw;
         height: 780px;
@@ -48,11 +49,7 @@
     #mem-header{
     	height : 80px
     }
-    #bot{
-        width: 100vw;
-        height: 200px;
-        border: 1px solid black;
-    }
+
 
     input[type="radio"]{
         display: none;    
@@ -66,8 +63,8 @@
        
     }
     input[type="radio"]:checked + label{
-        background-color: #fdb930;
-        color: white;  
+      
+        color: #fdb930;  
         border-bottom: none;
         border-right: 1px solid black;
         border-left: 1px solid black;
@@ -78,7 +75,7 @@
         height: 100%;
         grid-column: span 6;
         display: none;
-        background-color: #fdb930;
+        
     }
     input[id="edit-mypage"]:checked ~ .mp-main1{display: block; }
     input[id="like-group"]:checked ~ .mp-main2{ display: block;}
@@ -97,7 +94,11 @@
       
       border: 1px solid #dddddd;
       color: black;
+      background-color: #dddddd;
       border-radius: 5px;
+      width: 60%;
+      height: 35px;
+      text-align: center;
   
     }
     .span2{
@@ -121,15 +122,17 @@
     /* mp-main1 부분 */
     
     .back{
-        width: 40vw;
+        width: 50vw;
         height: 700px;
-        background-color: rgba(0, 53, 109, 0.95);
+        background-color: #fff;
+        /* border: 1px solid rgba(0, 53, 109, 0.95); */
+        border: 5px solid #fdb930;
         display: grid;
         grid-template-rows: 2fr 7fr;
         justify-content: center;
-        margin: 100px auto;
+        margin: 50px auto;
         border-radius: 30px;
-        color: white;
+        color: black;
     }
     #mp-id{
         margin: 0 0px 0px 50px;
@@ -139,57 +142,114 @@
     #mem-mp1-content{
         display: grid;
         grid-template-columns: 0.5fr 1.5fr;
-        border: 1px solid white;
+        border: 1px solid gray;
         border-radius: 10px;
         height: 95%;
         padding: 30px;
     }
     #mp-login-info{
+        width: 700px;
         padding: 10px;
         text-align: center;
         margin: 0 auto;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid gray;
+    }
+    input[name=infoedit]{
+        margin: 0 auto;
+        width: 80%;
+        background-color: black;
+        color: #fff;
+    }
+    .select{
+        -o-appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 1px solid #dddddd;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 35px;
+        width: 60%;
+        text-align: center;
     }
   /* 찜한 모임 부분 css */
+  .span4{
+    grid-column: span 4;
+  }
   /* 매너온도 부분 css */
   #mem-mp4-content{
     
-    background-color: rgb(163, 163, 162);
-    width: 800px;
+    border: 1px solid gray;
+    width: 700px;
     border-radius: 10px;
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(3,2fr) repeat(3,1fr);
     height: 90%;
     padding: 30px;
     margin: 30px;
   }
   #mem-mp2-content{
-    width: 800px;
-    background-color: rgb(163, 163, 162);
+    width: 700px;
+    border: 1px solid gray;
     border-radius: 10px;
     display: grid;
     justify-content: center;
+    justify-items: center;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     height: 90%;
     padding: 30px;
     margin: 30px;
+    overflow: visible;
   }
   .back4{
         width: 50vw;
         height: 700px;
-        background-color: rgba(0, 53, 109, 0.95);
+        background-color: #fff;
+        border: 5px solid #fdb930;
         display: grid;
         grid-template-rows: 2fr 7fr;
         justify-content: center;
-        margin: 100px auto;
+        margin: 50px auto;
         border-radius: 30px;
-        color: white;
+        color: black;
+
 
     }
     /* 관심지역 css */
-    #mem-mp5-content{
+
+    #liked{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr 2fr 1fr;
+        place-content: center center;
+        width: 100%;
+    }
+    #mem-mp5-content > form{
+        height: 80%;
+    }
+    input[name=editplace]{
+        height: 40px;
+        width: 100%;
+        background-color: black;
+        color: #fff;
+    }
+    .select-place{
+       
+        color: black;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 50px;
+        width: 100%;
+        font-size: 18px;
+        text-align: center;
+    }
+    #liked > div{
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
     }
 </style>
 </head>
@@ -200,7 +260,7 @@
     <div id="mem-header"></div>
     <div id="mem-full">
         
-            <input type="radio" id="edit-mypage" name="mem-navi" >
+            <input type="radio" id="edit-mypage" name="mem-navi" selected >
             <label for="edit-mypage" ><span id="icon1" class="material-symbols-outlined">person&nbsp;개인정보수정</span>&nbsp;</label>
             <input type="radio" id="like-group" name="mem-navi">
             <label for="like-group" ><span class="material-symbols-outlined md-24"  >favorite&nbsp;찜한모임</span></label>
@@ -220,7 +280,7 @@
                         <div class="mem-mp-info">
                             <form action="/omjm/member/edit" method="post">
                                 <div id="mp-login-info"><h1>로그인 정보</h1></div>
-                                <div id="mp-id">아이디 : <%=loginMember.getId()%></div>
+                                <div id="mp-id">아이디 : ${loginMember.id}</div>
                                                 
                         </div>
                         <div id="mem-mp1-content">
@@ -243,7 +303,7 @@
                                             <option selected value="<%= pwdQList.get(i).getNo() %>" ><%=pwdQList.get(i).getQ() %></option>
                                                 <% } %>
                                         </select> --%>
-                                        <select name="mp-memberPQ">
+                                        <select name="mp-memberPQ"  class="select">
                                             <c:forEach items="${pwdQList}" var="vo">
                                             <option <c:if test="${vo.no == sessionScope.loginMember.pq }">selected</c:if> value="${vo.no}" >${vo.q}</option>
                                             </c:forEach>
@@ -253,7 +313,7 @@
                                        
                                        <div>: <input type="text" name="mp-memberPA" value="<%= loginMember.getPa()%>"  class="input"></div>
                                         
-                                    <input type="submit" value="수정하기" class="span2 input">
+                                    <input type="submit" value="수정하기" class="input span2" name="infoedit">
                             </form>
                         </div>
                 </div>
@@ -270,10 +330,25 @@
                     </div>
                     <div id="mem-mp2-content">
                         <!-- 반복 찜한 모임 보이게 해야함 반복문으로--> 
-                       	<div>큰 카테고리</div>
-                       	<div>작은 카테고리</div>
+                       	
+                        <div>카테고리</div>
+                        <div>세부카테고리</div>
+                        <div>지역이름</div>
                         <div>그룹이름</div>
-                        <div>찜하기 하트</div>
+
+                        <c:forEach items="${ likeVo }" var="like" >
+                          
+                                <div>${like.bCate }</div>
+                                <div>${like.sCate }</div>
+                                <div>${like.pName }</div>
+                                <div><a href="/group/detail?gno=${like.gNo}">${like.gName}</a></div>
+                            
+	                    </c:forEach>
+                          
+                        <div class="span4">
+                            
+                            12345
+                        </div>
                        	
                     </div>
                 </div>
@@ -310,7 +385,7 @@
                        	<div>일자</div>
                        	<div>그룹이름</div>
                         <div>오프그룹이룸</div>
-                        <div>참여 불참 여부</div>
+                        <div>참/불참</div>
                         <div>+1 -1 </div>
                         <div>매너온도 점수</div>
                        	
@@ -324,13 +399,14 @@
                             <div id="mp-login-info"><h1>관심지역</h1></div>                       
                     </div>
                     <div id="mem-mp5-content">
-                        <div>관심지역</div>
-                        <div>
-                            <input type="text" id="likeplace" value="<%= loginMember.getPlace()%>"> 입니다
-                        </div>
-                        
-                        <button onclick="editplaceAjax()" >관심지역 수정하기</button>
-                        
+                        <form action="/omjm/member/likeplace" method="post" id="liked">
+                            <div>${sessionScope.loginMember.nick}님이 선택하신 관심 지역</div>
+                            <div>
+                                <input type="text" name ="likeplace" id="likeplace" class =" input select-place" value="${loginMember.place}">
+                            </div>
+                            
+                            <input type="submit" value="관심지역 수정하기" class="input" name="editplace">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -371,30 +447,17 @@
         
     }
    
-    const editplace = document.querySelector('#likeplace');
+    const editplace = document.querySelector('input[name=likeplace]');
+
+    console.log(editplace);
 
     editplace.addEventListener('click', function(){
         openSelectPlace();
     })
 
-    function editplaceAjax(){
-        $.ajax({
-
-            url = "/omjm/member/likeplace",
-            type : "post",
-            data : {
-                "likeplace" : "$('#likeplace').val()"
-            },
-            success : function(){
-                alert('수정성공');
-            },
-            error : function(){
-                alert('실패');
-            }
 
 
-        })
-    }
+ 
   </script>
 </body>
 </html>

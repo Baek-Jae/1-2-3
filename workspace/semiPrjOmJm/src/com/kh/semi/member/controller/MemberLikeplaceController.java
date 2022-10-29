@@ -40,12 +40,26 @@ public class MemberLikeplaceController extends HttpServlet{
 		MemberVo vo = new MemberVo();
 		
 		String id = loginMember.getId();
+		String pwd = loginMember.getPwd();
 		String place = req.getParameter("likeplace");
+		
 		
 		vo.setId(id);
 		vo.setPlace(place);
+		vo.setPwd(pwd);
 		
-		int result = new MemberService().editPlace(vo);
+		MemberVo editMember = new MemberService().editPlace(vo);
+		
+		
+		
+		if(editMember != null) {
+			session.setAttribute("loginMember", editMember);
+			req.setAttribute("x", "4");
+			req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
+			System.out.println("정보수정성공~~");
+		}else {
+			System.out.println("정보수정실패");
+		}
 		
 	}
 	

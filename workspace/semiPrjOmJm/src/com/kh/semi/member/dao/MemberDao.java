@@ -8,8 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
+
+import kh.semi.omjm.group.vo.GroupVo;
 
 
 
@@ -160,5 +164,62 @@ public class MemberDao {
 			
 			return result;
 		}
+
+		//찜한그룹 가져오기
+		public MemberLikeVo selectLikeGroupByNo(Connection conn, String gNo) {
+			
+			String sql = "SELECT C.CA_NAME BCATE, C.DE_NAME SCATE, G.NAME GNAME, P.P_NAME PNAME, M.NICK MNICK , G.NO GNO "
+						+ "FROM MEMBER M JOIN LIKE_GROUP LG ON LG.USER_NO = M.NO "
+						+ "JOIN OMJM_GROUP G ON G.NO = LG.GROUP_NO "
+						+ "JOIN CATEGORY C ON G.CATE_NO = C.CA_NO "
+						+ "JOIN PLACE P ON P.P_NO = G.PLACE_NO "
+						+ " WHERE G.NO = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			MemberLikeVo likeVo = null;
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, Integer.parseInt(gNo));
+			
+				rs = pstmt.executeQuery();
+				
+				
+				
+				while(rs.next()) {
+					likeVo = new MemberLikeVo();
+					
+					String bCate = rs.getString("BCATE");
+					String sCate = rs.getString("SCATE");
+					String pName = rs.getString("PNAME");
+					String mNick = rs.getString("MNICK");
+					String gName = rs.getString("GNAME");
+					String gno = rs.getString("GNO");
+					
+					
+					likeVo.setbCate(bCate);
+					likeVo.setsCate(sCate);
+					likeVo.setpName(pName);
+					likeVo.setmNick(mNick);
+					likeVo.setgName(gName);
+					likeVo.setgNo(gno);
+					
+					
+					
+				}
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt);
+				
+			}
+			
+			return likeVo;
+		}
+		
 
 }
