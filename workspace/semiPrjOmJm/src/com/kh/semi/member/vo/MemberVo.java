@@ -3,13 +3,11 @@ package com.kh.semi.member.vo;
 public class MemberVo {
 
 
-
-public MemberVo() {
+	public MemberVo() {
 		
 	}
 	
 
-	
 	public MemberVo(String id, String pwd) {
 		
 		this.id = id;
@@ -17,12 +15,10 @@ public MemberVo() {
 		
 	}
 	
-
 	private String no;
 	private String id;
 	private String pwd;
 	private String nick;
-	private String name;
 	private String place;
 	private String [] placeArr;
 	
@@ -58,12 +54,7 @@ public MemberVo() {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public String getPwd() {
 		return pwd;
 	}
@@ -178,21 +169,12 @@ public MemberVo() {
 	public void setPq(String pq) {
 		this.pq = pq;
 	}
-	
-	
-	
 	public String[] getCatgArr() {
 		return catgArr;
 	}
-
-
-
 	public void setCatgArr(String[] catgArr) {
 		this.catgArr = catgArr;
 	}
-
-
-
 	public String[] getlGArr() {
 		return lGArr;
 	}
@@ -222,7 +204,7 @@ public MemberVo() {
 
 	@Override
 	public String toString() {
-		return "MemberVo [no=" + no + ", id=" + id + ", pwd=" + pwd + ", nick=" + nick + ", name=" + name + ", place="
+		return "MemberVo [no=" + no + ", id=" + id + ", pwd=" + pwd + ", nick=" + nick +"" + ", place="
 				+ place + ", phone=" + phone + ", catg=" + catg + ", gender=" + gender + ", pq=" + pq + ", pa=" + pa
 				+ ", manner=" + manner + ", likeGroup=" + likeGroup + ", ppOff=" + ppOff + ", nppOff=" + nppOff
 				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", alarmYn=" + alarmYn + ", admin="

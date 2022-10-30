@@ -119,6 +119,17 @@ private final MemberDao dao = new MemberDao();
 		 
 		return likeVo;
 	}
+	//아이디 중복확인
+	public int doubleCheckbyId(String id) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.doubleCheckbyId(conn, id);
+		
+		close(conn);
+		
+		return result;
+	}
 
 	
 }
