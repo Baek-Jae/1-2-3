@@ -37,7 +37,7 @@ public class MemberDao {
 				pstmt.setString(5, vo.getPlace());
 				pstmt.setString(6, vo.getCatg());
 				pstmt.setString(7, vo.getGender());
-				pstmt.setInt(8, Integer.parseInt(vo.getPq()));
+				//pstmt.setInt(8, Integer.parseInt(vo.getPq()));
 				pstmt.setString(9, vo.getPa());
 				pstmt.setString(10, vo.getLikeGroup());
 				
@@ -219,6 +219,35 @@ public class MemberDao {
 			}
 			
 			return likeVo;
+		}
+		
+		//아이디 더블체크
+		public int doubleCheckbyId(Connection conn, String id) {
+			
+			String sql = "SELECT ID FROM MEMBER WHERE ID = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					 System.out.println("아이디있다고사용못한다고");// 아이디가 있다.
+					result = 1; // 아이디를 써도된다~~~
+				}
+			
+			} catch (SQLException e) {
+				
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return result;
 		}
 		
 
