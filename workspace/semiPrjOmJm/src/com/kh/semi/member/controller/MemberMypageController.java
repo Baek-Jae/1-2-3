@@ -65,8 +65,7 @@ public class MemberMypageController extends HttpServlet{
 		pv.setEndPage(endPage);
 		
 		
-		System.out.println(pv);
-		
+		req.setAttribute("pv", pv);
 		req.setAttribute("likeVo", likeVo);
 		req.setAttribute("x", x);
 		req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);

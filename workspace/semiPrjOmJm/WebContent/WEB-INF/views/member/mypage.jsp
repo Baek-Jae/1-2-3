@@ -1,11 +1,12 @@
-<%@page import="com.kh.semi.member.vo.MemberLikeVo"%>
+<%@page import="com.kh.semi.common.PageVo"%>
 <%@page import="com.kh.semi.password.PasswordVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%String alertMsg = (String)request.getAttribute("alertMsg");%>
+<%	String alertMsg = (String)request.getAttribute("alertMsg");%>
+<% PageVo pv = (PageVo)request.getAttribute("pv"); %>
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
 
 <!DOCTYPE html>
@@ -341,13 +342,16 @@
                                 <div>${like.bCate }</div>
                                 <div>${like.sCate }</div>
                                 <div>${like.pName }</div>
-                                <div><a href="/group/detail?gno=${like.gNo}">${like.gName}</a></div>
+                                <div><a href="/omjm/group/detail?gno=${like.gNo}">${like.gName}</a></div>
                             
 	                    </c:forEach>
                           
                         <div class="span4">
-                            
-                            12345
+
+                            <%for(int i = pv.getStartPage(); i <=pv.getEndPage() ; i++) {%>
+                                <a href="/omjm/member/mypage?x=1&lgpno=<%=i%>" class="btn"><%=i%></a> 
+                            <%}%>
+                           
                         </div>
                        	
                     </div>

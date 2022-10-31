@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.common.PageVo;
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
@@ -66,6 +67,32 @@ public class MemberCheckController extends HttpServlet{
 		
 		req.setAttribute("likeVo", likeVo);
 		
+		int listCount = likeVo.size();
+		int currentPage = 1;
+		int pageLimit = 5; // 내가 정함
+		int boardLimit = 10; // 내가 정함
+		
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int startPage = (currentPage -1) / pageLimit * pageLimit + 1 ;
+		int endPage = startPage + pageLimit -1;
+		
+		if(endPage > maxPage) {
+			endPage=maxPage;
+		}
+		PageVo pv = new PageVo();
+		
+		pv.setListCount(listCount);
+		pv.setCurrentPage(currentPage);
+		pv.setPageLimit(pageLimit);
+		pv.setBoardLimit(boardLimit);
+		pv.setMaxPage(maxPage);
+		pv.setStartPage(startPage);
+		pv.setEndPage(endPage);
+		
+		
+		
+		
+		req.setAttribute("pv", pv);
 		
 		
 		if(pwd.equals(loginMember.getPwd())) {

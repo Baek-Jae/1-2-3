@@ -13,7 +13,6 @@ import javax.servlet.http.Part;
 
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
-import com.kh.semi.member.vo.ProfileAttachVo;
 import com.kh.semi.password.PasswordController;
 import com.kh.semi.password.PasswordVo;
 
@@ -50,7 +49,6 @@ public class MemberJoinController extends HttpServlet{
 			String id = req.getParameter("memberId");
 			String pwd = req.getParameter("memberPwd1");
 			String nick = req.getParameter("memberNick");
-			String name = req.getParameter("memberName");
 			String phone = req.getParameter("memberPhone");
 			//임시
 			String category = req.getParameter("memberCate");
@@ -59,11 +57,6 @@ public class MemberJoinController extends HttpServlet{
 			String gender = req.getParameter("memberGender");
 			String pq = req.getParameter("memberPQ");
 			String pa = req.getParameter("memberPA");
-			Part f = req.getPart("f");
-			
-			//파일업로드 start
-			ProfileAttachVo profileVo = null;
-			//파일 정보 디비에 저장하기 (파일이 있을 때)
 			
 			
 			//데이터 뭉치기
@@ -72,7 +65,6 @@ public class MemberJoinController extends HttpServlet{
 			vo.setId(id);
 			vo.setPwd(pwd);
 			vo.setNick(nick);
-			vo.setName(name);
 			vo.setPhone(phone);
 			//vo.setPlace(String.join(",", place));
 			//vo.setCatg(String.join(",", category));
