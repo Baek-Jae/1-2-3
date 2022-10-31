@@ -18,15 +18,16 @@ import com.kh.semi.notice.vo.NoticeVo;
 public class FaqListController extends HttpServlet{
 
 	//FAQ 목록 (화면)
-		@Override
-		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			
-			// 디비 다녀오기
-			List<FaqVo> voList = new FaqService().selectFaqList();
-			
-			// 화면선택(데이터 담아서)
-			req.setAttribute("voList", voList);
-			req.getRequestDispatcher("/WEB-INF/views/FAQ/list.jsp").forward(req, resp);
-			
-		}//doGet
-}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		// 디비 다녀오기
+		List<FaqVo> voList = new FaqService().selectFaqList();
+		
+		// 화면선택(데이터 담아서)
+		req.setAttribute("voList", voList);
+		req.getRequestDispatcher("/WEB-INF/views/FAQ/list.jsp").forward(req, resp);
+		
+	}//doGet
+	
+}//class

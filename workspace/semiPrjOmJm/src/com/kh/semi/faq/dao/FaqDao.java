@@ -14,8 +14,8 @@ import com.kh.semi.notice.vo.NoticeVo;
 
 public class FaqDao {
 
+	//FAQ 작성
 	public int insertFaq(Connection conn, FaqVo vo) {
-		//SQL (준비 , 완성 , 실행)
 		
 		String sql = "INSERT INTO FAQ ( NO ,TITLE ,CONTENT ,WRITER ) VALUES ( SEQ_NOTICE_NO.NEXTVAL , ? , ? , ? )";
 		
@@ -41,6 +41,7 @@ public class FaqDao {
 		
 	}//insertFaq
 
+	//첨부파일 insert
 	public int insertAttachment(Connection conn, FaqAttachment attachmentVo) {
 		
 		String sql = "INSERT INTO FAQ_ATTACHMENT(NO, FAQ_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH) VALUES(SEQ_FAQ_ATTACHMENT_NO.NEXTVAL, SEQ_FAQ_NO.CURRVAL , ? , ? , ?)";
@@ -66,7 +67,7 @@ public class FaqDao {
 		
 	}//insertAttachment
 
-	//공지사항 목록 조회
+	//FAQ 목록 조회
 	public List<FaqVo> selectFaqList(Connection conn) {
 		
 		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.ANS_CONTENT , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.DELETE_YN = 'O' ORDER BY NO DESC";
@@ -89,6 +90,7 @@ public class FaqDao {
 				String enrollDate = rs.getString("ENROLL_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
 				String ansContent = rs.getString("ANS_CONTENT");
+				String modifyDate = rs.getString("MODIFY_DATE");
 				
 				FaqVo vo = new FaqVo();
 				vo.setNo(no);
@@ -99,6 +101,7 @@ public class FaqDao {
 				vo.setEnrollDate(enrollDate);
 				vo.setDeleteYn(deleteYn);
 				vo.setAnsContent(ansContent);
+				vo.setModifyDate(modifyDate);
 				
 				voList.add(vo);
 			}
@@ -113,6 +116,7 @@ public class FaqDao {
 		
 	}//selectFaqList
 
+	//FAQ 삭제하기
 	public int delete(Connection conn, String no) {
 		
 		String sql = "UPDATE FAQ SET DELETE_YN = 'X' WHERE NO = ?";
@@ -136,6 +140,7 @@ public class FaqDao {
 		
 	}//delete
 
+	//조회수 증가
 	public int increaseHit(Connection conn, String no) {
 		
 		String sql = "UPDATE FAQ SET HIT = HIT + 1 WHERE NO = ?";
@@ -204,6 +209,33 @@ public class FaqDao {
 		
 		return vo;	
 	}
+
+	//FAQ 수정하기
+	public int updateOneByNo(Connection conn, NoticeVo vo) {
+		
+		String sql = "UPDATE FAQ SET TITLE = ? , CONTENT = ? , MODIFY_DATE = SYSDATE WHERE NO = ?";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+		
+	}//updateOneByNo
 
 }//class
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +17,11 @@
     body{
         padding: 0;
         margin: 0;
-		padding: 100px;
     }
+
+	#main {
+		padding-top: 100px;
+	}
 
     #list-main{
         width: 100vw;
@@ -26,8 +30,8 @@
     }
 
 	.outer{
-	   background: black;
-	   color: white;
+	   background: #fdb930;
+	   color: #008676;
 	   width: 60%;
 	   height: 550px;
 	   margin: auto;
@@ -40,11 +44,9 @@
 	   box-sizing: border-box;
 	}
  
- </style>+
+</style>
 </head>
 <body>
-
-	<%@ include file = "/WEB-INF/views/common/header.jsp" %>
 	
 	<div id="main">
 
@@ -58,9 +60,8 @@
 			  <!-- 카테고리, 제목, 내용, 첨부파일 한개 -->
 			  <table>
 				  <tr>
-					  <th width="70px">카테고리</th>
+					  <th width="70px"></th>
 					  <td width="500px">
-
 					  </td>
 				  </tr>
 				  <tr>

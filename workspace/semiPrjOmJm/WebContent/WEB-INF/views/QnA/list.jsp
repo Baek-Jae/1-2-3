@@ -3,90 +3,147 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<QnAVo> voList = (List<QnAVo>)request.getAttribute("voList");
-	PageVo pv = (PageVo)request.getAttribute("pv");
+	PageVo pv = (PageVo)request.getSession().getAttribute("pv");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
-    #main{
-        width: 60vw;
-        height: 60vh;
-        border: 5px solid black;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 5fr 3fr 3fr 1fr;
-        grid-template-rows: repeat(13 , 30px);
-        align-content: center;
-		padding-top: 200px;
+    :root{
+    --color-main: #fdb930;
+    --color-1green: #46a15e;
+    --color-2green: #9cb43a;
+    --color-3green: #008676;
     }
 
-    #main>div{
-        border-bottom: 1px dashed black;
-    }
-    
-    #main > #page-area{
-    	grid-column: span 5;
+   body {
+        margin: 0;
+        padding: 0;
+   }
+
+   a{
+        text-decoration: none;
+        color: inherit;
+   }
+
+   .boardlistwrap {
+        padding-top: 200px;
+        padding-left: 230px;
+        padding-right: 230px;
+   }
+
+   .boardlisthead,
+   .boardlistbody .item {
+        font-size: 0;
+        padding: 10px 0;
+   }
+
+   .boardlisthead{
+        border-top: 2px solid #fdb930;
+        border-bottom: 1px solid #ccc;
+   }
+
+   .boardlistbody .item{
+        border-bottom: 1px solid #ccc;
+   }
+
+   .boardlisthead > div ,
+   .boardlistbody .item > div {
+        display: inline-block;
+        /* background: yellow; */
         text-align: center;
-        margin-top: 20px;
-        border-bottom: none;
+        font-size: 14px;
+   }
+
+   .boardlisthead > div {
+        font-weight: 600;
+   }
+
+   .boardlist .num {
+       width: 10%;
     }
 
-    #main-top{
-        grid-column: span 5;
-        row-gap: 50px;
-        display: flex;
-        flex-direction: row-reverse;
+    .boardlist .title {
+       width: 55%;
+    }
+
+    .boardlistbody div.title {
+       text-align: left;
+    }
+
+    .boardlistbody div.title a:hover {
+       text-decoration: underline;
+    }
+
+    .boardlist .writer {
+       width: 10%;
+    }
+
+    .boardlist .date {
+        width: 15%;
+    }
+
+    .boardlist .view {
+        width: 10%;
+    }
+
+    #page-area {
+        text-align: center;
+    }
+
+    #write {
+        text-align: end;
     }
 </style>
+</head>
 <body>
-
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <div class="boardlistwrap">
+        <div class="boardlist">
+            <div class="boardlisthead">
+                <div class="num">번호</div>
+                <div class="title">제목</div>
+                <div class="writer">글쓴이</div>
+                <div class="date">작성일</div>
+                <div class="view">조회</div>
+            </div>
+        
+        	<div class="boardlistbody">
+	        <%for(int i = 0; i < voList.size(); ++i){%>
+        	<div class="item">
+	                <div class="num"><%= voList.get(i).getNo() %></div>
+	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+	                <div class="writer"><%= voList.get(i).getWriter() %></div>
+	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
+	                <div class="view"><%= voList.get(i).getHit() %></div>
+	                </div>
+	        <%}%>        
+	        </div>
+            
+            <div id="page-area">
+	        
+	        	<%if(pv.getStartPage() != 1){%>
+	        		<a href="/omjm/QnA/list?qno=<%=pv.getStartPage()-1%>" class = "btn btn-primary">이전</a>
+	        	<%}%>		
 	
-    <div id="main">
-       	<%if(loginMember != null){%>
-		      <div id="main-top">
-	        	    <a href="/omjm/QnA/write" class="btn btn-primary">글쓰기</a>
-  	    	  </div>
-       	<%}%>
-
-        <div>번호</div>
-        <div>제목</div>
-        <div>작성자</div>
-        <div>작성일시</div>
-        <div>조회수</div>
-        
-        <%for(int i = 0; i < voList.size(); ++i){%>
-                <div><%= voList.get(i).getNo() %></div>
-                <div><a href="<%= root %>/QnA/detail?qno=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
-                <div><%= voList.get(i).getWriter() %></div>
-                <div><%= voList.get(i).getEnrollDate() %></div>
-                <div><%= voList.get(i).getHit() %></div>
-        <%}%>        
-        
-        <div id="page-area">
-        
-        	<%if(pv.getStartPage() != 1){%>
-        		<a href="/omjm/QnA/list?pno=<%=pv.getStartPage()-1%>" class = "btn btn-primary">이전</a>
-        	<%}%>		
-
-        	<%for(int i = pv.getStartPage() ; i <= pv.getEndPage() ; ++i){%>
-        		<a href="/omjm/QnA/list?pno=<%=i%>" class="btn btn-primary btn-sm"><%=i%></a>		
-        	<%}%>
-        	
-        	<%if(pv.getEndPage() != pv.getMaxPage()){%>
-	        	<a href="/omjm/QnA/list?pno=<%=pv.getEndPage()+1%>" class = "btn btn-primary">다음</a>
-        	<%}%>
-        	
+	        	<%for(int i = pv.getStartPage() ; i <= pv.getEndPage() ; ++i){%>
+	        		<a href="/omjm/QnA/list?qno=<%=i%>" class="btn btn-primary btn-sm"><%=i%></a>		
+	        	<%}%>
+	        	
+	        	<%if(pv.getEndPage() != pv.getMaxPage()){%>
+		        	<a href="/omjm/QnA/list?qno=<%=pv.getEndPage()+1%>" class = "btn btn-primary">다음</a>
+	        	<%}%>
+	        	
+	        </div>
+	        
+            <div id="write">
+       			<input type="button" value="작성하기" onclick="location.href='/omjm/QnA/write';">
+            </div>
         </div>
-
     </div>
-
 </body>
 </html>

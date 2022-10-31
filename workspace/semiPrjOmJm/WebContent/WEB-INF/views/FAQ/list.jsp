@@ -1,213 +1,151 @@
+<%@page import="com.kh.semi.common.PageVo"%>
 <%@page import="com.kh.semi.faq.vo.FaqVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<% List<FaqVo> voList = (List<FaqVo>)request.getAttribute("voList"); %>    
+<%
+	List<FaqVo> voList = (List<FaqVo>)request.getAttribute("voList");
+	PageVo pv = (PageVo)request.getSession().getAttribute("pv");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 <style>
     :root{
-        --color-main: #fdb930;
-        --color-1green: #46a15e;
-        --color-2green: #9cb43a;
-        --color-3green: #008676;
-    }    
-    
-    body{
-        padding: 0;
+    --color-main: #fdb930;
+    --color-1green: #46a15e;
+    --color-2green: #9cb43a;
+    --color-3green: #008676;
+    }
+
+   body {
         margin: 0;
-        padding: 100px;
-    }
-
-    #list-main{
-        width: 100vw;
-        margin:auto;
-        padding-top: 80px;
-    }
-
-    #commu-title{
-        height: 100%;
-        margin: auto;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    #cate-list{
-        width: 70%;
-        height: 100%;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 1fr 5fr 2fr 3fr 1fr;
-        grid-template-rows: repeat(11,40px);
-        border-bottom:1px solid var(--semi-green);
-    }
-
-    #page-area{
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-    }
-
-    #page-nation{
-        list-style: none;
-        display: inline-block;
         padding: 0;
-        margin-top: 20px;
-    }
+   }
 
-    #page-nation li{
-        display: inline;
+   a{
+        text-decoration: none;
+        color: inherit;
+   }
+
+   .boardlistwrap {
+        padding-top: 200px;
+        padding-left: 230px;
+        padding-right: 230px;
+   }
+
+   .boardlisthead,
+   .boardlistbody .item {
+        font-size: 0;
+        padding: 10px 0;
+   }
+
+   .boardlisthead{
+        border-top: 2px solid #fdb930;
+        border-bottom: 1px solid #ccc;
+   }
+
+   .boardlistbody .item{
+        border-bottom: 1px solid #ccc;
+   }
+
+   .boardlisthead > div ,
+   .boardlistbody .item > div {
+        display: inline-block;
+        /* background: yellow; */
         text-align: center;
-        margin:0 10px;
+        font-size: 14px;
+   }
+
+   .boardlisthead > div {
+        font-weight: 600;
+   }
+
+   .boardlist .num {
+       width: 10%;
     }
 
-    .main-slider-content {
-    background-color: var(--color-main);
-    margin-top: 80px;
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    height: 45vh;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
+    .boardlist .title {
+       width: 55%;
     }
 
-    .main-slider-content h2 {
-        font-weight: 400;
-        font-size: 2em;
+    .boardlistbody div.title {
+       text-align: left;
     }
 
-    .main-slider-content h2:nth-child(4) {
-        margin-bottom: 50px;
+    .boardlistbody div.title a:hover {
+       text-decoration: underline;
     }
 
-    #notice-h {
-        /* border: 1px solid red; */
-        display: flex;
+    .boardlist .writer {
+       width: 10%;
     }
 
-/* 공지사항 qna 버튼 */
-    input[type="radio"] {display:none;}
-    input[type="radio"] :checked + label {display: inline-block; padding: 20px; background: var(--color-main); color: var(--color-2green); font-size: 15px; cursor: pointer;}
+    .boardlist .date {
+        width: 15%;
+    }
 
-    .conbox {width: 100%; background: var(--color-3green); margin: 0 auto; display: none;}
-    input[id="tab01"]:checked ~ .con1 {display: block;}
-    input[id="tab02"]:checked ~ .con2 {display: block;}
+    .boardlist .view {
+        width: 10%;
+    }
 
+    #page-area {
+        text-align: center;
+    }
+
+    #write {
+        text-align: end;
+    }
 </style>
 </head>
 <body>
-    <div class="main-slider">
-        <div class="main-slider-content">
-            <h1><strong>FAQ</strong></h1>
-            <h3>자주묻는 질문
-                <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 고객센터를 통해 문의사항을 남겨주세요. -->
-            </h3>
+    <div class="boardlistwrap">
+        <div class="boardlist">
+            <div class="boardlisthead">
+                <div class="num">번호</div>
+                <div class="title">제목</div>
+                <div class="writer">글쓴이</div>
+                <div class="date">작성일</div>
+                <div class="view">조회</div>
+            </div>
+        
+        	<div class="boardlistbody">
+	        <%for(int i = 0; i < voList.size(); ++i){%>
+        	<div class="item">
+	                <div class="num"><%= voList.get(i).getNo() %></div>
+	                <div class="title"><a href="<%= root %>/FAQ/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+	                <div class="writer"><%= voList.get(i).getWriter() %></div>
+	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
+	                <div class="view"><%= voList.get(i).getHit() %></div>
+	                </div>
+	        <%}%>
+	        </div>
+            
+            <div id="page-area">
+	        
+	        	<%if(pv.getStartPage() != 1){%>
+	        		<a href="/omjm/FAQ/list?fno=<%=pv.getStartPage()-1%>" class = "btn btn-primary">이전</a>
+	        	<%}%>		
+	
+	        	<%for(int i = pv.getStartPage() ; i <= pv.getEndPage() ; ++i){%>
+	        		<a href="/omjm/FAQ/list?fno=<%=i%>" class="btn btn-primary btn-sm"><%=i%></a>		
+	        	<%}%>
+	        	
+	        	<%if(pv.getEndPage() != pv.getMaxPage()){%>
+		        	<a href="/omjm/FAQ/list?fno=<%=pv.getEndPage()+1%>" class = "btn btn-primary">다음</a>
+	        	<%}%>
+	        	
+	        </div>
+	        
+            <div id="write">
+       			<input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
+            </div>
         </div>
     </div>
-
-    <div id="list-main">
-        <div class="tab_content" id="commu-title">
-            <input type="radio" name="tabmenu" id="tab01">
-            <input type="radio" name="tabmenu" id="tab02">
-            <div id="notice-h">
-                <div class="notice-btn">
-                    <label for="tab01">목록</label>
-                </div>
-<!--                 <div class="qna-btn">
-                    <label for="tab02">QnA</label>
-                </div> -->
-            </div>
-            
-            <div class="conbox con1">
-                <div id="list-area">
-                     <div id="cate-list">
-                        <div class="first">번호</div>
-                        <div class="first">제목</div>
-                        <div class="first">작성자</div>
-                        <div class="first">일시</div>
-                        <div class="first">조회수</div>
-         
-  				          <% for(int i = 0; i < voList.size(); ++i){ %>
-					          <div><%= voList.get(i).getNo() %></div>
-					          <div><a href="/omjm/FAQ/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
-					          <div><%= voList.get(i).getWriter() %></div>
-					          <div><%= voList.get(i).getEnrollDate() %></div>
-					          <div><%= voList.get(i).getHit() %></div>
-				          <%}%>
-                        
-                        
-                     </div>
-         
-                     <div id="write">
-                         <input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
-                     </div>
-         
-                     <div id="page-area">
-                            <ul id="page-nation">
-                             <li><a href="#" class="first"><<</a></li>
-                             <li><a href="#" class="arrow left"><</a></li>
-                             <li><a href="#" class="num">1</a></li>
-                             <li><a href="/" class="num">2</a></li>
-                             <li><a href="/" class="num">3</a></li>
-                             <li><a href="/" class="num">4</a></li>
-                             <li><a href="/" class="num">5</a></li>
-                             <li><a href="/" class="arrow right">></a></li>
-                             <li><a href="/" class="last">>></a></li>
-                            </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="conbox con2">
-                <div id="list-area">
-                    <div id="cate-list">
-                       <div class="first">번호</div>
-                       <div class="first">제목</div>
-                       <div class="first">작성자</div>
-                       <div class="first">일시</div>
-                       <div class="first">조회수</div>
-        
-                       <div>1</div>
-                       <div>QnA 제목</div>
-                       <div>하이염</div>
-                       <div>2022/10/15</div>
-                       <div>12</div>
-                       
-                    </div>
-        
-                    <div id="write">
-                        <input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
-                    </div>
-        
-                    <div id="page-area">
-                           <ul id="page-nation">
-                            <li><a href="#" class="first"><<</a></li>
-                            <li><a href="#" class="arrow left"><</a></li>
-                            <li><a href="#" class="num">1</a></li>
-                            <li><a href="/" class="num">2</a></li>
-                            <li><a href="/" class="num">3</a></li>
-                            <li><a href="/" class="num">4</a></li>
-                            <li><a href="/" class="num">5</a></li>
-                            <li><a href="/" class="arrow right">></a></li>
-                            <li><a href="/" class="last">>></a></li>
-                           </ul>
-                   </div>
-               </div>
-            </div>
-        </div>
-    </div>        
 </body>
 </html>

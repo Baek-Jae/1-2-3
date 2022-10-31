@@ -60,7 +60,7 @@ public class QnAListController extends HttpServlet{
 		List<QnAVo> x = new QnAService().selectList(pv);
 		
 		req.setAttribute("voList", x);
-		req.setAttribute("pv", pv);
+		req.getSession().setAttribute("pv", pv);
 		
 		//화면선택
 		req.getRequestDispatcher("/WEB-INF/views/QnA/list.jsp").forward(req, resp);

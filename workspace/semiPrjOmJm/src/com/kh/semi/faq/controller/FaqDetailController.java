@@ -28,4 +28,5 @@ public class FaqDetailController extends HttpServlet{
 		req.getRequestDispatcher("/WEB-INF/views/FAQ/detail.jsp").forward(req, resp);
 		
 	}//doGet
-}
+	
+}//class

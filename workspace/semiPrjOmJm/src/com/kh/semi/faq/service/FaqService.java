@@ -55,6 +55,7 @@ public class FaqService {
 		close(conn);
 		
 		return voList;
+		
 	}//selectFaqList
 
 	//FAQ 삭제하기
@@ -93,6 +94,25 @@ public class FaqService {
 		return vo;
 				
 	}//selectFaqOne
+
+	//FAQ 수정하기
+	public int edit(NoticeVo vo) {
+		
+		Connection conn = getConnection();
+		
+		int result = Fao.updateOneByNo(conn , vo);
+		
+		if(result == 1) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}//edit
 
 }//class
 

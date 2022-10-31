@@ -2,11 +2,12 @@ package com.kh.semi.board.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.kh.semi.board.vo.AttachmentVo;
 import com.kh.semi.board.vo.BoardVo;
-import com.kh.semi.common.JDBCTemplate;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 public class BoardDao {
 
@@ -29,7 +30,7 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(pstmt);
+			close(pstmt);
 		}
 		
 		return result;
@@ -55,12 +56,40 @@ public class BoardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(pstmt);
+			close(pstmt);
 		}
 		
 		return result;
 		
 	}//insertAttachment
+	
+	//목록조회(페이징)
+	public int selectCount(Connection conn) {
+		
+		String sql = "SELECT COUNT(*) AS CNT FROM BOARD WHERE DELETE_YN = 'O'";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt("CNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return result;
+		
+	}//selectCount
 
 }//class
 

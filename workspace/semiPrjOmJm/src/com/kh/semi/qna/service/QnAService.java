@@ -1,15 +1,13 @@
 package com.kh.semi.qna.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.commit;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.rollback;
-
 import java.sql.Connection;
 import java.util.List;
 
+import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.common.PageVo;
+import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.qna.dao.QnADao;
+import com.kh.semi.qna.vo.QnAAttachment;
 import com.kh.semi.qna.vo.QnAVo;
 
 public class QnAService {
@@ -17,14 +15,19 @@ public class QnAService {
 	private final QnADao Qao = new QnADao();
 	
 	//QnA 글 작성
-	public int write(QnAVo vo) {
+	public int write(QnAVo vo , QnAAttachment attachmentVo) {
 		
 		Connection conn = getConnection();
 		
 		//QnA insert
 		int result = Qao.insertQnA(conn , vo);
 		
-		if(result == 1) {
+		//첨부파일 insert
+		int result2 = 1;
+		if(attachmentVo != null) {
+			result2 = Qao.insertAttachment(conn , attachmentVo);
+		}
+		if(result * result2 == 1) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -32,7 +35,7 @@ public class QnAService {
 		
 		close(conn);
 		
-		return result;
+		return result * result2;
 		
 	}//write
 
@@ -61,25 +64,6 @@ public class QnAService {
 		return x;
 		
 	}//selectList
-
-	//QnA 글 상세조회
-	public QnAVo selectOne(String qnaNo) {
-		
-		Connection conn = getConnection();
-		
-		int result = Qao.increaseHit(conn , qnaNo);
-		QnAVo vo = null;
-		
-		if(result == 1) {
-			commit(conn);
-			vo = Qao.selectOne(conn , qnaNo);
-		}
-		
-		close(conn);
-		
-		return vo;
-		
-	}//selectOne
 
 	//상세조회
 	public QnAVo selectQnAOne(String no) {

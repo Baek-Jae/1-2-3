@@ -1,5 +1,7 @@
 package com.kh.semi.notice.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.common.JDBCTemplate;
+import com.kh.semi.common.PageVo;
 import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.notice.vo.NoticeVo;
 
@@ -42,10 +45,10 @@ public class NoticeDao {
 	}//insertNotice
 
 	//공지사항 목록 조회
-	public List<NoticeVo> selectNoticeList(Connection conn) {
+	public List<NoticeVo> selectNoticeList(Connection conn, PageVo pv) {
 		//SQL
 		
-		String sql = "SELECT N.NO , N.TITLE , N.CONTENT , N.HIT , N.ENROLL_DATE , N.MODIFY_DATE , N.DELETE_YN , M.NICK AS WRITER FROM NOTICE N JOIN MEMBER M ON N.WRITER = M.NO WHERE N.DELETE_YN = 'O' ORDER BY NO DESC";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT N.NO , N.TITLE , N.CONTENT , N.HIT , M.NICK AS WRITER, N.ENROLL_DATE , N.DELETE_YN , N.MODIFY_DATE FROM NOTICE N JOIN MEMBER M ON N.WRITER = M.NO WHERE N.DELETE_YN = 'O' ORDER BY N.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -53,6 +56,12 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int start = (pv.getCurrentPage() - 1) * pv.getBoardLimit() + 1;
+			int end = start + pv.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 			
 			rs = pstmt.executeQuery();
 			
@@ -139,7 +148,7 @@ public class NoticeDao {
 	public int increaseHit(Connection conn, String no) {
 		//SQL
 		
-		String sql = "UPDATE NOTICE SET HIT = HIT + 1 WHERE NO = ?";
+		String sql = "UPDATE NOTICE SET HIT = HIT + 1 WHERE NO = ? AND DELETE_YN='O'";
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -239,6 +248,34 @@ public class NoticeDao {
 		return result;
 		
 	}//insertAttachment
+
+	//목록조회(페이징)
+	public int selectCount(Connection conn) {
+		
+		String sql = "SELECT COUNT(*) AS CNT FROM NOTICE WHERE DELETE_YN = 'O'";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt("CNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return result;
+		
+	}//selectCount
 
 }//class
 
