@@ -15,6 +15,7 @@ public class MemberVo {
 		
 	}
 	
+	
 	private String no;
 	private String id;
 	private String pwd;

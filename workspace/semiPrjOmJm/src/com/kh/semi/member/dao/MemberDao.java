@@ -8,12 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
-
-import kh.semi.omjm.group.vo.GroupVo;
+import com.kh.semi.password.PasswordVo;
 
 
 
@@ -303,6 +301,109 @@ public class MemberDao {
 			}
 			
 			return result;
+		}
+
+		public String selectIdByPhone(Connection conn, String phone) {
+			
+			String sql = "SELECT ID FROM MEMBER WHERE PHONE = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String id = "";
+			System.out.println(phone);
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, phone);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					id = rs.getString("ID");
+					System.out.println(id);
+				}
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return id;
+		}
+
+		//비밀번호 찾기 > 아이디값으로 비밀번호 질문 가져오기 text로 가져올거임
+		public PasswordVo selectPQById(Connection conn, String id) {
+			
+			String sql = "SELECT P.Q Q, P.NO PNO FROM MEMBER M JOIN PQ P ON P.NO = M.PQ WHERE M.ID = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			PasswordVo passwordVo = null;
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+			
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					passwordVo = new PasswordVo();
+					
+					String pq = rs.getString("Q");
+					String pno = rs.getString("PNO");
+					
+					passwordVo.setNo(pno);
+					passwordVo.setQ(pq);
+					
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt, rs);
+			}
+			
+			
+			return passwordVo;
+		}
+
+		//비밀번호답 이랑 맞는지 확인
+		public int checkPQA(Connection conn, MemberVo vo) {
+			
+			String sql = "SELECT PQ , PA , ID FROM MEMBER WHERE PQ = ? AND ID = ? AND PA = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getPq());
+				pstmt.setString(2, vo.getId());
+				pstmt.setString(3, vo.getPa());
+				
+				rs = pstmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					result = 1;
+				}
+				
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return result;
+
 		}
 		
 
