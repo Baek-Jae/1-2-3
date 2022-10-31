@@ -15,25 +15,22 @@ import com.google.gson.Gson;
 import kh.semi.omjm.group.vo.GroupVo;
 import place.service.PlaceService;
 
-@WebServlet(urlPatterns = "/desearch")
-public class ajaxController extends HttpServlet{
-	
+@WebServlet(urlPatterns = "/main/group")
+public class LogoutGroupAjaxController extends HttpServlet{
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-		int num = Integer.parseInt(req.getParameter("dese"));
-		List<GroupVo> GroupList = new PlaceService().GroupSearch(num);
-		
-//		ArrayList<GroupVo> list = new ArrayList<GroupVo>();
-//		list.addAll(GroupVo);
-//		
-		Gson gson = new Gson();
+		List<GroupVo> GroupList = new PlaceService().logoutGroup();
+		System.out.println(GroupList);
 		resp.setContentType("text/plain; charset=UTF-8;");
+
 		PrintWriter out = resp.getWriter();
-
+		
+		Gson gson = new Gson();
+		
 		String str = gson.toJson(GroupList);
-
+		
 		out.write(str);
 	}
 }

@@ -10,9 +10,10 @@
   List<PlaceVo> placeList = (ArrayList<PlaceVo>)request.getAttribute("placeList");
   List<CateVo> cateVo = (ArrayList<CateVo>)request.getAttribute("cateVo");
   
-  List<GroupVo> keyword = (ArrayList<GroupVo>)request.getAttribute("keyword");
-  
+/*   List<GroupVo> keyword = (ArrayList<GroupVo>)request.getAttribute("keyword");
+ */  
   String search = (String)request.getAttribute("search");
+  String search2 = (String)request.getAttribute("search2");
  %>
  
 <!DOCTYPE html>
@@ -26,18 +27,18 @@
 </head>
 <body>
 	<div id="ca-search">
-		<form action="" class="main-search" name="form1">
+		<form action="<%= root %>/search" class="main-search" method="post" >
 			<div class="main-search-group">
 				<span class="material-symbols-outlined">search</span> 
-				<input type="text" id="my_name" name="search" placeholder="모임을 찾아보세요" value="<% if(search != null){ %> <%= search %>
-                    <% }else{ %>  <input type="text" id="my_name" name="search" placeholder="모임을 찾아보세요">
+				<input type="text" id="my_name" name="search2" placeholder="모임을 찾아보세요" value="<% if(search != null){ %> <%= search %>
+                    <% }else if(search2 != null){ %> <%= search2 %>
                        <%}%>"/>
          </div>
-         <input type="submit" value="검  색" onclick="recordSearch()" />
+         <input type="submit" id="submit" value="검  색" />
       </form>
 
 
-		<select name="place" class="ca-option" id="select-pl" onchange="javascript:myListener(this)">
+		<select name="place" class="ca-option" id="select-pl">
 			<option value="option1">==지역 선택==</option>
 			<% for(int i = 0; i < placeList.size(); ++i){%>
 			<option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
@@ -282,15 +283,15 @@
 				<div class="card-bottom">
 						<span>모임명</span>
                         <span class="group-na">내향인들의 "심야책방"</span>
-                        <span>그룹장</span>
-                        <span class="group-lea">아자자</span>
+                        <span>카테고리</span>
+                        <span class="group-cate"></span>
 					<div>
 						<span class="material-symbols-outlined" id="location-icon">location_on</span>
-						<span class="group-pl"> 강남구</span>
+						<span class="group-pl"> </span>
 					</div>
 					<div>
 						<span class="material-symbols-outlined" id="group-icon">group</span>
-						<span class="group-cnt">9/10</span>
+						<span class="group-cnt"></span>
 					</div>
 					<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 				</div>
@@ -308,15 +309,15 @@
 		                    <div class="card-bottom">
 		                        <span>모임명</span>
 		                        <span class="group-na">내향인들의 "심야책방"</span>
-		                        <span>그룹장</span>
-		                        <span class="group-lea">아자자</span>
+		                        <span>카테고리</span>
+		                        <span class="group-cate"></span>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span class="group-pl"> 강남구</span>
+		                            <span class="group-pl"> </span>
 		                        </div>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span class="group-cnt">9/10</span>
+		                            <span class="group-cnt"></span>
 		                        </div>
 		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 	                    	</div>
@@ -335,15 +336,15 @@
 		                    <div class="card-bottom">
 		                        <span>모임명</span>
 		                        <span class="group-na">내향인들의 "심야책방"</span>
-		                        <span>그룹장</span>
-		                        <span class="group-lea">아자자</span>
+		                        <span>카테고리</span>
+		                        <span class="group-cate"></span>
 		                        <div>
 		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span class="group-pl"> 강남구</span>
+		                            <span class="group-pl"></span>
 		                        </div>
 		                        <div id="group-info">
 		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span class="group-cnt">9/10</span>
+		                            <span class="group-cnt"></span>
 		                        </div>
 		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
 	                    	</div>
@@ -382,48 +383,47 @@ $(document).ready(function(){
   });
 });
 	
-	$('#select-pl').change(function(){
-		var temp = $('#select-pl option:checked');
-		var temp2 = $('#select-pl option:selected').val();
-			/*  console.log(temp.val());    */
-			 
-		  if(temp != null){
-			  /* $('#group-list').show(); */
-			  $('#group-list').css('visibility', 'visible');
-			  $('#group-place').text($(temp).text());
-			  
-					  // function searchcate(num2){ 
-						$.ajax({
-							url : "<%=root%>/plsearch",
-							method : "GET",	
-							data :	{
-								"temp" : temp.val()
-							},
-							success : function(z){
-								var sp = JSON.parse(z);
-
-								for(var i=0 in sp){    
-									/* alert(sp[i].name);   */    
-									       
-									//for(var i = 0; i < sp.legnth; ++i){
-								 		$('.group-cnt').text(sp[i].userCnt); 
-								 		$('.group-na').text(sp[i].name); 
-								 		$('.group-pl').text(sp[i].place);  
-								 		$('.group-lea').text(sp[i].category); 
-										
-									}
-							},
-							error : function(){
-								alert("통신 에러!");
-							}
-						});
-					}
-						/* else if(temp2 == 'option1'){
-						 $('#group-place').hide();
-						 $('#group-list').hide();
-					} */
+$('#select-pl').change(function(){
+	var temp = $('#select-pl option:checked');
+	var temp2 = $('#select-pl option:selected').val();
+		/*  console.log(temp.val());    */
+		 
+	  if(temp != null){
+		  /* $('#group-list').show(); */
+		  $('#group-list').css('visibility', 'visible');
+		  $('#group-place').text($(temp).text());
 		  
-	});
+				  // function searchcate(num2){ 
+					$.ajax({
+						url : "<%=root%>/plsearch",
+						method : "GET",	
+						data :	{
+							"temp" : temp.val()
+						},
+						success : function(z){
+							var sp = JSON.parse(z);
+							for(var i=0 in sp){    
+								/* alert(sp[i].name);   */    
+								       
+								//for(var i = 0; i < sp.legnth; ++i){
+							 		$('.group-cnt').eq(i).text(sp[i].userCnt); 
+							 		$('.group-na').eq(i).text(sp[i].name); 
+							 		$('.group-pl').eq(i).text(sp[i].place);  
+							 		$('.group-cate').eq(i).text(sp[i].category); 
+								}
+						},
+						error : function(){
+							alert("통신 에러!");
+						}
+					});
+				}
+					/* else if(temp2 == 'option1'){
+					 $('#group-place').hide();
+					 $('#group-list').hide();
+				} */
+	  
+});
+
 	
 	<%--
   function myListener(obj) {        
@@ -431,7 +431,7 @@ $(document).ready(function(){
 	} --%>
 	
 
-	  $(document).ready(function() {
+	 $(document).ready(function() {
 		  $('input[type="checkbox"][name="cs_biz_form"]').click(function(){
 		   if($(this).prop('checked')){
 		      $('input[type="checkbox"][name="cs_biz_form"]').prop('checked',false);
@@ -440,8 +440,8 @@ $(document).ready(function(){
 		    });
 		  });
 
-	
-	   searchcate = function(num2){
+
+	 searchcate = function(num2){
 		    /* function searchcate(num2){ */
 		      $.ajax({
 		         url : "<%=root%>/desearch",
@@ -453,12 +453,12 @@ $(document).ready(function(){
 		            var o = JSON.parse(x);
 
 		            for(var i=0 in o){    
-		            //   alert(o[i].name);
+		               //alert(o[i].name);
+		                $('.group-cnt').eq(i).text(o[i].userCnt); 
+		                $('.group-na').eq(i).text(o[i].name); 
+		                $('.group-pl').eq(i).text(o[i].place); 
+		                $('.group-cate').eq(i).text(o[i].category);
 		            }       
-		                $('.group-cnt').text(o[i].userCnt); 
-		                $('.group-na').text(o[i].name); 
-		                 $('.group-pl').text(o[i].place); 
-		                $('.group-pl').text(o[i].category);
 		         },
 		         error : function(){
 		            alert("num2 통신 에러!");
@@ -466,6 +466,72 @@ $(document).ready(function(){
 		      });
 		   } 
 
+
+		   /*검색 페이지에서 모임명 검색*/
+			/*  function nameSearch(){
+				 alert("dd");
+				 var form = $("form")[0];        
+			     var formData = new FormData(form); */
+			     
+			 /*  $('.main-search').submit(function(event){  */
+				/*  function nameSearch(event){
+					 event.preventDefault();  */
+			  <%-- $(function(){ 
+		        $('#submit').("click",function () {
+			    /*  var formData =  $("form").serialize();
+			     console.log(formData); */
+			//$('input[name=search2]').attr('value',"search2");
+			 $.ajax({
+					alert("dd3");
+					url : "<%=root%>/search",
+				     method : "POST",   
+				     data :   {
+				        "search2" : search2
+				     },
+				     success : function(x){
+				        var o = JSON.parse(x);
+							
+				        for(var i=0 in o){    
+				           //alert(o[i].name);
+				            $('.group-cnt').eq(i).text(o[i].userCnt); 
+				            $('.group-na').eq(i).text(o[i].name); 
+				            $('.group-pl').eq(i).text(o[i].place); 
+				            $('.group-cate').eq(i).text(o[i].category);
+				        }       
+				     },
+				     error : function(){
+				        alert("num2 통신 에러!");
+				     }
+	  });  
+	  
+	} --%>
+	 $('#submit').click(function(){
+		 alert($('input[name=search2]').val())
+		<%--  alert("<%=search2%>");  --%>
+		 	$.ajax({
+				url : "<%=root%>/search",
+			     method : "POST",   
+			     data :   {
+			        "key" : $('input[name=search2]').val()
+			     },
+			     success : function(x){
+			        var o = JSON.parse(x);
+						
+			        for(var i=0 in o){    
+			           //alert(o[i].name);
+			            $('.group-cnt').eq(i).text(o[i].userCnt); 
+			            $('.group-na').eq(i).text(o[i].name); 
+			            $('.group-pl').eq(i).text(o[i].place); 
+			            $('.group-cate').eq(i).text(o[i].category);
+			        }       
+			     },
+			     error : function(){
+			        alert("num2 통신 에러!");
+			     }
+});  
+	})
+	
+	 
 	
  /* function test01(){
 	var doc = $("input:text").val();
@@ -481,8 +547,8 @@ $(document).ready(function(){
         }                
     })
 }) */
-/* $('input[type=text]').attr('value',"test");*/
- 
+
+
  /* function printName()  {
 	  const name = document.getElementById('my_name').value;
 	  document.getElementById("my_name").value = name;

@@ -17,7 +17,7 @@ import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.temp.service.TempService;
 import com.kh.semi.temp.vo.TempVo;
 
-@WebServlet(urlPatterns = "/temp/temper")
+@WebServlet(urlPatterns = "/temp/temper5")
 @MultipartConfig(
 		// location = "/khtmp",
 		fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50 * 5)
