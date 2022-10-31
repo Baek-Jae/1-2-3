@@ -138,7 +138,7 @@
                 if(i == 0){
                     likeplace += place[i].value;
                 }else if(likeplace != ""){
-                    likeplace += "," + place[i].value;
+                    likeplace += ", " + place[i].value;
                 }else{
                     likeplace += place[i].value;
                 }

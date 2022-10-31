@@ -27,8 +27,7 @@
     }
     #back{
         width: 100vw;
-        height: 780px;
-        background-color: #FDB930 ;
+        height: 90vh;
         display: grid;
         align-items: center;
         justify-content: center;
@@ -41,12 +40,11 @@
     #bot{
         width: 100vw;
         height: 200px;
-        border: 1px solid black;
     }
     #main{
         height: 300px;
         width: 500px;
-        background-color: rgb(163, 163, 162);
+        border: 5px solid #FDB930;
         border-radius: 20px;
         display: grid;
         grid-template-rows: repeat(3, 1fr) repeat(2, 0.5fr);
@@ -60,6 +58,8 @@
       height: 50px;
       border: 1px solid #dddddd;
       color: #999999;
+      background-color: #dddddd;
+      opacity: 0.5;
       border-radius: 5px;
     
     }
@@ -67,7 +67,7 @@
 
       font-size: 18px;
       color: #fff;
-      background-color: rgba(0, 53, 109, 0.95);
+     background-color: black;
       cursor: pointer;
       height: 50px;
       border-radius: 5px;
@@ -83,6 +83,10 @@
    }
    div > a{
     color: #FDB930;
+   }
+   input[type=text], input[type=password]{
+    color: black;
+    opacity: 1;
    }
 </style>
 <script>

@@ -2,6 +2,8 @@ package com.kh.semi.member.vo;
 
 public class MemberVo {
 
+
+
 public MemberVo() {
 		
 	}
@@ -28,11 +30,13 @@ public MemberVo() {
 
 	private String phone;
 	private String catg;
+	private String [] catgArr;
 	private String gender;
 	private String pq;
 	private String pa;
 	private String manner;
 	private String likeGroup;
+	private String [] lGArr;
 	private String ppOff;
 	private String nppOff;
 	private String enrollDate;
@@ -103,12 +107,17 @@ public MemberVo() {
 	public void setManner(String manner) {
 		this.manner = manner;
 	}
+	
+	
 	public String getLikeGroup() {
 		return likeGroup;
 	}
 	public void setLikeGroup(String likeGroup) {
 		this.likeGroup = likeGroup;
 	}
+	
+	
+	
 	public String getPpOff() {
 		return ppOff;
 	}
@@ -169,6 +178,38 @@ public MemberVo() {
 	public void setPq(String pq) {
 		this.pq = pq;
 	}
+	
+	
+	
+	public String[] getCatgArr() {
+		return catgArr;
+	}
+
+
+
+	public void setCatgArr(String[] catgArr) {
+		this.catgArr = catgArr;
+	}
+
+
+
+	public String[] getlGArr() {
+		return lGArr;
+	}
+	public String[] getlGArr(int i) {
+		return lGArr;
+	}
+
+
+	public void setlGArr(String[] lGArr) {
+		this.lGArr = lGArr;
+	}
+
+
+	public String[] getPlaceArr(int i) {
+		return placeArr;
+	}
+	
 	public String[] getPlaceArr() {
 		return placeArr;
 	}
@@ -177,6 +218,7 @@ public MemberVo() {
 		this.placeArr = placeArr;
 	}
 
+	
 
 	@Override
 	public String toString() {

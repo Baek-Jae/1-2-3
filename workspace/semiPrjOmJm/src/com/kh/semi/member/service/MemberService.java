@@ -8,8 +8,11 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.semi.member.dao.MemberDao;
+import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
 
 
@@ -69,16 +72,53 @@ private final MemberDao dao = new MemberDao();
 		return loginMember;
 	}
 
-	public int editPlace(MemberVo vo) {
+	public MemberVo editPlace(MemberVo vo) {
 		
 		Connection conn = getConnection();
 		
 		int result = dao.editPlace(vo, conn);
+		MemberVo editMember = null;
 		if(result ==1) {
 			commit(conn);
+			editMember = dao.login(conn, vo);
 		}else {
 			rollback(conn);
 		}
-		return result;
+		return editMember;
 	}
+
+	public List<MemberLikeVo> selectLikeGroupByNo(MemberVo vo) {
+		Connection conn = getConnection();
+		
+		List<MemberLikeVo> likeVo = new ArrayList<MemberLikeVo>();
+		
+				
+				int cnt = 0;
+				
+		for(int i = 0; i< vo.getlGArr().length; i++) {
+			
+			
+			String gNo = vo.getlGArr()[i];
+			
+			
+			MemberLikeVo gvo = dao.selectLikeGroupByNo(conn, gNo);
+			
+			if(gvo != null) {
+				likeVo.add(gvo);
+				cnt += 1;
+
+				
+			}else {
+				continue;
+			}
+		}
+		System.out.println("카운트는 :"  + cnt);
+		
+		close(conn);
+		
+		 
+		return likeVo;
+	}
+
+	
 }
