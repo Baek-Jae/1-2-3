@@ -42,7 +42,7 @@
         
         padding-top: 50px;
         display: grid;
-        grid-template-rows: repeat(5, 1fr 1fr 0.5fr) repeat(8, 1fr);
+        grid-template-rows: repeat(5, 1fr 1fr 0.5fr) repeat(8, 1.2fr);
         place-content: center center;   
         
     }
@@ -200,6 +200,27 @@
         
         }
 
+
+
+    let cate = $('input[name=memberCate]');
+
+    cate.click(function(){
+
+        openSelectCate();
+    })
+
+    function openSelectCate(){
+        window.name = "parentForm";
+
+        openWin=window.open("likeCate", "child2Form", "width=600,height=750,resizable=no,scrollbars=no");
+    }
+
+
+
+
+
+
+
     //온 서브밋을 위한 변수 선언;
     let idCheckReturn = false;
     let pwd1CheckReturn = false;
@@ -248,8 +269,6 @@
                 "memberId" : idVal
             },
             success : function(result){
-
-                console.log(result);
 
                 if(result ==0){
                     $('#idCheckBtn').addClass('green'); // 성공하면 중복체크 초록으로 바꾸세용~
@@ -395,7 +414,6 @@
     }
 
 
- 
     
     //핸드폰번호는 번호만 입력되게 해놨다!
     $('input[name="memberPhone"]').keyup(function(){
@@ -450,7 +468,7 @@
 
                 }else{
                    
-                    $('#checkPhoneResult').text('이미 가입하신 회원입니다.'); //말해주고 아이디찾기로 보낼까?   
+                    $('#checkPhoneResult').text('이미 가입하신 회원입니다. 아이디 찾기를 이용해주세요'); //말해주고 아이디찾기로 보낼까?   
                     $('#phoneCheckBtn').addClass('red');
                     $('#phoneCheckBtn').removeClass('yellow');
                     $('#phoneCheckBtn').removeClass('green');

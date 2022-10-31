@@ -102,16 +102,25 @@
             <div id="main">
                 
                 
-                <input type="text" name="memberId" placeholder="아이디를 입력해주세요" class="input width-size">
+                <input type="text" name="memberId" placeholder="아이디를 입력해주세요" class="input width-size" >
                 <input type="password" name="memberPwd" placeholder="비밀번호를 입력해주세요" class="input width-size">
                 <input type="submit" value="로그인" class="label width-size">
-                <div><a href="">비밀번호를 잊어버리셨나요?</a></div>
-                <div><a href="/omjm/member/join">계정을 만드시겠습니까?</a></div>
+                <div><a href="/omjm/member/findid">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/omjm/member/findpwd">비밀번호 찾기</a></div>
+                <div><a href="/omjm/member/join">회원가입</a></div>
 
             
             </div>
         </form>
     </div>
     <div id="bot"></div>
+<script>
+    console.log(1234);
+    console.log('${id}');
+
+    if( '${id}' != '' ){
+       $('input[name=memberId]').val('${id}'); 
+    }
+    
+</script>
 </body>
 </html>

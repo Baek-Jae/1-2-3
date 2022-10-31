@@ -6,8 +6,12 @@
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%	String alertMsg = (String)request.getAttribute("alertMsg");%>
-<% PageVo pv = (PageVo)request.getAttribute("pv"); %>
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
+
+
+<% PageVo pv = (PageVo)request.getAttribute("pv");%>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -327,7 +331,8 @@
                 <div class="back4">
                     <div class="mem-mp-info">
                         
-                            <div id="mp-login-info"><h1>찜한모임</h1></div>                       
+                            <div id="mp-login-info"><h1>찜한모임</h1></div>        
+                                           
                     </div>
                     <div id="mem-mp2-content">
                         <!-- 반복 찜한 모임 보이게 해야함 반복문으로--> 
@@ -336,23 +341,28 @@
                         <div>세부카테고리</div>
                         <div>지역이름</div>
                         <div>그룹이름</div>
+                       
 
-                        <c:forEach items="${ likeVo }" var="like" >
-                          
-                                <div>${like.bCate }</div>
-                                <div>${like.sCate }</div>
-                                <div>${like.pName }</div>
-                                <div><a href="/omjm/group/detail?gno=${like.gNo}">${like.gName}</a></div>
+                            <c:forEach items="${ likeVo }" var="like" >
                             
-	                    </c:forEach>
-                          
-                        <div class="span4">
+                                    <div>${like.bCate }</div>
+                                    <div>${like.sCate }</div>
+                                    <div>${like.pName }</div>
+                                    <div><a href="/omjm/group/detail?gno=${like.gNo}">${like.gName}</a></div>
+                                
+                            </c:forEach>
+                            
+                            <div class="span4">
 
-                            <%for(int i = pv.getStartPage(); i <=pv.getEndPage() ; i++) {%>
-                                <a href="/omjm/member/mypage?x=1&lgpno=<%=i%>" class="btn"><%=i%></a> 
-                            <%}%>
+                               
+                            
+                                <%for(int i = pv.getStartPage(); i <=pv.getEndPage() ; i++) {%>
+                                    <a href="/omjm/member/mypage?x=1&lgpno=<%=i%>" class="btn"><%=i%></a> 
+                                <%}%>
+                            
+                            </div>
+
                            
-                        </div>
                        	
                     </div>
                 </div>

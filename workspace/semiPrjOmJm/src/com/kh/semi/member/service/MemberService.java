@@ -14,6 +14,7 @@ import java.util.List;
 import com.kh.semi.member.dao.MemberDao;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
+import com.kh.semi.password.PasswordVo;
 
 
 
@@ -153,6 +154,43 @@ private final MemberDao dao = new MemberDao();
 		
 		return result;
 	}
+	
+	//휴대전화로 아이디 찾기
+	public String selectIdByPhone(String phone) {
+		
+		Connection conn = getConnection();
+		
+		String id = dao.selectIdByPhone(conn, phone);
+		
+		close(conn);
+		
+		return id;
+	}
+	
+	//비밀번호 찾기 > 아이디값으로 비밀번호 질문 가져오기 text로 가져올거임
+	public PasswordVo selectPQById(String id) {
+		
+		Connection conn = getConnection();
+		
+		PasswordVo passwordVo = dao.selectPQById(conn, id);
+		
+		close(conn);
+		
+		return passwordVo;
+	}
+
+	public int checkPQA(MemberVo vo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.checkPQA(conn, vo);	
+
+		close(conn);
+		
+		return result;
+	}
+
+	
 
 	
 }
