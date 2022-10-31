@@ -8,14 +8,14 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-import com.kh.semi.common.JDBCTemplate;
+import com.kh.semi.common.PageVo;
 import com.kh.semi.notice.dao.NoticeDao;
 import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.notice.vo.NoticeVo;
 
 public class NoticeService {
 
-	private NoticeDao dao = new NoticeDao();
+	private NoticeDao nao = new NoticeDao();
 	
 	//공지사항 작성
 	public int write(NoticeVo vo , NoticeAttachment attachmentVo) {
@@ -27,34 +27,31 @@ public class NoticeService {
 		Connection conn = getConnection();
 		
 		//게시글 insert
-		int result = dao.insertNotice(conn , vo);
+		int result = nao.insertNotice(conn , vo);
 		
 		//첨부파일 insert
 		int result2 = 1;
 		if(attachmentVo != null) {
-			result2 = dao.insertAttachment(conn , attachmentVo);
+			result2 = nao.insertAttachment(conn , attachmentVo);
 		}
 		if(result * result2 == 1) {
-			JDBCTemplate.commit(conn);
+			commit(conn);
 		}else {
-			JDBCTemplate.rollback(conn);
+			rollback(conn);
 		}
 		
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		return result * result2;
 		
 	}//write
 	
 	//공지사항 목록 조회
-	public List<NoticeVo> selectNoticeList() {
-		//커넥션 준비
-		//SQL
-		//트랜잭션 처리 , 자원 반납
+	public List<NoticeVo> selectNoticeList(PageVo pv) {
 		
 		Connection conn = getConnection();
 		
-		List<NoticeVo> voList = dao.selectNoticeList(conn);
+		List<NoticeVo> voList = nao.selectNoticeList(conn , pv);
 		
 		close(conn);
 		
@@ -72,10 +69,10 @@ public class NoticeService {
 		Connection conn = getConnection();
 		NoticeVo vo = null;
 		
-		int result = dao.increaseHit(conn , no);
+		int result = nao.increaseHit(conn , no);
 		if(result == 1) {
 			commit(conn);
-			vo = dao.selectNoticeOne(conn , no);
+			vo = nao.selectNoticeOne(conn , no);
 		}
 		
 		close(conn);
@@ -92,7 +89,7 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 				
-		int result = dao.updateOneByNo(conn , vo);
+		int result = nao.updateOneByNo(conn , vo);
 		
 		if(result == 1) {
 			commit(conn);
@@ -115,7 +112,7 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.delete(conn , no);
+		int result = nao.delete(conn , no);
 		
 		if(result == 1) {
 			commit(conn);
@@ -128,6 +125,19 @@ public class NoticeService {
 		return result;
 		
 	}//delete
+
+	//목록조회(페이징)
+	public int selectCount() {
+		
+		Connection conn = getConnection();
+		
+		int result = nao.selectCount(conn);
+		
+		close(conn);
+		
+		return result;
+		
+	}//selectCount
 	
 }//class
 

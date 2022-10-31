@@ -41,6 +41,7 @@ public class NoticeWriteController extends HttpServlet{
 			req.setAttribute("msg", "권한이 없습니다.");
 			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
 		}
+		
 	}//doGet
 	
 	//공지사항 작성 + 파일
@@ -82,7 +83,7 @@ public class NoticeWriteController extends HttpServlet{
 		if(result == 1) {
 			//작성 성공 => 알람메세지 , 리스트 화면으로 리다이렉트
 			s.setAttribute("alertMsg", "공지사항 작성 완료 !");
-			resp.sendRedirect("/omjm/notice/list?pno=1");
+			resp.sendRedirect("/omjm/notice/list?nno=1");
 		}else {
 			//작성 실패 => 업로드된파일삭제 , 메세지 , 에러페이지 포워딩
 			if(attachmentVo != null) {
@@ -96,28 +97,3 @@ public class NoticeWriteController extends HttpServlet{
 	}//doPost
 	
 }//class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

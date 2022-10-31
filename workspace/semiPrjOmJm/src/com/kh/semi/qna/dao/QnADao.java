@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.common.PageVo;
+import com.kh.semi.qna.vo.QnAAttachment;
 import com.kh.semi.qna.vo.QnAVo;
 
 public class QnADao {
@@ -247,6 +248,7 @@ public class QnADao {
 				String ansContent = rs.getString("ANS_CONTENT");
 				
 				vo = new QnAVo();
+				vo.setNo(no);
 				vo.setWriter(writer);
 				vo.setPwd(pwd);
 				vo.setTitle(title);
@@ -264,7 +266,7 @@ public class QnADao {
 		
 		return vo;
 		
-	}
+	}//selectQnAOne
 
 	//QnA 삭제
 	public int delete(Connection conn, String no) {
@@ -291,6 +293,31 @@ public class QnADao {
 		return result;
 		
 	}//delete
+
+	public int insertAttachment(Connection conn, QnAAttachment attachmentVo) {
+		
+		String sql = "INSERT INTO QNA_ATTACHMENT(NO, QNA_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH) VALUES(SEQ_QNA_ATTACHMENT_NO.NEXTVAL, SEQ_QNA_NO.CURRVAL , ? , ? , ?)";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, attachmentVo.getOriginName());
+			pstmt.setString(2, attachmentVo.getChangeName());
+			pstmt.setString(3, attachmentVo.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}//insertAttachment
 
 }//class
 

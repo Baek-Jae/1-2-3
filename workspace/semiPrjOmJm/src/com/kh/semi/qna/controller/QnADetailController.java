@@ -18,10 +18,10 @@ public class QnADetailController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		//데이터 꺼내기
-		String qnaNo = req.getParameter("qno");
+		String no = req.getParameter("no");
 		
 		//디비 다녀오기
-		QnAVo vo = new QnAService().selectOne(qnaNo);
+		QnAVo vo = new QnAService().selectQnAOne(no);
 		
 		//화면선택
 		req.setAttribute("vo", vo);

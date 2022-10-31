@@ -21,14 +21,13 @@ public class NoticeEditController extends HttpServlet{
 		//데이터 꺼내기
 		String no = req.getParameter("no");
 		
-		//데이터 뭉치기
-		
 		//디비 다녀오기
 		NoticeVo vo = new NoticeService().selectNoticeOne(no);
 		
 		//화면 선택
 		req.setAttribute("vo", vo);
 		req.getRequestDispatcher("/WEB-INF/views/notice/edit.jsp").forward(req, resp);
+		
 	}//doGet
 	
 	//공지사항 수정하기
@@ -53,7 +52,7 @@ public class NoticeEditController extends HttpServlet{
 		if(result == 1) {
 			//성공 => 공지사항 상세조회 //성공 알람
 			req.getSession().setAttribute("alertMsg", "공지사항 수정 성공!");
-			resp.sendRedirect("/omjm/notice/list");	//detail?no=" + no);
+			resp.sendRedirect("/omjm/notice/list?nno=1");	//detail?no=" + no);
 		}else {
 			//실패
 			req.setAttribute("msg", "공지사항 수정 실패 ...");

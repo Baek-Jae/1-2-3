@@ -28,12 +28,13 @@ public class FaqDeleteController extends HttpServlet{
 		if(result == 1) {
 			//성공 => 알림 , 리스트 조회
 			req.getSession().setAttribute("alertMsg", "공지사항 삭제 성공!");
-			resp.sendRedirect("/omjm/FAQ/list");
+			resp.sendRedirect("/omjm/FAQ/list?fno=1");
 		}else {
 			//실패 => 메시지 , 에러페이지
-			req.setAttribute("msg", "공지사항 삭제 실패...");
+			req.setAttribute("msg", "FAQ 삭제 실패...");
 			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
 		}
 		
 	}//doget
-}
+	
+}//class

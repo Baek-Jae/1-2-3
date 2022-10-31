@@ -1,7 +1,7 @@
 <%@page import="com.kh.semi.notice.vo.NoticeVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	NoticeVo vo = (NoticeVo)request.getAttribute("vo");
 %>    	
@@ -11,19 +11,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+    :root{
+        --color-main: #fdb930;
+        --color-1green: #46a15e;
+        --color-2green: #9cb43a;
+        --color-3green: #008676;
+    } 
+    
 	#main{
 		width: 60vw;
 		height: 60vh;
 		margin: 0 auto;
 		border: 1px solid black;
+		background: #008676;
 		display: grid;
 		grid-template-columns: 4fr 2fr 2fr 1fr;
 		grid-template-rows: 30px;
-		padding: 100px;
+		padding-top: 100px;
 	}
+	
 	#main > div{
-		border: 1px dashed black;
+		border: 1px solid black;
 	}
+	
 	#notice-content{
 		grid-column: span 4;
 		padding: 20px;
@@ -37,8 +47,6 @@
 </style>
 </head>
 <body>
-
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	<h1 align="center">공지사항 상세조회</h1>
 	
@@ -56,14 +64,12 @@
 
 	</div>
 	
-	
 	<%if(loginMember != null && loginMember.getId().equals("admin")){%>
 		<div id="main-bot">
 			<a href="/omjm/notice/edit?no=<%= vo.getNo() %>">수정하기</a>
 			<a href="/omjm/notice/delete?no=<%= vo.getNo() %>">삭제하기</a>
 		</div>
 	<%}%>
-	
 	
 </body>
 </html>

@@ -52,7 +52,7 @@ public class QnAEditController extends HttpServlet{
 		if(result == 1) {
 			//성공 => QnA 상세조회 //성공 알람
 			req.getSession().setAttribute("alertMsg", "QnA 수정 성공!");
-			resp.sendRedirect("/omjm");
+			resp.sendRedirect("/omjm/QnA/list?qno=1");
 //			/QnA/detail?no=" + no
 		}
 	}//doPost
