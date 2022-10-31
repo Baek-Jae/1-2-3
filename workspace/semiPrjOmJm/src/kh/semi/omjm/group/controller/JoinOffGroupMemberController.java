@@ -12,19 +12,22 @@ import com.google.gson.Gson;
 import com.kh.semi.member.vo.MemberVo;
 
 import kh.semi.omjm.group.service.GroupService;
+import kh.semi.omjm.group.vo.OffGroupVo;
 
-@WebServlet(urlPatterns = "/group/joinMember")
-public class JoinGroupMemberController extends HttpServlet{
-	
+@WebServlet(urlPatterns = "/offgroup/join")
+public class JoinOffGroupMemberController extends HttpServlet{
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String loginMemberNo = req.getParameter("loginMemberNo"); 
-		String groupNo = req.getParameter("groupNo");
-		int joinGroup = new GroupService().insertGroupMember(groupNo, loginMemberNo);
-
+		
+		String loginMemberNo = (String) req.getAttribute("loginMemberNo"); 
+		String offNo = (String) req.getAttribute("gorupNo");
+		
+		int joinOffGroup = new GroupService().insertGroupMember(offNo, loginMemberNo);
+		
 		Gson gson = new Gson();
 		
-		String result = gson.toJson(joinGroup);
+		String result = gson.toJson(joinOffGroup);
 		
 		resp.getWriter().write(result);
 	}

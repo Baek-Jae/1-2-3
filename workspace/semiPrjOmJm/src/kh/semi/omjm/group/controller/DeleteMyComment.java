@@ -11,25 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import kh.semi.omjm.group.service.GroupService;
-import kh.semi.omjm.group.vo.OffCommentVo;
 
-@WebServlet(urlPatterns = "/offgroup/comment/update")
-public class UpdateMyCommentController extends HttpServlet{
+
+@WebServlet(urlPatterns = "/offgroup/comment/del")
+public class DeleteMyComment extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		String commentNo = req.getParameter("commentNo");
-		String content = req.getParameter("content");
 		
-		OffCommentVo ofv = new OffCommentVo();
-		ofv.setNo(commentNo);
-		ofv.setContent(content);
+		int UpdateCommentDeletion = new GroupService().UpdateCommentDeletionByCno(commentNo);
 		
-		int updateMyComment = new GroupService().updateMyCommentByCno(ofv);
-		System.out.println(updateMyComment);
 		Gson gson = new Gson();
 		
-		String result = gson.toJson(updateMyComment);
-		
+		String result = gson.toJson(UpdateCommentDeletion);
 		
 		resp.getWriter().write(result);
 	}

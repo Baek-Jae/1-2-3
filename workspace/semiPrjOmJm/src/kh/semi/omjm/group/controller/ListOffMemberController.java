@@ -1,6 +1,7 @@
 package kh.semi.omjm.group.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,26 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import kh.semi.omjm.group.service.GroupService;
-import kh.semi.omjm.group.vo.OffCommentVo;
+import kh.semi.omjm.group.vo.OffMemberVo;
 
-@WebServlet(urlPatterns = "/offgroup/comment/update")
-public class UpdateMyCommentController extends HttpServlet{
+@WebServlet(urlPatterns = "/offgroup/member/list")
+public class ListOffMemberController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String commentNo = req.getParameter("commentNo");
-		String content = req.getParameter("content");
+		String offGroupNo = req.getParameter("offNo");
 		
-		OffCommentVo ofv = new OffCommentVo();
-		ofv.setNo(commentNo);
-		ofv.setContent(content);
+		List<OffMemberVo> omvArr = new GroupService().selectOffMemeberByOno(offGroupNo);
 		
-		int updateMyComment = new GroupService().updateMyCommentByCno(ofv);
-		System.out.println(updateMyComment);
 		Gson gson = new Gson();
 		
-		String result = gson.toJson(updateMyComment);
-		
+		String result = gson.toJson(omvArr);
 		
 		resp.getWriter().write(result);
 	}
+
 }

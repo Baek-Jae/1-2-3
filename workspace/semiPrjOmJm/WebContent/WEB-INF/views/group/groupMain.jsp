@@ -15,6 +15,18 @@
             <div class="group-profile-pic">
                 <img src="<%= root %>/${GroupMainPic.filePath}/${GroupMainPic.changeName}" alt="프로필사진" />
             </div>
+            <div class="user_controller">
+	            <div class="like">
+	            	<i class=" fa-regular fa-heart" id="dontLike"></i>
+	            	<i class="fa-solid fa-heart close" id="like"></i>
+	            </div>
+	            <div class="showMember">
+	            	<span class="material-symbols-outlined" id="groupMember">group</span>
+	            </div>
+	            <div class="joinGroup">
+	            	<i class="fa-solid fa-arrow-right-to-bracket" id="joinGroup"></i>
+	            </div>
+            </div>
             <div class="group-info-wrap">
                 <div class="group-name">
                     <h1>${groupInfo.name}</h1>
@@ -38,7 +50,8 @@
                     </div>
                     <div class="group-info">
                         <div class="group-info-detail">
-                            <textarea readonly class="addr" id="group_content">${groupInfo.content}</textarea>
+                        	<div><h2>Welcome to ${groupInfo.name}</h2></div>
+                            <textarea readonly class="addr" id="group_content" >${groupInfo.content}</textarea>
                         </div>
                         <div class="menu-title"><h3>오프라인</h3></div>
                         <div class="group-menu-content">
@@ -57,9 +70,11 @@
                                 </div>
                                 <div class="off-max-member">
                                     <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>${i.userCnt} /10</span>
+                                    <span>${i.userCnt}</span>
                                 </div>
-                                <a href="<%=root %>/group/off?ono=${i.no}">참여하기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
+                                <a href="<%=root %>/group/off?ono=${i.no}">
+                                <span class="material-symbols-outlined">subdirectory_arrow_right</span>
+                                 참여하기</a>
                             </div>
 						</c:forEach>
                         </div>
@@ -69,85 +84,87 @@
             </div>
         </section>
         <section class="modal">
-        <c:forEach items="${offList}" var="i">
-	        <div class="offModal_wrap close">
-	            <div class="offGroup_info">
-	                <div class="offGroup_header">
-	                    <div class="offGroup_name">${i.name}</div>
-	                </div>
-	                <div class="offGroup_body">
-	                    <div class="offGroupDate">
-	                        <span class="material-symbols-outlined" id="off-date-icon">calendar_month</span>
-	                        <div class="offGroup_date">${i.offDate}</div>
-	                    </div>
-	                    <div class="offGroup_member">
-	                        <button class="OffmemberList">
-	                            <span class="material-symbols-outlined" id="offGroup_member"> group </span>
-	                            ${i.userCnt}/10
-	                        </button>
-	                    </div>
-	                </div>
-	                <div class="offGroup_bottom">
-	                    <textarea readonly class="offGroup_content">${i.content}</textarea>
-	                </div>
-	                <div class="off_comment_header">
-	                	<span>Comment</span>
-	                </div>
-	                <div class="offGroup_comment_bottom">
-	                	<div class="offGroup_comment_List">
-		                	<span>usernick</span>
-		                	<span>댓글내용</span>
-		                	<button>수정</button>
-		                	<button>삭제</button>
-	                	</div>
-	                </div>
-	                <div class="my_comment"></div>
-	                <div class="offGroup_comment">
-	                	<input type="text" name="off_Comment" class="off_comment">
-	                	<button class="comment-submit" onclick="insertMyComment(this, ${i.no})">작성</button>
-	                </div>
-	                
-	                <c:if test="${ad}"></c:if>
-	                <button class="offGroup_invite">가 입</button>
-	                <button class="offGroup_close">
-	                    <span class="material-symbols-outlined" id="close_modal"> close </span>
-	                </button>
-	            </div>
-	        </div>
-	        </c:forEach>
-	        
+        	<div class="gmember_wrap close">
+              	  	<div class="gleader_info">
+              	  		<i class="fa-solid fa-anchor"></i>
+                        <span>${groupInfo.leader}</span>
+                        <div class="gmembertemp">매너온도미완성</div>
+                    </div>
+<!-- 				오프참여 멤버 공란시                 -->
+               	<c:if test="${empty groupMemberList or groupInfo.leader eq loginMember.nick}">
+               		<div class="gmember_info">
+               			<div id="first_member">
+                        	<span >첫번째 참여자가 되어보세요!</span>
+               			</div>
+                    </div>
+               	</c:if>
+<!--                오프멤버 반복문 -->
+					<c:forEach items="${groupMemberList}" var="i">
+					<c:if test="${groupInfo.leader ne loginMember.nick}">
+                    <div class="gmember_info">
+                        <span>${i.userNo}</span>
+                        <div class="off_membertemp">매너온도미완성</div>
+                    </div>
+<!--                     리더랑 로그인 멤버 동일한가  -->
+                    <c:if test="${groupInfo.leader eq loginMember.nick}">
+                    <div class="member_controller">
+                        <button class="expulsion">추 방</button>
+                        <button class="participation">참 가</button>
+                        <button class="absence">불 참</button>
+                    </div>
+                    </c:if>
+                   	</c:if>
+                    </c:forEach>
+                <button class="memberlist_close">
+                	<span class="material-symbols-outlined"> close </span>
+               	</button>
+            </div>
         </section>
         <script>
-        	
-       		
+	        $('#like').click(()=>{
+	    		$('#dontLike').removeClass("close");
+	    		$('#like').addClass("close")
+	    		
+	    	});
+	    	
+	    	 $('#dontLike').click(()=>{
+	    		$('#like').removeClass("close");
+	    		$('#dontLike').addClass("close")
+	    		
+	    	});
+	    	
+	        $('.memberlist_close').click(()=>{
+	    		$('.gmember_wrap').addClass("close");
+	    	});
+	        	
+	        $('#groupMember').click(()=>{
+	        	$('.gmember_wrap').toggleClass("close");	
+	        })	
         
-       		function insertMyComment(obj, offNo) {
-        	  	const indexNo = $('.comment-submit').index(obj);
-		        $.ajax({
-		        	url: "<%= root %>/offgroup/comment/write",
-		            type: "post",
-		            data: {
-		            	"offNo" : offNo,
-		                "memberNo" : ${loginMember.no},
-		                "content" : $($('.off_comment')[indexNo]).val()
-		                
-		                },
-	               	success: function (result) {
-			              		const myComment = JSON.parse(result);
-			              		let newComment = "<span>"+myComment.nick+"</span>"+
-			              		"<span>"+myComment.content+"</span>"+
-			              		"<button class=\"comment-edit\">수정</button>"+
-			              		"<button class=\"comment-delete\">삭제</button>";
-			              		console.log(newComment);
-			              		$($('.my_comment')[indexNo]).append(newComment);
-							},
-                	error: function () {
-                		alert("작성실패...ㅜㅜ");
-					}
-                })
-			}    	
+       		$('#group-menu-content').click(()=>{
+	        	$('.gmember_wrap').removeClass("close");	
+	        })
    
-      		
+      		$('.joinGroup').click(
+			function joinGroup() {
+				console.log(${loginMember.no});
+				console.log(${groupInfo.no});
+				$.ajax({
+					url: "<%= root %>/group/joinMember",
+					type: "post",
+					data:{
+						"gmemberNo": ${loginMember.no},
+						"groupNo" : ${groupInfo.no}
+					},
+					success:(result)=>{
+						console.log(${groupInfo.no});
+					},
+					error:()=>{
+						console.log(${groupInfo.no});
+					}
+				})//ajax
+			}//event
+		);//event
        	
         </script>
 </body>

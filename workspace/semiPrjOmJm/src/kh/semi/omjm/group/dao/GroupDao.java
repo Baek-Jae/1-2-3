@@ -127,7 +127,7 @@ public class GroupDao {
 		ArrayList<GroupMemberVo> groupMemberList = new ArrayList<GroupMemberVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND A.NO = ?";
+		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND B.NO = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -391,15 +391,16 @@ public class GroupDao {
 				offGroup.setDeleteYn(rs.getString("DELETE_YN"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
 		}
 		
 		return offGroup;
 	}
 
 	public List<OffMemberVo> selectOffMemeberByOno(Connection conn, String offNo) {
-		String sql = "SELECT O.NO, O.OFF_NO, M.NICK AS USER_NO, O.QUIT_YN, O.INVITE_TN FROM OFF_MEMBER O JOIN MEMBER M ON O.USER_NO = M.NO WHERE OFF_NO = ?";
+		String sql = "SELECT O.NO, O.OFF_NO, M.NICK AS USER_NO, O.QUIT_YN, O.INVITE_YN FROM OFF_MEMBER O JOIN MEMBER M ON O.USER_NO = M.NO WHERE OFF_NO = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<OffMemberVo> memberArr = new ArrayList<OffMemberVo>();
@@ -414,13 +415,16 @@ public class GroupDao {
 				omv.setNo(rs.getString("NO"));
 				omv.setOffNo(rs.getString("OFF_NO"));
 				omv.setUserNo(rs.getString("USER_NO"));
-				omv.setQuitYn(rs.getString("QUIT_NO"));
-				omv.setInviteYn(rs.getString("INVITE_NO"));
+				omv.setQuitYn(rs.getString("QUIT_YN"));
+				omv.setInviteYn(rs.getString("INVITE_YN"));
 				
 				memberArr.add(omv);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+			
 		}
 		return memberArr;
 	}
@@ -430,7 +434,19 @@ public class GroupDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = "UPDATE OFF_COMMENT SET CONTENT = ? WHERE NO = ?";
-		
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ofv.getContent());
+			pstmt.setString(2, ofv.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}
@@ -449,12 +465,170 @@ public class GroupDao {
 			if(rs.next()) {
 				groupNo = rs.getString("NO"); 
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
 		}
 		
 		return groupNo;
 	}
+
+	public int UpdateCommentDeletionByCno(Connection conn, String commentNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = "UPDATE OFF_COMMENT SET DELETE_YN = 'Y' WHERE NO = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertOffMemberByOno(Connection conn, OffGroupVo ofg) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = "INSERT INTO OFF_MEMBER(NO, OFF_NO, USER_NO) VALUES (SEQ_OFFMEMBER_NO.NEXTVAL, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ofg.getNo());
+			pstmt.setString(2, ofg.getLeaderNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectOffMemberList(Connection conn, OffGroupVo ofg) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT O.NO FROM OFF_GROUP O JOIN MEMBER M ON O.LEADER_NO = M.NO JOIN OMJM_GROUP G ON O.GROUP_NO = G.NO WHERE M.NO = ?  AND O.GROUP_NO = ? ORDER BY O.NO  DESC";
+		String offGroupNo = "";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ofg.getLeaderNo());
+			pstmt.setString(2, ofg.getGroupNo());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				offGroupNo = rs.getString("NO"); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return offGroupNo;
+	}
+
+	public List<OffCommentVo> selectOffCommentByOno(Connection conn, String offNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT O.NO , M.NICK AS GMEMBER_NO , G.NAME AS OFF_NO , O.CONTENT , O.DELETE_YN FROM OFF_COMMENT O JOIN (SELECT G.NO, M.NICK FROM GROUP_MEMBER G JOIN MEMBER M ON G.USER_NO = M.NO ) M ON O.GMEMBER_NO = M.NO JOIN OFF_GROUP G ON O.OFF_NO = G.NO WHERE G.NO = ? AND O.DELETE_YN = 'N' ORDER BY O.NO";
+		
+		ArrayList<OffCommentVo> offCommentArr = new ArrayList<OffCommentVo>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, offNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OffCommentVo ocv = new OffCommentVo();
+				ocv.setNo(rs.getString("NO"));
+				ocv.setGmemberNo(rs.getString("GMEMBER_NO"));
+				ocv.setOffNo(rs.getString("OFF_NO"));
+				ocv.setContent(rs.getString("CONTENT"));
+				ocv.setDeleteYn(rs.getString("DELETE_YN"));
+				
+				offCommentArr.add(ocv);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		
+		return offCommentArr;
+	}
+
+	public String selectOffCommentCnt(Connection conn, String offNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT NO FROM OFF_COMMENT WHERE OFF_NO = ? AND DELETE_YN = 'N' ORDER BY NO ) T ) ORDER BY RNUM DESC";
+		
+		String OffCommentCnt = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, offNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				OffCommentCnt = rs.getString("RNUM");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		
+		return OffCommentCnt;
+	}
+
+	public String selectmyGMemberNoNoByLno(Connection conn, String gno, String lno) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT NO FROM GROUP_MEMBER WHERE GROUP_NO = ? AND USER_NO = ?";
+		
+		String myGroupNo = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gno);
+			pstmt.setString(2, lno);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				myGroupNo = rs.getString("NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return myGroupNo;
+	}
+
 
 	
 
