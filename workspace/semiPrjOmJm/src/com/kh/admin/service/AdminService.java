@@ -1,12 +1,13 @@
 package com.kh.admin.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.kh.admin.dao.AdminDao;
 import com.kh.admin.dao.AdminVo;
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.member.vo.MemberVo;
-import com.kh.semi.board.vo.BoardVo;
+
 
 public class AdminService {
 
@@ -50,4 +51,26 @@ public class AdminService {
 		
 	}
 
+	public List<MemberVo> selectList() {
+		 
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> voList = dao.selectList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+
+//	public List<MemberVo> selectList() {
+//		
+//	    Connection conn = getConnection();
+//		List<MemberVo> voList = dao.selectList(conn);
+//		
+//		close(conn);
+//		
+//		return voList;
+//		
+//	}
 }
+
+
