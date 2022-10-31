@@ -21,7 +21,7 @@ import place.service.PlaceService;
 import place.vo.PlaceVo;
 
 @WebServlet(urlPatterns = "/search")
-public class PlaceController extends HttpServlet{
+public class SearchController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -46,18 +46,30 @@ public class PlaceController extends HttpServlet{
 		req.setAttribute("cateVo", cateVo);
 
 		String search = req.getParameter("search");
+		String search2 = req.getParameter("key");
+		req.setAttribute("search", search);
+		req.setAttribute("search2", search2);
 		
 		List<GroupVo> groupName = new PlaceService().wordSearch(search);
-		System.out.println(groupName);
-		req.setAttribute("search", search);
+		List<GroupVo> groupName2 = new PlaceService().wordSearch2(search2);
 		
-		if(cateVo != null) {
-			req.setAttribute("keyword", groupName);
-			req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
-		}else {
-			req.setAttribute("msg", "결과 오류");
-			req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
-		}
-
+		
+		Gson gson = new Gson();
+		resp.setContentType("text/plain; charset=UTF-8;");
+		PrintWriter out = resp.getWriter();
+		String str = gson.toJson(groupName);
+		String str2 = gson.toJson(groupName2);
+		
+		out.write(str);
+		out.write(str2);
+		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
+		
+	
+		/*
+		 * if(cateVo != null) { //req.setAttribute("keyword", groupName); }else {
+		 * req.setAttribute("msg", "결과 오류");
+		 * req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req,
+		 * resp); }
+		 */
 	}
 }

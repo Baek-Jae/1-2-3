@@ -72,7 +72,8 @@ public class PlaceDao {
 	}
 
 	public List<GroupVo> selectList(Connection conn, String search) {
-		String sql = "SELECT * FROM OMJM_GROUP WHERE NAME LIKE ?";
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE NAME LIKE ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,8 +90,8 @@ public class PlaceDao {
 				String no = rs.getString("NO");
 				String name = rs.getString("NAME");
 				String leader = rs.getString("LEADER_NO");
-				String place = rs.getString("PLACE_NO");
-				String category= rs.getString("CATE_NO");
+				String place = rs.getString("P_NAME");
+				String category= rs.getString("CA_NAME");
 				String userCnt = rs.getString("USER_CNT");
 				String rank= rs.getString("RANK_NO");
 				String exp = rs.getString("EXP");
@@ -99,7 +100,6 @@ public class PlaceDao {
 				String modifyDate = rs.getString("MODIFY_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
 				
-				//System.out.println(caNo);
 				GroupVo vo = new GroupVo();
 				vo.setNo(no);
 				vo.setName(name);
@@ -113,7 +113,7 @@ public class PlaceDao {
 				vo.setEnrollDate(enrollDate);
 				vo.setModifyDate(modifyDate);
 				vo.setDeleteYn(deleteYn);
-				
+				System.out.println(vo+ "인덱스 서치");
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -125,7 +125,8 @@ public class PlaceDao {
 	}
 
 	public List<GroupVo> GroupSearch(Connection conn, int num) {
-		String sql = "SELECT * FROM OMJM_GROUP WHERE CATE_NO= ?";
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE  O.CATE_NO= ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -140,8 +141,8 @@ public class PlaceDao {
 				String no = rs.getString("NO");
 				String name = rs.getString("NAME");
 				String leader = rs.getString("LEADER_NO");
-				String place = rs.getString("PLACE_NO");
-				String category= rs.getString("CATE_NO");
+				String place = rs.getString("P_NAME");
+				String caName= rs.getString("CA_NAME");
 				String userCnt = rs.getString("USER_CNT");
 				String rank= rs.getString("RANK_NO");
 				String exp = rs.getString("EXP");
@@ -155,7 +156,7 @@ public class PlaceDao {
 				vo.setName(name);
 				vo.setLeader(leader);
 				vo.setPlace(place);
-				vo.setCategory(category);
+				vo.setCategory(caName);
 				vo.setUserCnt(userCnt);
 				vo.setRank(rank);
 				vo.setExp(exp);
@@ -175,7 +176,8 @@ public class PlaceDao {
 	}
 
 	public List<GroupVo> selectPlace(Connection conn, int temp) {
-		String sql = "SELECT * FROM OMJM_GROUP WHERE PLACE_NO= ?";
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE P.P_NO = ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -190,8 +192,8 @@ public class PlaceDao {
 				String no = rs.getString("NO");
 				String name = rs.getString("NAME");
 				String leader = rs.getString("LEADER_NO");
-				String place = rs.getString("PLACE_NO");
-				String category= rs.getString("CATE_NO");
+				String place = rs.getString("P_NAME");
+				String category= rs.getString("CA_NAME");
 				String userCnt = rs.getString("USER_CNT");
 				String rank= rs.getString("RANK_NO");
 				String exp = rs.getString("EXP");
@@ -224,5 +226,158 @@ public class PlaceDao {
 		return list;
 	}
 
+	public List<GroupVo> selectPlace(Connection conn, String p1) {
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE P.P_NAME = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<GroupVo> list = new ArrayList<GroupVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p1); 
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("P_NAME");
+				String category= rs.getString("CA_NAME");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
+				
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
 	
-}
+	public List<GroupVo> selectGroup(Connection conn) {
+		// SQL
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME FROM OMJM_GROUP O "
+				+ "JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<GroupVo> list = new ArrayList<GroupVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("P_NAME");
+				String category= rs.getString("CA_NAME");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
+				
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
+
+	public List<GroupVo> selectList2(Connection conn, String search2) {
+		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE NAME LIKE ?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<GroupVo> list = new ArrayList<GroupVo>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			String names = '%'+ search2 +'%';
+			pstmt.setString(1, names); 
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String no = rs.getString("NO");
+				String name = rs.getString("NAME");
+				String leader = rs.getString("LEADER_NO");
+				String place = rs.getString("P_NAME");
+				String category= rs.getString("CA_NAME");
+				String userCnt = rs.getString("USER_CNT");
+				String rank= rs.getString("RANK_NO");
+				String exp = rs.getString("EXP");
+				String content = rs.getString("CONTENT");
+				String enrollDate = rs.getString("ENROLL_DATE");
+				String modifyDate = rs.getString("MODIFY_DATE");
+				String deleteYn = rs.getString("DELETE_YN");
+				
+				GroupVo vo = new GroupVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setLeader(leader);
+				vo.setPlace(place);
+				vo.setCategory(category);
+				vo.setUserCnt(userCnt);
+				vo.setRank(rank);
+				vo.setExp(exp);
+				vo.setContent(content);
+				vo.setEnrollDate(enrollDate);
+				vo.setModifyDate(modifyDate);
+				vo.setDeleteYn(deleteYn);
+				
+				list.add(vo);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt, rs);
+		}
+		return list;
+	}
+	}

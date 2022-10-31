@@ -38,12 +38,13 @@
                             <li><a href="<%= root %>/group/create">생성</a></li>
                             <li><a href="<%= root %>/group/list">가입한 모임</a></li> <!-- 테스트 -->
                             <li><a href="<%= root %>/group/main?gno=2">모임메인</a></li>   <!-- 테스트 -->
-                            <li><a href="<%= root %>/member/mypage?x=1">찜한 모임</a></li>
+                            <li><a href="<%= root %>/member/mypage?x=1&lgpno=1">찜한 모임</a></li>
+                            <li><a href="<%= root %>/search">검색</a></li>
                             <span></span>
                         </ul>
                         <ul>
                             고객센터
-                            <li><a href="<%= root %>/notice/list?lno=1">공지사항</a></li>
+                            <li><a href="<%= root %>/notice/list?nno=1">공지사항</a></li>
                             <li><a href="<%= root %>/QnA/list?qno=1">Q&A</a></li>
                             <li><a href="<%= root %>/FAQ/list?fno=1">FAQ</a></li>
                         </ul>
