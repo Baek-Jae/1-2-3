@@ -131,5 +131,28 @@ private final MemberDao dao = new MemberDao();
 		return result;
 	}
 
+	//닉네임 중복검사 
+	public int doubleCheckbyNick(String nick) {
+		Connection conn = getConnection();
+		
+		int result = dao.doubleCheckbyNick(conn, nick);
+		
+		close(conn);
+		
+		return result;
+	}
+	//핸드폰 중복검사
+	
+	public int doubleCheckbyPhone(String phone) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.doubleCheckbyPhone(conn, phone);
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 }

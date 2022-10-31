@@ -37,7 +37,7 @@ public class MemberDao {
 				pstmt.setString(5, vo.getPlace());
 				pstmt.setString(6, vo.getCatg());
 				pstmt.setString(7, vo.getGender());
-				//pstmt.setInt(8, Integer.parseInt(vo.getPq()));
+				pstmt.setInt(8, Integer.parseInt(vo.getPq()));
 				pstmt.setString(9, vo.getPa());
 				pstmt.setString(10, vo.getLikeGroup());
 				
@@ -239,6 +239,61 @@ public class MemberDao {
 				if(rs.next()) {
 					 System.out.println("아이디있다고사용못한다고");// 아이디가 있다.
 					result = 1; // 아이디를 써도된다~~~
+				}
+			
+			} catch (SQLException e) {
+				
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return result;
+		}
+
+		public int doubleCheckbyNick(Connection conn, String nick) {
+			
+			String sql = "SELECT NICK FROM MEMBER WHERE NICK = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, nick);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					 System.out.println("닉네임 있다고요");
+					result = 1; //닉네임 쓰면 안돼~ 
+				}
+			
+			} catch (SQLException e) {
+				
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return result;
+		}
+
+		public int doubleCheckbyPhone(Connection conn, String phone) {
+			String sql = "SELECT PHONE FROM MEMBER WHERE PHONE = ?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, phone);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					 System.out.println("핸드폰번호 있다고요");
+					result = 1; //폰번호도 쓰면 안돼~ 
 				}
 			
 			} catch (SQLException e) {
