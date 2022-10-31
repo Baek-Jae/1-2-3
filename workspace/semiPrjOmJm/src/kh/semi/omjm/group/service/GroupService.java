@@ -146,8 +146,8 @@ public class GroupService {
 		Connection conn = getConnection();
 		
 		int result = gd.insertOffGroup(conn, ofg);
-		
-		if(result != 1) {
+
+		if (result!= 1) {
 			rollback(conn);
 		}else {
 			commit(conn);
@@ -234,6 +234,87 @@ public class GroupService {
 		
 		return groupNo;
 	}
+
+
+	public int UpdateCommentDeletionByCno(String commentNo) {
+		Connection conn = getConnection();
+		
+		int result = gd.UpdateCommentDeletionByCno(conn, commentNo);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public int insertOffMemberByOno(OffGroupVo ofg) {
+		Connection conn = getConnection();
+		
+		int result = gd.insertOffMemberByOno(conn, ofg);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public String selectOffMemberList(OffGroupVo ofg) {
+		Connection conn = getConnection();
+		
+		String offMemberList = gd.selectOffMemberList(conn, ofg);
+					
+		close(conn);
+		
+		return offMemberList;
+	}
+
+
+	public List<OffCommentVo> selectOffCommentByOno(String offNo) {
+		Connection conn = getConnection();
+		
+		List<OffCommentVo> selectOffComment = gd.selectOffCommentByOno(conn, offNo);
+		
+		close(conn);
+		
+		return selectOffComment;
+	}
+
+
+	public String selectOffCommentCnt(String offNo) {
+		Connection conn = getConnection();
+		
+		String OffCommentCnt = gd.selectOffCommentCnt(conn, offNo);
+					
+		close(conn);
+		
+		return OffCommentCnt;
+	}
+
+
+	public String selectmyGMemberNoNoByLno(String lno, String gno) {
+		Connection conn = getConnection();
+		
+		String myGMemberNo = gd.selectmyGMemberNoNoByLno(conn, gno, lno);
+					
+		close(conn);
+		
+		return myGMemberNo;
+	}
+	
+
+
 
 
 	

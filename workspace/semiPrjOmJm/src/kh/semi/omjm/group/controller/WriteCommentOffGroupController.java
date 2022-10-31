@@ -22,11 +22,13 @@ public class WriteCommentOffGroupController extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8;");
 		
 		String offNo = req.getParameter("offNo");
-		String memberNo = req.getParameter("memberNo");
+		String myGMemberNo = req.getParameter("myGMemberNo");
 		String content = req.getParameter("content");
+		
 		OffCommentVo ocv = new OffCommentVo();
+		
 		ocv.setOffNo(offNo);
-		ocv.setGmemberNo(memberNo);
+		ocv.setGmemberNo(myGMemberNo);
 		ocv.setContent(content);
 		
 		
@@ -37,7 +39,6 @@ public class WriteCommentOffGroupController extends HttpServlet{
 			Gson gson = new Gson();
 			
 			String result = gson.toJson(lastInsertComment);
-			
 			
 			resp.getWriter().write(result);
 		}

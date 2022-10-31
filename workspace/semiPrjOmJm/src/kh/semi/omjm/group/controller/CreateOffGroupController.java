@@ -25,7 +25,7 @@ public class CreateOffGroupController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
-		String leaderNo = loginMember.getNo();
+		String no = loginMember.getNo();
 		
 		GroupVo gv = (GroupVo)req.getSession().getAttribute("groupInfo");
 		String groupNo = gv.getNo();
@@ -40,12 +40,18 @@ public class CreateOffGroupController extends HttpServlet{
 		ofg.setOffDate(date);
 		ofg.setUserCnt(userCnt);
 		ofg.setContent(content);
-		ofg.setLeaderNo(leaderNo);
+		ofg.setLeaderNo(no);
 		ofg.setGroupNo(groupNo);
 		
+		//오프라인 모임 생성
 		int insertOffGroup = new GroupService().insertOffGroup(ofg);
 		
-		if(insertOffGroup != 1 ) {
+		//오프라인멤버 
+		String ono = new GroupService().selectOffMemberList(ofg);
+		ofg.setNo(ono);
+		int insertOffMember = new GroupService().insertOffMemberByOno(ofg); 
+		
+		if(insertOffGroup*insertOffMember != 1 ) {
 			resp.sendRedirect("/omjm");
 			return;
 		}

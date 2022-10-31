@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.omjm.group.service.GroupService;
 import kh.semi.omjm.group.vo.GroupAttachmentVo;
+import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
 import kh.semi.omjm.group.vo.OffCommentVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
@@ -25,11 +26,12 @@ public class DetailGroupController extends HttpServlet{
 		GroupVo groupInfo = new GroupService().selectGroupByNo(groupNo);
 		GroupAttachmentVo groupAttachmentVo = new GroupService().selectGfileByNo(groupNo);
 		List<OffGroupVo> offlistArr = new GroupService().OffGroupListByGno(groupNo);
+		List<GroupMemberVo> groupMemberList = new GroupService().GroupMemberByGno(groupNo);
 		
+		req.setAttribute("groupMemberList", groupMemberList);
 		req.setAttribute("offList", offlistArr);
 		req.getSession().setAttribute("groupInfo", groupInfo);
 		req.getSession().setAttribute("GroupMainPic", groupAttachmentVo);
-		
 		req.getRequestDispatcher("/WEB-INF/views/group/groupMain.jsp").forward(req, resp);
 	}
 	
