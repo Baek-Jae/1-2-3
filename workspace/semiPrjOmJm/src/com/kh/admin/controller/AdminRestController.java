@@ -1,6 +1,7 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.admin.service.AdminService;
 import com.kh.semi.member.vo.MemberVo;
-import com.kh.semi.board.vo.BoardVo;
+
 
 @WebServlet(urlPatterns = "/admin/rest")
 public class AdminRestController extends HttpServlet{
@@ -33,6 +34,7 @@ public class AdminRestController extends HttpServlet{
 		
 		int result = new AdminService().quit(no);
 		
+		
 		if(result==1) {
 			session.invalidate();
 			resp.sendRedirect("/omjm/");
@@ -42,5 +44,7 @@ public class AdminRestController extends HttpServlet{
 		}
 		
 	}
+	
+	
 	
 }
