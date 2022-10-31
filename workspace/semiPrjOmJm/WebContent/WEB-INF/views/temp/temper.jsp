@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<%
-  	 MemberVo ppOff = (MemberVo)session.getAttribute("ppOff");
-	  MemberVo nppOff = (MemberVo)session.getAttribute("nppOff");
-	  MemberVo manner = (MemberVo)session.getAttribute("manner");
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,22 +53,21 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script>
 
- 	//var pp = document.querySelector("#tempclick").value;
+	var pp = document.querySelector("#tempclick").value;
 	
 	
 		
 		$('#click').click(function(){
 
-			
 		$.ajax({
-			url: "/views/temp/temper" ,
+			url: "/WEB-INF/temp/temper" ,
 			method:"post",			
 			data:{
-				 "ppOff" : <%= ppOff%>+1,
-				 "manner" :<%= manner %> +1
-			},
+				 "ppoff" : ppoff + 1 ,
+				 "manner" : manner +1
+			} ,
 			dataType:'text',
-			success: function(){
+			success: function(data){
 				alert("온도가 상승했습니다.");
 			} ,
 			error : function(){
@@ -83,7 +76,7 @@
 			complete : function(){
 				alert("수정끝")
 				}
-			});
+			})
 		});
 	
 
@@ -92,8 +85,8 @@
 			url:"/WEB-INF/temp/temper2",
 			method:"post",
 			data:{
-				"nppOff" :<%= nppOff %> +1 
-			,	"manner" : <%= manner %> -1 
+				"nppoff" :nppoff +1 
+			,	"manner" : manner -1 
 			},
 			dataType:'text',
 			success:function(data){
@@ -106,11 +99,7 @@
 				alert("수정끝");
 			}
 		});
-		
-		
-		
-		});
-		
+		}
 	
 		$('#mannercheck').click(function(){
 			$.ajax({
@@ -130,7 +119,7 @@
 				complete: function(){
 					alert("수정끝!");
 				}
-			});
+			})
 		});
 	
 	

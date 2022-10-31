@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.member.vo.MemberVo;
@@ -106,48 +104,6 @@ public class AdminDao {
 		
 		return result;
 		
-		
-	}
-
-
-	public List<MemberVo> selectList(Connection conn) {
-		
-		String sql = "SELECT * FROM MEMBER WHERE SUP= 'O' ORDER BY NO DESC";
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<MemberVo> voList = new ArrayList<MemberVo>();
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				String no = rs.getString("NO");
-				String nick = rs.getString("NICK");
-				String sup = rs.getString("SUP");
-				String manner = rs.getString("MANNER");
-				
-				MemberVo vo = new MemberVo();
-				vo.setNo(no);
-				vo.setNick(nick);
-				vo.setSup(sup);
-				vo.setManner(manner);
-				
-				voList.add(vo);
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-			
-		}
-		
-		return voList;
 		
 	}
 
