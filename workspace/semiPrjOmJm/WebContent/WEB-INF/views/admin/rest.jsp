@@ -1,10 +1,12 @@
+<%@page import="java.util.List"%>
 <%@page import="com.kh.semi.member.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ include file="/WEB-INF/views/admin/memberheader.jsp" %>
+        <%@ include file="/WEB-INF/views/common/header.jsp" %>
         <%
-  	  MemberVo sup = (MemberVo)session.getAttribute("sup");
-	 
+  	    List<MemberVo> restMember = (List<MemberVo>)request.getAttribute("restMember");
+        List<MemberVo> voListt = (List<MemberVo>)request.getAttribute("voListt");
+        
 	
 %>
 <!DOCTYPE html>
@@ -25,21 +27,37 @@
             </div>
         </div>
         <div id="content">
-        	<div id="restmember">
-        		제제 회원이름 :<input type="text" id="r1" placeholder="내가 수정해야하는곳 제제 회원:" value="<%= %>">
-        		제제 사유 : <input type="text" id="r2" placeholder="제제 회원 :"<%= %> > 
-        		제제 기간 : <input type="text" id="r3" placeholder="제제 기간 : <%= %>">
-        		제제 시키기 : <button id = clickd>제제</button>
+        	<div id="restmember2">
+        	
+        	<%for(int i =0; i <voListt.size(); ++i){ %>
+        		제제 회원이름 :<input type="text" id="r1" placeholder="내가 수정해야하는곳 제제 회원:" value="<%=voListt.get(i).getNick() %>">
+        		제제 시키기 : <button type="button" onclick="btn_click(this)" class = 'clickd'>제제</button>
+        		<br>
+        	
+        	<%} %>
+        	
+        		</body>
+        		
+        		<script>
+        			function btn1_click(obj){
+        			const no = $(obj).index();
+        			console.log(no);
+        			$($('clickd')[no])
+        			}
+        		
+        		</script>
                <script>
                
-               $('#clickd').click(function(){
+              function btn_click(obj){
+            	  const no = $(obj).index();
                    $.ajax({
-                       url: "/omjm/temp/temper" ,
+                       url: "/omjm/admin/rest" ,
                        method:"post",			
                        data:{
-                           "sup" : <%= sup %> = 'O'
+                    	   "jeje" : $($('#r1')[no]).val()
+                    	   
+   
                        } ,
-                       dataType:'text',
                        success: function(data){
                            alert("회원 제제 완료");
                        } ,
@@ -49,13 +67,13 @@
                        complete : function(){
                            alert("수정끝")
                            }
-                       });
+                       })
        		
-       		});
-               </script>
+       		};
+              </script> 
         	</div>
         </div>
 	
 
-</body>
+
 </html>

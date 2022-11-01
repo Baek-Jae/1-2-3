@@ -28,7 +28,7 @@ import com.kh.semi.qna.vo.QnAVo;
 	)
 public class QnAWriteController extends HttpServlet{
 
-	private static final QnAService Qs = new QnAService();
+	private final QnAService Qs = new QnAService();
 	
 	//QnA 작성하기(화면)
 	@Override

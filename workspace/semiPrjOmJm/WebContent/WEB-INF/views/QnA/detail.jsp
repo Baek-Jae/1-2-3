@@ -63,13 +63,17 @@
 		<div id="notice-content"><%= vo.getContent() %></div>
 
 	</div>
-	
-	<%if(loginMember != null && loginMember.getId().equals("admin")){%>
-		<div id="main-bot">
+		
+	<div id="main-bot">
+		<%if(loginMember != null && (loginMember.getNick()).equals(vo.getWriter())) { %>
 			<a href="/omjm/QnA/edit?no=<%= vo.getNo() %>">수정하기</a>
 			<a href="/omjm/QnA/delete?no=<%= vo.getNo() %>">삭제하기</a>
-		</div>
-	<%}%>
+		<%}%>
+		<%if(loginMember != null && loginMember.getId().equals("admin")){%>
+			<a href="/omjm/reQnA/write?no=<%= vo.getNo() %>">답변작성</a>
+			<a href="/omjm/QnA/delete?no=<%= vo.getNo() %>">삭제하기</a>		
+		<%}%>
+	</div>
 	
 </body>
 </html>

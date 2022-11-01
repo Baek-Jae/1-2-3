@@ -61,6 +61,60 @@ public class AdminService {
 		return voList;
 	}
 
+	public List<MemberVo> selectAdminList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> voListt = dao.selectAdminList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return voListt;
+		
+	}
+
+	public List<MemberVo> selectSup() {
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> restMember = dao.selectSup(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return restMember;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+//	public MemberVo restt(MemberVo vo) {
+//		
+//		Connection conn = JDBCTemplate.getConnection();
+//		MemberVo restMember = new AdminDao().supOne(conn,vo);
+//		JDBCTemplate.close(conn);
+//		return restMember;
+//		
+//	}
+
+//	public MemberVo selectOne(String mno) {
+//		
+//		Connection conn = JDBCTemplate.getConnection();
+//		
+//		MemberVo vo = null;
+//		
+//		vo = dao.selectOne(conn, mno);
+//		JDBCTemplate.commit(conn);
+//		JDBCTemplate.close(conn);
+//		
+//		return vo;
+//		
+//	}
+
 //	public List<MemberVo> selectList() {
 //		
 //	    Connection conn = getConnection();
