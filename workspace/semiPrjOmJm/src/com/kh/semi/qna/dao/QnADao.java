@@ -14,6 +14,7 @@ import com.kh.semi.qna.vo.QnAVo;
 
 public class QnADao {
 
+	//QnA 작성
 	public int insertQnA(Connection conn, QnAVo vo) {
 		
 		//SQL
@@ -72,7 +73,7 @@ public class QnADao {
 	//QnA 글 목록조회
 	public List<QnAVo> selectList(Connection conn, PageVo pv) {
 		
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , Q.WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.DELETE_YN = 'O' ORDER BY Q.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ? ";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , M.NICK AS WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.DELETE_YN = 'O' ORDER BY Q.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ? ";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -221,10 +222,10 @@ public class QnADao {
 		
 	}
 
-	//공지사항 상세조회
+	//QnA 상세조회
 	public QnAVo selectQnAOne(Connection conn, String no) {
 		
-		String sql = "SELECT Q.NO , Q.WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.NO = ? AND Q.DELETE_YN = 'O'";
+		String sql = "SELECT Q.NO , M.NICK AS WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.NO = ? AND Q.DELETE_YN = 'O'";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
