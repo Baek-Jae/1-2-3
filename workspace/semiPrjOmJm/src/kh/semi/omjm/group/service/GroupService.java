@@ -253,10 +253,10 @@ public class GroupService {
 	}
 
 
-	public int insertOffMemberByOno(OffGroupVo ofg) {
+	public int insertOffMemberByOno(OffMemberVo omv) {
 		Connection conn = getConnection();
 		
-		int result = gd.insertOffMemberByOno(conn, ofg);
+		int result = gd.insertOffMemberByOno(conn, omv);
 		
 		if(result != 1) {
 			rollback(conn);
@@ -270,10 +270,10 @@ public class GroupService {
 	}
 
 
-	public String selectOffMemberList(OffGroupVo ofg) {
+	public String selectOffNumber(OffGroupVo ofg) {
 		Connection conn = getConnection();
 		
-		String offMemberList = gd.selectOffMemberList(conn, ofg);
+		String offMemberList = gd.selectOffNumber(conn, ofg);
 					
 		close(conn);
 		
@@ -303,15 +303,18 @@ public class GroupService {
 	}
 
 
-	public String selectmyGMemberNoNoByLno(String lno, String gno) {
+	public String selectmyGMemberNoByLno(String lno, String gno) {
 		Connection conn = getConnection();
 		
-		String myGMemberNo = gd.selectmyGMemberNoNoByLno(conn, gno, lno);
+		String myGMemberNo = gd.selectmyGMemberNoByLno(conn, gno, lno);
 					
 		close(conn);
 		
 		return myGMemberNo;
 	}
+
+
+
 	
 
 

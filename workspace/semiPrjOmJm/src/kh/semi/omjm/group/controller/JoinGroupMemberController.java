@@ -18,10 +18,10 @@ public class JoinGroupMemberController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String loginMemberNo = req.getParameter("loginMemberNo"); 
+		String joinMemberNo = req.getParameter("joinMemberNo"); 
 		String groupNo = req.getParameter("groupNo");
-		int joinGroup = new GroupService().insertGroupMember(groupNo, loginMemberNo);
-
+		
+		int joinGroup = new GroupService().insertGroupMember(groupNo, joinMemberNo);
 		Gson gson = new Gson();
 		
 		String result = gson.toJson(joinGroup);

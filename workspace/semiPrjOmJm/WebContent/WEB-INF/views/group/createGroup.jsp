@@ -7,8 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%= root %>/css/createGroup.css" />
+<script defer src="<%= root %>/javaScript/createGroup.js"></script>
 </head>
 <body>
+
 	<section class="group_wrap">
             <div class="group_outer">
                 <div class="group_head">
@@ -26,7 +28,7 @@
                                 <label for="group_name">모임명</label>
                             </div>
                             <div class="group_profile">
-                                <input type="text" name="group_category" required />
+                                <input type="text" name="group_category" id="categori" required readonly/>
                                 <label for="group_category">카테고리</label>
                             </div>
                             <div class="group_profile">

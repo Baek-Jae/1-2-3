@@ -1,6 +1,7 @@
 package kh.semi.omjm.group.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,8 +36,17 @@ public class DetailOffGroupController extends HttpServlet{
 		List<OffMemberVo> offMember = gs.selectOffMemeberByOno(offNo);
 		List<OffCommentVo> offComment = gs.selectOffCommentByOno(offNo);
 		String OffCommentCnt = gs.selectOffCommentCnt(offNo);
-		String myGMemberNo = gs.selectmyGMemberNoNoByLno(lno, gno);
+		String myGMemberNo = gs.selectmyGMemberNoByLno(lno, gno);
 		
+		List<String> offSeq = new ArrayList<String>();
+		
+		for(int i = 0; i < offMember.size(); ++i) {
+			offSeq.add(offMember.get(i).getNo());
+		}
+		
+		boolean offMemberCheck = offSeq.contains(lno);
+		
+		req.setAttribute("offMemberCheck", offMemberCheck);
 		req.setAttribute("myGMemberNo", myGMemberNo);
 		req.setAttribute("offCommentCnt", OffCommentCnt);
 		req.setAttribute("offCommentList", offComment);

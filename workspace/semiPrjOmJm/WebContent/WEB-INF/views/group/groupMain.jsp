@@ -18,14 +18,16 @@
             <div class="user_controller">
 	            <div class="like">
 	            	<i class=" fa-regular fa-heart" id="dontLike"></i>
-	            	<i class="fa-solid fa-heart close" id="like"></i>
+	            	<i class="fa-solid fa-heart close" id="like" style="color:red;"></i>
 	            </div>
 	            <div class="showMember">
 	            	<span class="material-symbols-outlined" id="groupMember">group</span>
 	            </div>
-	            <div class="joinGroup">
+	            <c:if test="${gmemberCheck ne 'true'}">
+				<div class="joinGroup">
 	            	<i class="fa-solid fa-arrow-right-to-bracket" id="joinGroup"></i>
 	            </div>
+	            </c:if>
             </div>
             <div class="group-info-wrap">
                 <div class="group-name">
@@ -74,11 +76,13 @@
                                 </div>
                                 <a href="<%=root %>/group/off?ono=${i.no}">
                                 <span class="material-symbols-outlined">subdirectory_arrow_right</span>
-                                 참여하기</a>
+                                 들어가기</a>
                             </div>
 						</c:forEach>
                         </div>
+                        <c:if test="${gmemberCheck eq 'true'}">
                         <a href="<%= root %>/offgroup/create"><span class="material-symbols-outlined" id="add-icon"> add </span>오프라인</a>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -87,25 +91,21 @@
         	<div class="gmember_wrap close">
               	  	<div class="gleader_info">
               	  		<i class="fa-solid fa-anchor"></i>
-                        <span>${groupInfo.leader}</span>
+                        <span>${groupInfo.leader}의 ${groupInfo.name}</span>
                         <div class="gmembertemp">매너온도미완성</div>
                     </div>
-<!-- 				오프참여 멤버 공란시                 -->
-               	<c:if test="${empty groupMemberList or groupInfo.leader eq loginMember.nick}">
+               	<c:if test="${empty groupMemberList}">
                		<div class="gmember_info">
                			<div id="first_member">
                         	<span >첫번째 참여자가 되어보세요!</span>
                			</div>
                     </div>
                	</c:if>
-<!--                오프멤버 반복문 -->
 					<c:forEach items="${groupMemberList}" var="i">
-					<c:if test="${groupInfo.leader ne loginMember.nick}">
                     <div class="gmember_info">
-                        <span>${i.userNo}</span>
+                        <div class="gMemberNick"><span>${i.userNo}</span></div>
                         <div class="off_membertemp">매너온도미완성</div>
                     </div>
-<!--                     리더랑 로그인 멤버 동일한가  -->
                     <c:if test="${groupInfo.leader eq loginMember.nick}">
                     <div class="member_controller">
                         <button class="expulsion">추 방</button>
@@ -113,7 +113,6 @@
                         <button class="absence">불 참</button>
                     </div>
                     </c:if>
-                   	</c:if>
                     </c:forEach>
                 <button class="memberlist_close">
                 	<span class="material-symbols-outlined"> close </span>
@@ -147,20 +146,18 @@
    
       		$('.joinGroup').click(
 			function joinGroup() {
-				console.log(${loginMember.no});
-				console.log(${groupInfo.no});
 				$.ajax({
 					url: "<%= root %>/group/joinMember",
 					type: "post",
 					data:{
-						"gmemberNo": ${loginMember.no},
+						"joinMemberNo": ${loginMember.no},
 						"groupNo" : ${groupInfo.no}
 					},
 					success:(result)=>{
-						console.log(${groupInfo.no});
+						$('.joinGroup').remove();
 					},
 					error:()=>{
-						console.log(${groupInfo.no});
+						alert("가입 실패,...ㄷㄷ");
 					}
 				})//ajax
 			}//event

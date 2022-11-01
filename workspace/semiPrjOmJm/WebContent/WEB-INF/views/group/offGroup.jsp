@@ -49,7 +49,14 @@
 	                        <input text="type" readonly value="${i.content}" class="comment">
 	                        <c:if test="${i.gmemberNo eq loginMember.nick}">
 	                        <div class="comment_controller">
-	                            <button class="comment_modify" onclick="readyModify(this , ${i.gmemberNo})">수 정</button>
+	                            <button class="comment_modify" onclick="readyModify(this)">수 정</button>
+	                            <button class="complate close" onclick="modifyComment(this)">완 료</button>
+	                            <button class="comment_delete" onclick="deleteComment(this)">삭 제</button>
+	                        </div>
+	                        </c:if>
+	                        <c:if test="${i.gmemberNo ne loginMember.nick}">
+	                        <div class="comment_controller hidden">
+	                            <button class="comment_modify" onclick="readyModify(this')">수 정</button>
 	                            <button class="complate close" onclick="modifyComment(this)">완 료</button>
 	                            <button class="comment_delete" onclick="deleteComment(this)">삭 제</button>
 	                        </div>
@@ -67,11 +74,12 @@
                     </button>
                 </div>
             </div>
-            <c:forEach items="${offMember}" var="i">
-            <c:if test="${i.userNo ne loginMember.nick}">
+            <c:if test="${offMemberCheck ne 'true'}">
            	<button class="offGroup_invite">가 입</button>
            	</c:if>
-           	</c:forEach>
+           	<c:if test="${offMemberCheck eq 'true'}">
+           	<button class="offGroup_invite">탈 퇴</button>
+           	</c:if>
            	<c:if test="${loginMember.nick eq offGroup.leaderNo}">
            	<button class="offGroup_edit">수 정</button>
            	</c:if>
@@ -93,7 +101,6 @@
                	</c:if>
 <!--                오프멤버 반복문 -->
 					<c:forEach items="${offMember}" var="i">
-						<c:if test="${offGroup.leaderNo ne loginMember.nick}">
                     <div class="off_member_info">
                         <span>${i.userNo}</span>
                         <div class="off_membertemp">매너온도미완성</div>
@@ -106,48 +113,12 @@
                         <button class="absence">불 참</button>
                     </div>
                     </c:if>
-                    	</c:if>
                     </c:forEach>
                 <button class="memberlist_close"><span class="material-symbols-outlined"> close </span></button>
             </div>
         </main>
         
-	<script>
-// 		//댓글기입~[프로미스 실패... ㅠㅠ]
-// 		$('.comment_submit').click(
-// 	 			const addComment = new Promise(function (resolve, reject) { 
-// 	 				$.ajax({
-<%-- 	 		        	url: "<%= root %>/offgroup/comment/write", --%>
-// 	 		            type: "post",
-// 	 		            data: {
-// 	 		            	"offNo" : ${offGroup.no},
-// 	 		                "memberNo" : ${loginMember.no},
-// 	 		                "content" : $('#my_commemt').val()
-// 	 			                },
-// 	 		           	success: function (result) {
-// 	 		           		resolve(
-// 	 		          		const myComment = JSON.parse(result);
-// 	 		          		let newComment = "<div class=\"offGroup_comment_wrap\">"+ 
-// 	 		          		"<div class=\"comment_user\"><span>"+myComment.gmemberNo+"</span></div>"+
-// 	 		          		"<div class=\"comment_content\">"+
-// 	 		          		"<input readonly class=\"comment\" type=\"text\" value="+"'"+myComment.content+"'"+" \>"+ 
-// 	 		              	"<div class=\"comment_controller\">"+
-// 	 		          		"<button class=\"comment_modify\" onclick=\"readyModify(this))\">수 정</button>"+
-// 	 		          		"<button class=\"complate close\" onclick=\"modifyComment(this)\">완 료</button>"+
-// 	 		          		"<button class=\"comment_delete\" onclick=\"deleteComment(this)\">삭 제</button></div>"+
-// 	 		          		"<div class=\"commentNo close\">"+myComment.no+"</div></div>";
-// 	 		          		$('#offGroup_comment_list').append(newComment);
-// 	 		          		$('#my_commemt').val("");)//resolve
-// 	 					},
-// 	 		       		error: function () {
-// 	 		       			reject(alert("댓글작성실패"));
-// 	 					}				
-// 					});//ajax
-// 	 			}).then(upDateCommentCnt()).done(alert("작성성공!"));
-// 		     });//promise   
-// 		});//event
-	
-	
+	<script>	
 	
 		function upDateCommentCnt() {
 			$.ajax({
@@ -194,7 +165,7 @@
               		$('#my_commemt').val("");
               		
               		const checkCommentClass = $('.comment_count').attr('class');
-              		const checkComment = checkCommentClass.search('close')
+              		const checkComment = checkCommentClass.search('close');
               		
               		if(checkComment != -1){
               			$('.comment_count').removeClass('close');
@@ -212,24 +183,19 @@
 		
       	//댓글 수정~	
  		function modifyComment(obj) {
-			const commentNo = $(obj).parent().index(obj);
-			const parente = $(obj).parent('.commentNo').index();
-			const myNo = $(obj).index(obj);
-			console.log(commentNo);
-			console.log(parent);
-			console.log(myNo);
+ 			const no = $('.complate').index(obj);
 			$.ajax({
 				url: "<%= root %>/offgroup/comment/update",
 				type:"post",
 				data:{
-					"commentNo": $($('.commentNo')[commentNo]).text(),
-					"content": $($('.comment')[commentNo]).val()
+					"commentNo": $($('.commentNo')[no]).text(),
+					"content": $($('.comment')[no]).val()
 					},
 				success:(result)=>{
-					$($('.complate')[myNo]).addClass('close');
-					$($('.comment_modify')[myNo]).removeClass('close');
-					$($('.comment')[commentNo]).attr('readOnly', true);
-					$($('.comment')[commentNo]).css('backgroundColor', 'transparent');
+					$($('.complate')[no]).addClass('close');
+					$($('.comment_modify')[no]).removeClass('close');
+					$($('.comment')[no]).attr('readOnly', true);
+					$($('.comment')[no]).css('backgroundColor', 'transparent');
 				},
 				error:()=>{
 					alert("수정실패...");
@@ -239,8 +205,7 @@
 			
 		//댓글 삭제
 		function deleteComment(obj){
-			let no = $(obj).parent().parent().index();
-			console.log(no);
+			let no = $('.comment_delete').index(obj);
 			$.ajax({
 				url: "<%= root %>/offgroup/comment/del",
 				type: "post",
@@ -277,7 +242,6 @@
 					},
 					success:(result)=>{
 						alert(result);
-						location.reload();
 					},
 					error:()=>{
 						alert("가입 실패...");

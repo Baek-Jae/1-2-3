@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.member.vo.MemberVo;
 
 import kh.semi.omjm.group.service.GroupService;
+import kh.semi.omjm.group.vo.GroupMemberVo;
 import kh.semi.omjm.group.vo.GroupVo;
 import kh.semi.omjm.group.vo.OffGroupVo;
+import kh.semi.omjm.group.vo.OffMemberVo;
 
 @WebServlet(urlPatterns = "/offgroup/create")
 public class CreateOffGroupController extends HttpServlet{
@@ -46,10 +48,13 @@ public class CreateOffGroupController extends HttpServlet{
 		//오프라인 모임 생성
 		int insertOffGroup = new GroupService().insertOffGroup(ofg);
 		
-		//오프라인멤버 
-		String ono = new GroupService().selectOffMemberList(ofg);
-		ofg.setNo(ono);
-		int insertOffMember = new GroupService().insertOffMemberByOno(ofg); 
+		//오프라인멤버추가 
+		String ono = new GroupService().selectOffNumber(ofg);
+		OffMemberVo omv = new OffMemberVo();
+		omv.setOffNo(ono);
+		omv.setUserNo(no);
+		
+		int insertOffMember = new GroupService().insertOffMemberByOno(omv); 
 		
 		if(insertOffGroup*insertOffMember != 1 ) {
 			resp.sendRedirect("/omjm");

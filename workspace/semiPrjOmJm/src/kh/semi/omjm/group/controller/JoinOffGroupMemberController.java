@@ -13,6 +13,7 @@ import com.kh.semi.member.vo.MemberVo;
 
 import kh.semi.omjm.group.service.GroupService;
 import kh.semi.omjm.group.vo.OffGroupVo;
+import kh.semi.omjm.group.vo.OffMemberVo;
 
 @WebServlet(urlPatterns = "/offgroup/join")
 public class JoinOffGroupMemberController extends HttpServlet{
@@ -20,10 +21,13 @@ public class JoinOffGroupMemberController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String loginMemberNo = (String) req.getAttribute("loginMemberNo"); 
-		String offNo = (String) req.getAttribute("gorupNo");
+		String loginMemberNo = req.getParameter("loginMemberNo"); 
+		String offNo = req.getParameter("offNo");
+		OffMemberVo omv = new OffMemberVo();
+		omv.setOffNo(offNo);
+		omv.setUserNo(loginMemberNo);
 		
-		int joinOffGroup = new GroupService().insertGroupMember(offNo, loginMemberNo);
+		int joinOffGroup = new GroupService().insertOffMemberByOno(omv);
 		
 		Gson gson = new Gson();
 		

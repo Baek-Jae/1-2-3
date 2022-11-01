@@ -171,8 +171,9 @@ public class GroupDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(conn);
 		}
-		
 		
 		return result;
 	}
@@ -268,12 +269,10 @@ public class GroupDao {
 				ogv.setContent(rs.getString("OFF_CONTENT"));
 				ogv.setEnrollDate(rs.getString("ENROLL_DATE"));
 				ogv.setModifyDate(rs.getString("MODIFY_DATE"));
-				ogv.setDeleteYn(rs.getString("DELETE_YN"));
-				
+				ogv.setDeleteYn(rs.getString("DELETE_YN"));				
 				
 				OffGroupList.add(ogv);
-			}
-			
+			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -495,15 +494,14 @@ public class GroupDao {
 		return result;
 	}
 
-	public int insertOffMemberByOno(Connection conn, OffGroupVo ofg) {
+	public int insertOffMemberByOno(Connection conn, OffMemberVo omv) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
 		String sql = "INSERT INTO OFF_MEMBER(NO, OFF_NO, USER_NO) VALUES (SEQ_OFFMEMBER_NO.NEXTVAL, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, ofg.getNo());
-			pstmt.setString(2, ofg.getLeaderNo());
+			pstmt.setString(1, omv.getOffNo());
+			pstmt.setString(2, omv.getUserNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -516,7 +514,7 @@ public class GroupDao {
 		return result;
 	}
 
-	public String selectOffMemberList(Connection conn, OffGroupVo ofg) {
+	public String selectOffNumber(Connection conn, OffGroupVo ofg) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -571,8 +569,7 @@ public class GroupDao {
 		} finally {
 			close(rs, pstmt);
 		}
-		
-		
+				
 		return offCommentArr;
 	}
 
@@ -598,12 +595,11 @@ public class GroupDao {
 		} finally {
 			close(rs, pstmt);
 		}
-		
-		
+				
 		return OffCommentCnt;
 	}
 
-	public String selectmyGMemberNoNoByLno(Connection conn, String gno, String lno) {
+	public String selectmyGMemberNoByLno(Connection conn, String gno, String lno) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT NO FROM GROUP_MEMBER WHERE GROUP_NO = ? AND USER_NO = ?";

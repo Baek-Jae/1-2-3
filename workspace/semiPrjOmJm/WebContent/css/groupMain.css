@@ -28,6 +28,8 @@
 .like:hover{
 	color:red;
 }
+
+
 .showMember{
 	cursor: pointer;
 	margin-right: 10px;
@@ -256,11 +258,11 @@
  {
  	width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content:center;
-    font-size: 13px;
+    font-size: 15px;
     margin: 5px;
     color: #fff;
+    padding: 5px;
 }
 
 .gleader_info{
