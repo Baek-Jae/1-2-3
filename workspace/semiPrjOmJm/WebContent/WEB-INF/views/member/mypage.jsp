@@ -362,7 +362,7 @@
                                     <div>${like.bCate }</div>
                                     <div>${like.sCate }</div>
                                     <div>${like.pName }</div>
-                                    <div><a href="/omjm/group/detail?gno=${like.gNo}">${like.gName}</a></div>
+                                    <div><a href="/omjm/group/main?gno=${like.gNo}">${like.gName}</a></div>
                                 
                             </c:forEach>
                             
@@ -397,7 +397,17 @@
                        	<div>큰 카테고리</div>
                        	<div>작은 카테고리</div>
                         <div>그룹이름</div>
-                        <div>찜하기 하트</div>
+                        <div>그룹 정원</div>
+                        <c:forEach items="${ jgList }" var="join" >
+                            
+                                    <div>${join.cName }</div>
+                                    <div>${join.dName }</div>
+                                    <div><a href="/omjm/group/main?gno=${join.gNo}">${join.gName}</a></div>
+                                    <div>${join.gCnt }</div>
+                                
+                            </c:forEach>
+                            
+                            <div class="span4">
                        	
                     </div>
                 </div>

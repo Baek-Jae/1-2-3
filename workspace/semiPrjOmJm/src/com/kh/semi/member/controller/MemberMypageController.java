@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.semi.common.PageVo;
 import com.kh.semi.member.service.MemberService;
+import com.kh.semi.member.vo.MemberJoinGroupVo;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -81,6 +82,14 @@ public class MemberMypageController extends HttpServlet{
 			req.setAttribute("pv", new PageVo());
 		}
 		
+		
+		//가입한 모임 뜨게해야한다 . 
+		String no = loginMember.getNo();
+		//가입한 모임 리스트 가져온다.
+		List<MemberJoinGroupVo> jgList = new MemberService().selectGroupByNo(no);
+		System.out.println(jgList.size());
+		
+		req.setAttribute("jgList", jgList);
 		req.setAttribute("x", x);
 		req.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(req, resp);
 	}
