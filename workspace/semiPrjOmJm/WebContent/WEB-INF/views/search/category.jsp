@@ -38,7 +38,6 @@ if (loginMember != null){
 	pla =  placeArr[arrmath];	%>
 	
 <script>
-	
 		$.ajax({
 		url :	"<%=root%>/main/membergroup" , 
         method : "GET",   
@@ -48,48 +47,94 @@ if (loginMember != null){
         success : function(x){
            var o = JSON.parse(x);
 
-           for(var i=0 in o){    
-              alert(o[i].name);
-               $('.group-cnt').eq(i).text(o[i].userCnt); 
-               $('.group-na').eq(i).text(o[i].name); 
-               $('.group-pl').eq(i).text(o[i].place); 
-               $('.group-cate').eq(i).text(o[i].category);
-           }//for
-        },//success
-        error : function(){
-           alert("login-group 통신 에러!");
-        }//error
-     });//ajax
-	
-	//function
+           for(let i = 0; i < 15; i++){
+				//for(var i=0 in o){ 
+				let div = $('<div/>');
+				div.addClass("group-card");
+		
+				var random = Math.floor(Math.random()*o.length);
+
+				div.append('<div class="group-tag">'
+						+'<span class="material-symbols-outlined">sell</span>'
+						+'<label>서울시 베스트</label></div>');
+				
+				div.append('<div class="group-wrap">'
+	                    +'<div class="card-top">'
+                        +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+                    +'</div>'
+                    +'<div class="card-bottom">'
+                       +'<span>모임명</span>'
+	                        +'<span class="group-na">'+o[i].name+'</span>'
+	                        +'<span>카테고리</span>'
+	                        +'<span class="group-cate">'+o[i].category+'</span>'
+	                        +'<div>'
+	                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+	                            +'<span class="group-pl">'+o[i].place+'</span>'
+	                        +'</div>'
+	                        +'<div id="group-info">'
+	                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+	                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+                        +'</div>'
+                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+                	+'</div>'
+                +'</div>');
+				
+				$(div).appendTo('.group-list');	
+			}
+		},
+		error : function(){
+			alert("login-group 통신 에러!");
+		}
+	});
 </script>
 	<%}else{%>
-	
-	<script>
-	/* window.onload = function(){ */
+<script>
 		$.ajax({
 			url : "<%=root%>/main/group" , 
 			method : "GET" ,
-			//data :	
 			success : function(x){
-				o = JSON.parse(x);
-				console.log(o);
+				var o = JSON.parse(x);
+				/* console.log(o); */
 				
-				for(var i=0 in o){    
-		              //alert(o[i].name);
-					var random = Math.floor(Math.random()*o[i].length);
-					 /* alert(random);  */
-		               $('.group-cnt').eq(i).text(o[i].userCnt); 
-		               $('.group-na').eq(i).text(o[i].name); 
-		               $('.group-pl').eq(i).text(o[i].place); 
-		               $('.group-cate').eq(i).text(o[i].category);
+				for(let i = 0; i < 15; i++){
+					let div = $('<div/>');
+					div.addClass("group-card");
+			
+					var random = Math.floor(Math.random()*o.length);
+
+					div.append('<div class="group-tag">'
+							+'<span class="material-symbols-outlined">sell</span>'
+							+'<label>서울시 베스트</label></div>');
+					
+					div.append('<div class="group-wrap">'
+		                    +'<div class="card-top">'
+	                        +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+	                    +'</div>'
+	                    +'<div class="card-bottom">'
+	                       +'<span>모임명</span>'
+		                        +'<span class="group-na">'+o[i].name+'</span>'
+		                        +'<span>카테고리</span>'
+		                        +'<span class="group-cate">'+o[i].category+'</span>'
+		                        +'<div>'
+		                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+		                            +'<span class="group-pl">'+o[i].place+'</span>'
+		                        +'</div>'
+		                        +'<div id="group-info">'
+		                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+		                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+	                        +'</div>'
+	                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+	                	+'</div>'
+	                +'</div>');
+					
+					$(div).appendTo('.group-list');	
 				}
-			},error : function(){
+			},
+			error : function(){
 				alert("logout-group 통신 에러!");
 			}
 		});
-	
-	</script>
+</script>
 <%}%>
 	<%if(search != null){ 
 		System.out.println(search);%>
@@ -98,33 +143,66 @@ if (loginMember != null){
 	$(document).ready(function() {  
 		/* alert("dd"); */
 	
-	 <%	for(int i = 0; i < groupName.size(); ++i) {%>
+	 <%	for(int i = 0; i < 15; ++i) {%>
 		 <%-- console.log('<%=groupName.get(0).getName()%>');
 		 console.log($('.group-cate').eq(0)); --%>
  	 		
-		$('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
+		/*  for(let i = 0; i < o.length; i++){ */
+				//for(var i=0 in o){ 
+				let div = $('<div/>');
+				div.addClass("group-card");
+		
+				div.append('<div class="group-tag">'
+						+'<span class="material-symbols-outlined">sell</span>'
+						+'<label>서울시 베스트</label></div>');
+				
+				div.append('<div class="group-wrap">'
+	                    +'<div class="card-top">'
+                    +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+                +'</div>'
+                +'<div class="card-bottom">'
+                   +'<span>모임명</span>'
+	                        +'<span class="group-na">'+<%= groupName.get(i).getName() %>+'</span>'
+	                        +'<span>카테고리</span>'
+	                        +'<span class="group-cate">'+<%= groupName.get(i).getCategory() %>+'</span>'
+	                        +'<div>'
+	                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+	                            +'<span class="group-pl">'+<%= groupName.get(i).getPlace() %>+'</span>'
+	                        +'</div>'
+	                        +'<div id="group-info">'
+	                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+	                            +'<span class="group-cnt">'+<%= groupName.get(i).getUserCnt() %>+'</span>'
+                    +'</div>'
+                    +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+            	+'</div>'
+            +'</div>');
+				
+				$(div).appendTo('.group-list');	
+			}
+		 
+		<%-- $('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
 		$('.group-na').eq(<%=i%>).text('<%= groupName.get(i).getName() %>'); 
 		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
-		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>'); 
+		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>');  --%>
 		<%}%>
 	})
-	</script>
+</script>
 	<%}else if(jjap != null){%> 
-		<script type="text/javascript">
+<script>
 			alert("해당 모임이 존재하지 않습니다");
-			$(document).ready(function() {  
-			 <%	for(int i = 0; i < groupName.size(); ++i) {%>
+			<%-- $(document).ready(function() {  
+			 <%	for(int i = 0; i < 15; ++i) {%>
 		 console.log('<%=groupName.get(0).getName()%>');
 		 console.log($('.group-cate').eq(0));
  	 		
 		$('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
 		$('.group-na').eq(<%=i%>).text('<%= groupName.get(i).getName() %>'); 
 		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
-		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>'); 
+		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>');  --%>
 		<% } %>
-	})
-	</script>
-	<% } %> 
+	/* }) */
+</script>
+<%-- <% } %>  --%>
 	
 	<div id="ca-search">
 		<form action="<%= root %>/search" class="main-search" method="post">
@@ -135,8 +213,7 @@ if (loginMember != null){
 							<%}else if(search2 != null){ %> <%= search2 %>
 			                       <%}%>"/>
          </div>
-         <!-- <input type="submit" value="검  색" id="submit"> -->
-         <button type="button" id="submit" onclick="return doAction();">변경</button> 
+         <input type="button" id="submit" onclick="return doAction();" value="변경">
       </form>
 
 		<select name="place" class="ca-option" id="select-pl">
@@ -144,11 +221,11 @@ if (loginMember != null){
 			<% for(int i = 0; i < placeList.size(); ++i){%>
 			<option id="place-name" value="<%= placeList.get(i).getpNo() %>"><%= placeList.get(i).getpName() %></option>
 			<%  } %>
-			<!-- <input type="button" value="변  경"> -->
 		</select>
 	</div>
+	
 	<div id="container">
-<div id="box">
+		<div id="box">
 		<input type="checkbox" class="" id="collapsible5" name="cs_biz_form">
 			<label for="collapsible5"> 
 			<img src="<%= root %>/resources/업종직무2.jpg" alt="카테고리" width="80%" height="70%"> 
@@ -371,88 +448,8 @@ if (loginMember != null){
 		<div id="group-place"></div>
 		<div id="group-list">의 모임 리스트</div>
 	
-	<div class="group-list">
-		<div class="group-card">
-			<div class="group-tag">
-				<i class="fa-sharp fa-solid fa-tag"></i>
-				<label>서울시 베스트</label>
-			</div>
-			<div class="group-wrap">
-				<div class="card-top">
-					<img src="<%=root%>/resources/testImg.png" alt="그룹사진" />
-				</div>
-				<div class="card-bottom">
-						<span>모임명</span>
-                        <span class="group-na">모임</span>
-                        <span>카테고리</span>
-                        <span class="group-cate"></span>
-					<div>
-						<span class="material-symbols-outlined" id="location-icon">location_on</span>
-						<span class="group-pl"> </span>
-					</div>
-					<div>
-						<span class="material-symbols-outlined" id="group-icon">group</span>
-						<span class="group-cnt"></span>
-					</div>
-					<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-				</div>
-			</div>
-		</div>
-			<div class="group-card">
-	                	<div class="group-tag">
-	                		<i class="fa-sharp fa-solid fa-tag"></i>
-	                		<label>서울시 베스트</label>
-	                	</div>
-	            		<div class="group-wrap">    
-		                    <div class="card-top">
-		                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
-		                    </div>
-		                    <div class="card-bottom">
-		                        <span>모임명</span>
-		                        <span class="group-na">모임1</span>
-		                        <span>카테고리</span>
-		                        <span class="group-cate"></span>
-		                        <div>
-		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span class="group-pl"> </span>
-		                        </div>
-		                        <div>
-		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span class="group-cnt"></span>
-		                        </div>
-		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-	                    	</div>
-	                    </div>
-	                </div>
-	                
-	                <div class="group-card">
-	                	<div class="group-tag">
-	                		<span class="material-symbols-outlined">sell</span>
-	                		<label>서울시 베스트</label>
-	                	</div>
-	            		<div class="group-wrap">    
-		                    <div class="card-top">
-		                        <img src="<%= root %>/resources/testImg.png" alt="그룹사진" />
-		                    </div>
-		                    <div class="card-bottom">
-		                        <span>모임명</span>
-		                        <span class="group-na">모임2</span>
-		                        <span>카테고리</span>
-		                        <span class="group-cate"></span>
-		                        <div>
-		                            <span class="material-symbols-outlined" id="location-icon">location_on</span>
-		                            <span class="group-pl"></span>
-		                        </div>
-		                        <div id="group-info">
-		                            <span class="material-symbols-outlined" id="group-icon">group</span>
-		                            <span class="group-cnt"></span>
-		                        </div>
-		                        <a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>
-	                    	</div>
-	                    </div>
-	                </div>
-	            </div>
-            </div>
+	<div class="group-list"></div>
+  
 		<%-- <table border="1" id="recomm">
 		<tr id="tr1">
 			<td id="td1" rowspan="4"><img src="<%= root %>/resources/기타.jpg"
@@ -468,7 +465,6 @@ if (loginMember != null){
 			<td>29명</td>
 		</tr>
 	</table> --%>
-
 
 <script type="text/javascript">
 
@@ -503,15 +499,40 @@ $('#select-pl').change(function(){
 						},
 						success : function(z){
 							var sp = JSON.parse(z);
-							for(var i=0 in sp){    
-								/* alert(sp[i].name);   */    
-								       /* console.log($('.group-cnt').eq(i)); */
-								//for(var i = 0; i < sp.legnth; ++i){
-							 		$('.group-cnt').eq(i).text(sp[i].userCnt); 
-							 		$('.group-na').eq(i).text(sp[i].name); 
-							 		$('.group-pl').eq(i).text(sp[i].place);  
-							 		$('.group-cate').eq(i).text(sp[i].category); 
-								}
+							for(let i = 0; i < 15; i++){
+								//for(var i=0 in o){ 
+								let div = $('<div/>');
+								div.addClass("group-card");
+						
+								var random = Math.floor(Math.random()*o.length);
+
+								div.append('<div class="group-tag">'
+										+'<span class="material-symbols-outlined">sell</span>'
+										+'<label>서울시 베스트</label></div>');
+								
+								div.append('<div class="group-wrap">'
+					                    +'<div class="card-top">'
+				                       +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+				                   +'</div>'
+				                   +'<div class="card-bottom">'
+				                      +'<span>모임명</span>'
+					                        +'<span class="group-na">'+o[i].name+'</span>'
+					                        +'<span>카테고리</span>'
+					                        +'<span class="group-cate">'+o[i].category+'</span>'
+					                        +'<div>'
+					                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+					                            +'<span class="group-pl">'+o[i].place+'</span>'
+					                        +'</div>'
+					                        +'<div id="group-info">'
+					                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+					                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+				                       +'</div>'
+				                       +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+				               	+'</div>'
+				               +'</div>');
+								
+								$(div).appendTo('.group-list');	
+							}
 						},
 						error : function(){
 							alert("통신 에러!");
@@ -596,18 +617,45 @@ $('#select-pl').change(function(){
 			     },
 			     success : function(x){
 			        var o = JSON.parse(x);
-			        for(var i=0 in o){    
-			        
-			            $('.group-cnt').eq(i).text(o[i].userCnt); 
-			            $('.group-na').eq(i).text(o[i].name); 
-			            $('.group-pl').eq(i).text(o[i].place); 
-			            $('.group-cate').eq(i).text(o[i].category);
-			        }       
-			     },
+			        for(let i = 0; i < 15; i++){
+						//for(var i=0 in o){ 
+						let div = $('<div/>');
+						div.addClass("group-card");
+				
+						var random = Math.floor(Math.random()*o.length);
+
+						div.append('<div class="group-tag">'
+								+'<span class="material-symbols-outlined">sell</span>'
+								+'<label>서울시 베스트</label></div>');
+						
+						div.append('<div class="group-wrap">'
+			                    +'<div class="card-top">'
+		                        +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+		                    +'</div>'
+		                    +'<div class="card-bottom">'
+		                       +'<span>모임명</span>'
+			                        +'<span class="group-na">'+o[i].name+'</span>'
+			                        +'<span>카테고리</span>'
+			                        +'<span class="group-cate">'+o[i].category+'</span>'
+			                        +'<div>'
+			                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+			                            +'<span class="group-pl">'+o[i].place+'</span>'
+			                        +'</div>'
+			                        +'<div id="group-info">'
+			                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+			                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+		                        +'</div>'
+		                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+		                	+'</div>'
+		                +'</div>');
+						
+						$(div).appendTo('.group-list');	
+					}
+				},
 			     error : function(){
 			        alert("keyword 통신 에러!");
 			     }
-});  
+			});  
 	})
 	
 	function doAction(form){
@@ -618,7 +666,6 @@ $('#select-pl').change(function(){
  			form.search.focus();
  			return false;
  		}
- 		
  		return true;
  	}
 	
@@ -637,11 +684,10 @@ $('#select-pl').change(function(){
     })
 }) */
 
-
  /* function printName()  {
 	  const name = document.getElementById('my_name').value;
 	  document.getElementById("my_name").value = name;
 	} */
-    </script>
+</script>
 </body>
 </html>
