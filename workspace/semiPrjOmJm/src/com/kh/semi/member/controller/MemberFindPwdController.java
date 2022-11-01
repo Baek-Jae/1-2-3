@@ -40,8 +40,8 @@ public class MemberFindPwdController extends HttpServlet{
 			req.setAttribute("id", id);
 			req.getRequestDispatcher("/WEB-INF/views/member/updatePassword.jsp").forward(req, resp);
 		}else {
-			System.out.println("같은거 없슈");
-			resp.sendRedirect("/omjm/member/findpwd");
+			req.setAttribute("alertMsg", "답이 맞지 않습니다. 다시 진행해 주세요");
+			req.getRequestDispatcher("/WEB-INF/views/member/findPwd.jsp").forward(req, resp);
 		}
 		
 	}

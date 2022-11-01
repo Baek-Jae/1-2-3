@@ -41,7 +41,7 @@
         width: 100vw;
         height: 780px;
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         grid-template-rows: 1fr 10fr;
         justify-content: center;
         align-items: center;
@@ -78,7 +78,7 @@
     .main{
         width: 100%;
         height: 100%;
-        grid-column: span 6;
+        grid-column: span 5;
         display: none;
         
     }
@@ -87,7 +87,6 @@
     input[id="mem-group"]:checked ~ .mp-main3{display: block;}
     input[id="mem-manner"]:checked ~ .mp-main4{display: block;}
     input[id="mem-liked-place"]:checked ~ .mp-main5{display: block;}
-    input[id="mem-liked-catg"]:checked ~ .mp-main6{display: block;}
 
     label {
         width: 100%;
@@ -111,8 +110,9 @@
     }
     .label{
 
-    color: #fff;
-    background-color: #fdb930;
+    color: #fdb930;
+    border: 1px solid #fdb930;
+    background-color: #fff;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -140,9 +140,16 @@
         color: black;
     }
     #mp-id{
-        margin: 0 0px 0px 50px;
-        padding: 50px;
+        display: grid;
+        grid-template-columns: 0.5fr 1.5fr ;
+        padding: 30px;
 
+    }
+    #id{
+        display: flex;
+    }
+    #border{
+        border: 1px solid #fdb930;
     }
     #mem-mp1-content{
         display: grid;
@@ -177,6 +184,13 @@
         height: 35px;
         width: 60%;
         text-align: center;
+    }
+
+    #buttonQ{
+        background-color: #fff;
+        border: 1px solid red;
+        color: red;
+        height: 30px;
     }
   /* 찜한 모임 부분 css */
   .span4{
@@ -256,6 +270,7 @@
         font-size: 20px;
         text-align: center;
     }
+
 </style>
 </head>
 <body>
@@ -275,8 +290,6 @@
             <label for="mem-manner" ><span class="material-symbols-outlined">sentiment_satisfied&nbsp;매너온도</span></label>
             <input type="radio" id="mem-liked-place" name="mem-navi">
             <label for="mem-liked-place" ><span class="material-symbols-outlined">pin_drop&nbsp;관심지역</span></label>
-            <input type="radio" id="mem-liked-catg" name="mem-navi">
-            <label for="mem-liked-catg" ><span class="material-symbols-outlined">heart_plus&nbsp;관심카테고리</span></label>
 
 
             
@@ -285,24 +298,25 @@
                         <div class="mem-mp-info">
                             <form action="/omjm/member/edit" method="post">
                                 <div id="mp-login-info"><h1>로그인 정보</h1></div>
-                                <div id="mp-id">아이디 : ${loginMember.id}</div>
+                                <div id="mp-id">아이디 <div><input type="text" value="${loginMember.id}" class="input" readonly name="memberId"><button type="button"name="quitM" class="doublecheck label" id="buttonQ">회원탈퇴</button></div></div>
+                                
                                                 
                         </div>
                         <div id="mem-mp1-content">
 
                                     <div class="span2" align="center">수정할 값을 입력해주세요</div>
                                     <div>닉네임 </div>
-                                    <div>: <input type="text" name ="mp-memberNick" value="<%= loginMember.getNick()%>"  class="input">
-                                        <button class="label doublecheck">중복확인</button>
+                                    <div><input type="text" name ="mp-memberNick" value="<%= loginMember.getNick()%>"  class="input">
+                                        <button class="label doublecheck" id="border">중복확인</button>
                                     </div>
                                     <div>패스워드 </div>
-                                    <div>: <input type="password" name="mp-memberPwd" value="<%= loginMember.getPwd()%>"  class="input"></div>
+                                    <div><input type="password" name="mp-memberPwd" value="<%= loginMember.getPwd()%>"  class="input"></div>
                                     <div>전화번호 </div>
-                                    <div>: <input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"  class="input">
-                                        <button class="label doublecheck">중복확인</button>
+                                    <div><input type="text" name="mp-memberPhone" value="<%=loginMember.getPhone()%>"  class="input">
+                                        <button class="label doublecheck" id="border">중복확인</button>
                                     </div>
                                     <div>비밀번호  질문</div>
-                                    <div>: 
+                                    <div> 
                                         <%-- <select name="mp-memberPQ" class="select">
                                             <%for(int i = 0; i < pwdQList.size(); i++) {%>
                                             <option selected value="<%= pwdQList.get(i).getNo() %>" ><%=pwdQList.get(i).getQ() %></option>
@@ -316,7 +330,7 @@
                                     </div>
                                         <div> 비밀번호 답</div>
                                        
-                                       <div>: <input type="text" name="mp-memberPA" value="<%= loginMember.getPa()%>"  class="input"></div>
+                                       <div><input type="text" name="mp-memberPA" value="<%= loginMember.getPa()%>"  class="input"></div>
                                         
                                     <input type="submit" value="수정하기" class="input span2" name="infoedit">
                             </form>
@@ -426,9 +440,7 @@
             </div>
 
 
-            <div class="mp-main6 main">
-                컨텐츠내용4
-            </div>
+
         
     </div>
     <div id="bot"></div>
@@ -471,6 +483,10 @@
 
 
 
+
+    $('#buttonQ').click(function(){
+        location.href = "/omjm/member/quit";
+    })
  
   </script>
 </body>

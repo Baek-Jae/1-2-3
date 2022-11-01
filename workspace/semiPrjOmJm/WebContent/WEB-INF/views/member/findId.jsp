@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common/header.jsp" %>
-
+<%String alertMsg = (String)request.getAttribute("alertMsg");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,12 +96,18 @@
         <form action="/omjm/member/findid" method="post">
             <div id="main">
                 
-                <div class="flex">휴대전화 : <input type="text" name="fiphone"  class="input width-size" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"></div>
+                <div class="flex">휴대전화 번호 : <input type="text" name="fiphone"  class="input width-size" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"></div>
                 <input type="submit" value="아이디 찾기" class="label width-size" id="submit">
 
             </div>
         </form>
     </div>
     <div id="bot"></div>
+
+<script>
+    <%if(alertMsg != null){ %>
+		alert('<%=alertMsg%>');
+	<% } %>
+</script>
 </body>
 </html>

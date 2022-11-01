@@ -42,12 +42,11 @@
         
         padding-top: 50px;
         display: grid;
-        grid-template-rows: repeat(5, 1fr 1fr 0.5fr) repeat(8, 1.2fr);
+        grid-template-rows: repeat(5, 1fr 1fr 0.5fr) repeat(7, 1.2fr);
         place-content: center center;   
         
     }
     .input{
-      
         border: 1px solid #dddddd;
         color: #999999;
         border-radius: 5px;
@@ -100,7 +99,7 @@
         padding-left: 10px;
     }
     input[type=submit]{
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .green{  
@@ -149,14 +148,12 @@
                 <div id="checkPhoneResult"class="span2 result"></div> 
                 <div>관심지역</div>
                 <div><input type="text" name="memberPlace" class="input width-size" id="likeplace"></div>
-                <div>카테고리</div>
-                <div><input type="text" name="memberCate" class="input width-size"></div>
                 <div>
                     남자 <input type="radio" name="memberGender" value="M"> &nbsp;
                     여자 <input type="radio" name="memberGender" value="F">
                 </div>
                 <select name="memberPQ" class="select" id="select">
-                    <option value="0">비밀번호찾기 질문</option>
+                    <option value="0">비밀번호찾기 질문 선택해주세요</option>
                 	    <%for(int i = 0; i < pwdQList.size(); i++) { %>
                 	    <option value="<%= pwdQList.get(i).getNo() %>"><%=pwdQList.get(i).getQ() %></option>
                  	     <% } %>
@@ -199,24 +196,6 @@
         openWin=window.open("likeplace","childForm","width=600,height=750,resizable=no,scrollbars=no");
         
         }
-
-
-
-    let cate = $('input[name=memberCate]');
-
-    cate.click(function(){
-
-        openSelectCate();
-    })
-
-    function openSelectCate(){
-        window.name = "parentForm";
-
-        openWin=window.open("likeCate", "child2Form", "width=600,height=750,resizable=no,scrollbars=no");
-    }
-
-
-
 
 
 

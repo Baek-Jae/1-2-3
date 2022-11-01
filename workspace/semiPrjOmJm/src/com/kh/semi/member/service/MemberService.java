@@ -190,6 +190,39 @@ private final MemberDao dao = new MemberDao();
 		return result;
 	}
 
+	//비밀번호 재설정
+	public int updatePassword(MemberVo vo) {
+	
+		Connection conn = getConnection();
+		
+		int result = dao.updatePassword(conn, vo);
+		
+		if(result ==1 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	//멤버나가게하기
+
+
+	public int quitMember(MemberVo vo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.quitMember(conn, vo);
+		
+		if(result ==1) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 
 	

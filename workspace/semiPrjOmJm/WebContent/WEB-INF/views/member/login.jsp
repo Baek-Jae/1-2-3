@@ -91,7 +91,7 @@
 </style>
 <script>
 	<%if(alertMsg != null){ %>
-		alertify.error('<%=alertMsg%>');
+		alert('<%=alertMsg%>');
 	<% } %>
 </script>
 </head>
