@@ -574,14 +574,41 @@ $('#select-pl').change(function(){
 		         success : function(x){
 		            var o = JSON.parse(x);
 
-		            for(var i=0 in o){    
-		               //alert(o[i].name);
-		                $('.group-cnt').eq(i).text(o[i].userCnt); 
-		                $('.group-na').eq(i).text(o[i].name); 
-		                $('.group-pl').eq(i).text(o[i].place); 
-		                $('.group-cate').eq(i).text(o[i].category);
-		            }       
-		         },
+		            for(let i = 0; i < 15; i++){
+						//for(var i=0 in o){
+						let div = $('<div/>');
+						div.addClass("group-card");
+
+						var random = Math.floor(Math.random()*o.length);
+
+						div.append('<div class="group-tag">'
+								+'<span class="material-symbols-outlined">sell</span>'
+								+'<label>서울시 베스트</label></div>');
+
+						div.append('<div class="group-wrap">'
+			                    +'<div class="card-top">'
+		                        +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+		                    +'</div>'
+		                    +'<div class="card-bottom">'
+		                       +'<span>모임명</span>'
+			                        +'<span class="group-na">'+o[i].name+'</span>'
+			                        +'<span>카테고리</span>'
+			                        +'<span class="group-cate">'+o[i].category+'</span>'
+			                        +'<div>'
+			                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+			                            +'<span class="group-pl">'+o[i].place+'</span>'
+			                        +'</div>'
+			                        +'<div id="group-info">'
+			                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+			                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+		                        +'</div>'
+		                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+		                	+'</div>'
+		                +'</div>');
+
+						$(div).appendTo('.group-list');
+					}
+				},
 		         error : function(){
 		            alert("num2 통신 에러!");
 		         }

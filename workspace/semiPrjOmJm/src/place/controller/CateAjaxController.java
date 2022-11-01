@@ -21,6 +21,7 @@ public class CateAjaxController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		resp.setContentType("text/plain; charset=UTF-8;");
 		
 		int num = Integer.parseInt(req.getParameter("dese"));
 		List<GroupVo> GroupList = new PlaceService().GroupSearch(num);
@@ -29,7 +30,6 @@ public class CateAjaxController extends HttpServlet{
 //		list.addAll(GroupVo);
 //		
 		Gson gson = new Gson();
-		resp.setContentType("text/plain; charset=UTF-8;");
 		PrintWriter out = resp.getWriter();
 
 		String str = gson.toJson(GroupList);
