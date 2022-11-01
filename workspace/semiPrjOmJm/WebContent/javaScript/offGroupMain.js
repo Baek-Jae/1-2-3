@@ -22,7 +22,8 @@ $('.memberlist_close').click(function () {
 });
 
 function readyModify(obj) {
-	const indexNo = $(obj).parent().parent().index();
+	const indexNo = $('.comment_modify').index(obj);
+	console.log(indexNo);
 	$($('.comment_modify')[indexNo]).click(function(){
 		$($('.complate')[indexNo]).removeClass('close');
 		$($('.comment_modify')[indexNo]).addClass('close');
