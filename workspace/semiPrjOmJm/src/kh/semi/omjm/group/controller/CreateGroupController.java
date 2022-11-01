@@ -1,6 +1,7 @@
 package kh.semi.omjm.group.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,6 +17,8 @@ import kh.semi.omjm.group.service.GroupService;
 import kh.semi.omjm.group.uploadfile.GroupFileUploader;
 import kh.semi.omjm.group.vo.GroupAttachmentVo;
 import kh.semi.omjm.group.vo.GroupVo;
+import place.service.PlaceService;
+import place.vo.PlaceVo;
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024,
 		maxFileSize = 1024 * 1024 * 50,
@@ -26,7 +29,8 @@ public class CreateGroupController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		List<PlaceVo> placeList = new PlaceService().selectPlace();
+		req.setAttribute("placeList", placeList);
 		req.getRequestDispatcher("/WEB-INF/views/group/createGroup.jsp").forward(req, resp);
 	}
 	
