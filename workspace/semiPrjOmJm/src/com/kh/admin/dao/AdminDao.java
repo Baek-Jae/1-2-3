@@ -84,30 +84,30 @@ public class AdminDao {
 	}
 
 
-	public int increaseHit(Connection conn, String lno) {
-		
-		String sql = "UPDATE BOARD SET HIT = HIT + 1 WHERE NO = ? AND STATUS = 'O'";
-		
-		PreparedStatement pstmt = null;
-		int result = 0;
-	
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, lno);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
-		
-		
-	}
+//	public int increaseHit(Connection conn, String lno) {
+//		
+//		String sql = "UPDATE MEMBER SET HIT = HIT + 1 WHERE NO = ? AND STATUS = 'O'";
+//		
+//		PreparedStatement pstmt = null;
+//		int result = 0;
+//	
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			pstmt.setString(1, lno);
+//			
+//			result = pstmt.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			JDBCTemplate.close(pstmt);
+//		}
+//		
+//		return result;
+//		
+//		
+//	}
 
 
 	public List<MemberVo> selectList(Connection conn) {

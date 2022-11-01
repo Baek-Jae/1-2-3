@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%
-  	 MemberVo ppOff = (MemberVo)session.getAttribute("ppOff");
+  	  MemberVo ppOff = (MemberVo)session.getAttribute("ppOff");
 	  MemberVo nppOff = (MemberVo)session.getAttribute("nppOff");
 	  MemberVo manner = (MemberVo)session.getAttribute("manner");
 	
@@ -67,11 +67,11 @@
 
 			
 		$.ajax({
-			url: "/views/temp/temper" ,
+			url: "/omjm/temp/temper" ,
 			method:"post",			
 			data:{
-				 "ppOff" : <%= ppOff%>+1,
-				 "manner" :<%= manner %> +1
+				 "ppOff" : <%= ppOff %> + 1,
+				 "manner" :<%= manner %> + 1
 			},
 			dataType:'text',
 			success: function(){
@@ -89,7 +89,7 @@
 
 		$('#clicks').click(function(){
 		$.ajax({
-			url:"/WEB-INF/temp/temper2",
+			url:"/omjm/temp/temper2",
 			method:"post",
 			data:{
 				"nppOff" :<%= nppOff %> +1 
