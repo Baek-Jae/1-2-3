@@ -6,7 +6,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<FaqVo> voList = (List<FaqVo>)request.getAttribute("voList");
-	PageVo pv = (PageVo)request.getSession().getAttribute("pv");
 %>    
 <!DOCTYPE html>
 <html>
@@ -125,26 +124,12 @@
 	                </div>
 	        <%}%>
 	        </div>
-            
-            <div id="page-area">
 	        
-	        	<%if(pv.getStartPage() != 1){%>
-	        		<a href="/omjm/FAQ/list?fno=<%=pv.getStartPage()-1%>" class = "btn btn-primary">이전</a>
-	        	<%}%>		
-	
-	        	<%for(int i = pv.getStartPage() ; i <= pv.getEndPage() ; ++i){%>
-	        		<a href="/omjm/FAQ/list?fno=<%=i%>" class="btn btn-primary btn-sm"><%=i%></a>		
-	        	<%}%>
-	        	
-	        	<%if(pv.getEndPage() != pv.getMaxPage()){%>
-		        	<a href="/omjm/FAQ/list?fno=<%=pv.getEndPage()+1%>" class = "btn btn-primary">다음</a>
-	        	<%}%>
-	        	
-	        </div>
-	        
-            <div id="write">
-       			<input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
-            </div>
+	        <%if(loginMember != null && loginMember.getId().equals("admin")){ %>
+	            <div id="write">
+	       			<input type="button" value="작성하기" onclick="location.href='/omjm/FAQ/write';">
+	            </div>
+            <%}%>
         </div>
     </div>
 </body>

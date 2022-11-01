@@ -90,7 +90,6 @@ public class FaqDao {
 				String enrollDate = rs.getString("ENROLL_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
 				String ansContent = rs.getString("ANS_CONTENT");
-				String modifyDate = rs.getString("MODIFY_DATE");
 				
 				FaqVo vo = new FaqVo();
 				vo.setNo(no);
@@ -101,7 +100,6 @@ public class FaqDao {
 				vo.setEnrollDate(enrollDate);
 				vo.setDeleteYn(deleteYn);
 				vo.setAnsContent(ansContent);
-				vo.setModifyDate(modifyDate);
 				
 				voList.add(vo);
 			}

@@ -197,7 +197,7 @@ public class QnADao {
 
 	public int updateOneByNo(Connection conn, QnAVo vo) {
 		
-		String sql = "UPDATE QNA SET TITLE = ? , CONTENT = ? , MODIFY_DATE = SYSDATE WHERE NO = ?";
+		String sql = "UPDATE QNA SET TITLE = ? , CONTENT = ? WHERE NO = ?";
 				
 		PreparedStatement pstmt = null;
 		int result = 0;
