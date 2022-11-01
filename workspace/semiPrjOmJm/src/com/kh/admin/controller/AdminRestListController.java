@@ -26,12 +26,12 @@ public class AdminRestListController extends HttpServlet {
 		String lno = req.getParameter("lno");
 		HttpSession session = req.getSession();
 		
-		MemberVo vo = new AdminService().selectOne(lno);
+//		MemberVo vo = new AdminService().selectOne(lno);
 		List<MemberVo> voList = new AdminService().selectList();
 	
 		
 		req.setAttribute("session", session);
-		req.setAttribute("vo", vo);
+//		req.setAttribute("vo", vo);
 		req.setAttribute("voList", voList);
 		
 		

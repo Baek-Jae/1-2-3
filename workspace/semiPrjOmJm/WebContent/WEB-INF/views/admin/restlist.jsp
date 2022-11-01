@@ -34,6 +34,7 @@
         		<% for(int i =0; i < voList.size(); ++i){ %>
         		
         		제제된 유저 :<input type="text" id="r2" placeholder="제제된 유저 닉네임 : " value="<%= voList.get(i).getNick() %>">
+        		<br>
         		<%}%>
         	</div>
         </div>

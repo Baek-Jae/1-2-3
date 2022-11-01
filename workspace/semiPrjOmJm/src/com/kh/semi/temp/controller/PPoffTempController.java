@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.temp.service.TempService;
 import com.kh.semi.temp.vo.TempVo;
@@ -54,6 +55,8 @@ public class PPoffTempController extends HttpServlet {
 
 		//req.getRequestDispatcher("/WEB-INF/views/temp/temper.jsp").forward(req, resp);
 
+		  
+		  
 	}
 
 	@Override
@@ -87,15 +90,28 @@ public class PPoffTempController extends HttpServlet {
 		vo.setManner(manner);
 
 		MemberVo updatedMember = new TempService().edit(vo);
+
+//		Gson gson = new Gson();
+//		
+//		String result = gson.toJson(no);
+//		
+//		resp.getWriter().write(result);
+	
+
 		
-		//화면선택
-		if(updatedMember != null) {
-			req.getSession().setAttribute("alertMsg", "온도 변경완료");
-			req.getSession().setAttribute("loginMember", updatedMember);
-			resp.sendRedirect("/omjm");
-		}else {
-			req.getRequestDispatcher("/views/common/errorPage.jsp").forward(req, resp);
-		}
+		
+		
+//		//화면선택
+//		if(updatedMember != null) {
+//			req.getSession().setAttribute("alertMsg", "온도 변경완료");
+//			req.getSession().setAttribute("loginMember", updatedMember);
+//			resp.sendRedirect("/omjm");
+//		}else {
+//			req.getRequestDispatcher("/views/common/errorPage.jsp").forward(req, resp);
+//		}
+		
+		
+		
 		
 		//int result = ts.change(vo);
 

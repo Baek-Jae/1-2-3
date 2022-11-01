@@ -32,24 +32,24 @@ public class AdminService {
 		
 	}
 	
-	//제
-	public MemberVo selectOne(String lno) {
-		
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = dao.increaseHit(conn,lno);
-		
-		MemberVo vo = null;
-		if(result ==1) {
-			JDBCTemplate.commit(conn);
-			vo = dao.selectOne(conn,lno);
-		}
-		JDBCTemplate.close(conn);
-		
-		return vo;
-		
-	}
+//	
+//	public MemberVo selectOne(String lno) {
+//		
+//		
+//		Connection conn = JDBCTemplate.getConnection();
+//		
+//		int result = dao.increaseHit(conn,lno);
+//		
+//		MemberVo vo = null;
+//		if(result ==1) {
+//			JDBCTemplate.commit(conn);
+//			vo = dao.selectOne(conn,lno);
+//		}
+//		JDBCTemplate.close(conn);
+//		
+//		return vo;
+//		
+//	}
 
 	public List<MemberVo> selectList() {
 		 

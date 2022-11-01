@@ -59,15 +59,15 @@ public class NppOffTempController  extends HttpServlet{
 
 		MemberVo updatedMember = new TempService().edit(vo);
 		
-		//화면선택
-		if(updatedMember != null) {
-			req.getSession().setAttribute("alertMsg", "온도 변경완료");
-			req.getSession().setAttribute("loginMember", updatedMember);
-			resp.sendRedirect("/omjm");
-		}else {
-			req.getRequestDispatcher("/views/common/errorPage.jsp").forward(req, resp);
-		}
-		
+//		//화면선택
+//		if(updatedMember != null) {
+//			req.getSession().setAttribute("alertMsg", "온도 변경완료");
+//			req.getSession().setAttribute("loginMember", updatedMember);
+//			resp.sendRedirect("/omjm");
+//		}else {
+//			req.getRequestDispatcher("/views/common/errorPage.jsp").forward(req, resp);
+//		}
+//		
 		//int result = ts.change(vo);
 
 		// ArrayList<MemberVo> tempList = new ArrayList<MemberVo>();
