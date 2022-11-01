@@ -72,7 +72,7 @@ public class PPoffTempController extends HttpServlet {
 		// 꺼내기
 		
 		String ppOff = req.getParameter("ppOff");
-		//String nppOff = req.getParameter("nppOff");
+		
 		String manner = req.getParameter("manner");
 
 		MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
@@ -88,6 +88,11 @@ public class PPoffTempController extends HttpServlet {
 		vo.setPpOff(ppOff);
 		//vo.setNppOff(nppOff);
 		vo.setManner(manner);
+		////////////////////////////////////////////////////////
+		req.setAttribute("loginMember", loginMember);
+		req.setAttribute("ppOff", ppOff);
+		req.setAttribute("manner", manner);
+		
 
 		MemberVo updatedMember = new TempService().edit(vo);
 
