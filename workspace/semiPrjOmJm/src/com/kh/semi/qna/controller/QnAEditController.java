@@ -55,6 +55,7 @@ public class QnAEditController extends HttpServlet{
 			resp.sendRedirect("/omjm/QnA/list?qno=1");
 //			/QnA/detail?no=" + no
 		}
+		
 	}//doPost
 	
 	

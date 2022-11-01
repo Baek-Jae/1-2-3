@@ -142,9 +142,11 @@
 	        	
 	        </div>
 	        
-            <div id="write">
-       			<input type="button" value="작성하기" onclick="location.href='/omjm/notice/write';">
-            </div>
+	        <%if(loginMember != null && loginMember.getId().equals("admin")){ %>
+	            <div id="write">
+	       			<input type="button" value="작성하기" onclick="location.href='/omjm/notice/write';">
+	            </div>
+            <%}%>
         </div>
     </div>
 </body>
