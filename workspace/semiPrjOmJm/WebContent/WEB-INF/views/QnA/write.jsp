@@ -44,7 +44,7 @@
 	   box-sizing: border-box;
 	}
  
- </style>
+</style>
 </head>
 <body>
 	

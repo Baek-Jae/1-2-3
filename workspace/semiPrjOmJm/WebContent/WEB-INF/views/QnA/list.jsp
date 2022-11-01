@@ -114,13 +114,23 @@
         
         	<div class="boardlistbody">
 	        <%for(int i = 0; i < voList.size(); ++i){%>
-        	<div class="item">
+	        
+        		<div class="item">
 	                <div class="num"><%= voList.get(i).getNo() %></div>
 	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
 	                <div class="writer"><%= voList.get(i).getWriter() %></div>
 	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
 	                <div class="view"><%= voList.get(i).getHit() %></div>
-	                </div>
+	            </div>
+
+             	<div class="item">
+	                <div class="num"><%= voList.get(i).getNo() %></div>
+	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+	                <div class="writer"><%= voList.get(i).getWriter() %></div>
+	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
+	                <div class="view"><%= voList.get(i).getHit() %></div>
+	            </div>
+	            
 	        <%}%>        
 	        </div>
             
