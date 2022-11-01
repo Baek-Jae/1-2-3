@@ -25,7 +25,6 @@ public class SearchController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
 		List<PlaceVo> placeList = new PlaceService().selectPlace();
 		List<CateVo> cateVo = new PlaceService().selectCate();
 
@@ -38,6 +37,7 @@ public class SearchController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/plain; charset=UTF-8;");
 		
 		List<PlaceVo> placeList = new PlaceService().selectPlace();
 		List<CateVo> cateVo = new PlaceService().selectCate();
@@ -46,30 +46,22 @@ public class SearchController extends HttpServlet{
 		req.setAttribute("cateVo", cateVo);
 
 		String search = req.getParameter("search");
-		String search2 = req.getParameter("key");
 		req.setAttribute("search", search);
-		req.setAttribute("search2", search2);
 		
+		String jjap = "jjap";
 		List<GroupVo> groupName = new PlaceService().wordSearch(search);
-		List<GroupVo> groupName2 = new PlaceService().wordSearch2(search2);
-		
-		
-		Gson gson = new Gson();
-		resp.setContentType("text/plain; charset=UTF-8;");
-		PrintWriter out = resp.getWriter();
-		String str = gson.toJson(groupName);
-		String str2 = gson.toJson(groupName2);
-		
-		out.write(str);
-		out.write(str2);
-		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
-		
-	
+		if(groupName.size() != 0) {
+			req.setAttribute("groupName", groupName);
+		}else {
+			req.setAttribute("jjap", jjap);
+		}
 		/*
-		 * if(cateVo != null) { //req.setAttribute("keyword", groupName); }else {
-		 * req.setAttribute("msg", "결과 오류");
-		 * req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req,
-		 * resp); }
+		 * System.out.println("컨트롤러 " + groupName.get(0).getName());
+		 * System.out.println("컨트롤러 " + groupName.get(1).getName());
 		 */
+		 
+		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
+
+		}
 	}
-}
+

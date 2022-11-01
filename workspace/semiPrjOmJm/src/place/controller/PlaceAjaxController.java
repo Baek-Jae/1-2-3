@@ -19,6 +19,7 @@ public class PlaceAjaxController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/plain; charset=UTF-8;");
 		
 		int temp = Integer.parseInt(req.getParameter("temp"));
 		/* System.out.println(temp); */
@@ -26,7 +27,6 @@ public class PlaceAjaxController extends HttpServlet{
 		List<GroupVo> placeList = new PlaceService().selectPlace(temp);
 		
 		Gson gson = new Gson();
-		resp.setContentType("text/plain; charset=UTF-8;");
 		PrintWriter out = resp.getWriter();
 		
 		String str = gson.toJson(placeList);
