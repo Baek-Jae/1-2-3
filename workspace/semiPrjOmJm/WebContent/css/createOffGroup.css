@@ -173,6 +173,7 @@ input[type='date']:valid::before {
     position: absolute;
     bottom: 3px;
     right: 5px;
+    color: var(--color-main)
 }
 
 .off_content > textarea:focus {
@@ -190,6 +191,3 @@ input[type='date']:valid::before {
     color: #999;
 }
 
-.textlength{
-	color: var(--color-main)
-}

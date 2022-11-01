@@ -1,31 +1,32 @@
 
 /* ------------------------------------------------------------------------------ */
-
 .group_wrap {
-    margin: 0 auto;
-    padding-top: 100px;
-    width: 800px;
-    height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #fdb933;
+  padding: 150px 0;  
 }
+
 
 .group_outer {
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    box-shadow: 2px 4px 8px 0px rgb(9 9 9 / 25%);
-    border-radius: 30px;
-    margin-bottom: 200px;
+	border-radius: 15px;
+  	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  	width: 700px;
+  	max-width: 100%;
+  	background-color: #fff;
 }
 .group_head {
-    border-bottom: 1px solid #fdb933;
-    height: 60px;
-    padding: 5px 0 10px 0;
-    font-size: 20px;
-    padding-left: 20px;
-    color: #fdb933;
-    margin-bottom: 30px;
+    background-color: #f7f7f7;
+	 border-bottom: 1px solid #f7f7f7;
+	 padding: 20px 40px;
+	 border-radius: 15px 15px 0 0;
 }
 
+.create_form{
+	padding: 10px 40px 30px 40px;
+}
 .group_top {
     display: flex;
     justify-content: center;
@@ -33,161 +34,170 @@
     padding-bottom: 15px;
 }
 
-.group_pic {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+#group_img {
+    width: 100%;
+    border-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+    box-shadow: 1px 1px 1px 1px rgba(152, 152, 152, 0.5);
+}
+#group_img img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.group_pic{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+.fileUpload{
+	align-self: flex-end;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	text-align:center;
+	width:100px;
+	height:30px;
+	margin-top:10px;
+	border: 3px solid #f0f0f0;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.fileUpload:hover{
+	border:3px solid var(--color-main);;
+	background-color: var(--color-main);
+	color: #fff;
 }
 
 .group_pic > input {
-    padding: 15px;
-    border: none;
+    display: none;
 }
 
-#group_img {
-    border: 1px solid #999;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
 
 .group_info {
     width: 100%;
+    background-color: transparent;
 }
-.group_profile,
-.group_hashtag {
-    width: 100%;
-    position: relative;
+.groupcheck {
     margin-bottom: 10px;
-}
-.group_cnt {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-.group_memberCnt {
-    padding-top: 15px;
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    align-items: center;
-    width: 40%;
-    border-bottom: 1px solid #999;
-}
-.group_memberCnt > label {
-    font-size: 17px;
-    color: #999;
-}
-.group_memberCnt > input {
-    text-align: center;
-    height: 20px;
-    border: none;
-    font-size: 15px;
-    color: black;
-    outline: none;
+  	padding-bottom: 20px;
+  	position: relative;
 }
 
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-    color: #999;
-    padding-right: 10px;
+.groupcheck i {
+  position: absolute;
+  top: 35px;
+  right: 10px;
+  visibility: hidden;
 }
 
-.group_profile > input,
-.group_hashtag > input {
-    width: 100%;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #999;
-    font-size: 18px;
-    color: black;
-    outline: none;
-}
-.group_hashtag {
-    margin-top: 10px;
-}
-.group_hashtag > input {
-    font-size: 15px;
+.groupcheck small{
+  visibility: hidden;
 }
 
-.group_profile label,
-.group_hashtag > label {
+.groupcheck input,
+.groupcheck select{
+	background-color: transparent;
+	border: 2px solid #f0f0f0;
+	border-radius: 5px;
+	display: block;
+	font-size: 14px;
+	padding: 10px;
+	width: 100%;
+}
+
+.groupcheck.success input,
+.groupcheck.success select,
+.groupcheck.success #group_textarea
+ {
+  border-color: #2ecc71;
+}
+
+
+.groupcheck.error input,
+.groupcheck.error select,
+.groupcheck.error #group_textarea
+{
+  border-color: #e74c3c;
+}
+
+.groupcheck.success #green {
+  color: #2ecc71;
+  visibility: visible;
+}
+
+
+.groupcheck.error #red {
+  color: #e74c3c;
+  visibility: visible;
+}
+
+.groupcheck.error small{
+  color: #e74c3c;
+  visibility: visible;
+}
+
+
+
+
+
+.group_place_usercnt {
+	display: flex;
+	justify-content: space-between;
+}
+
+.group_place_usercnt .groupcheck{
+	width: 40%;
+}
+.group_content {
+    position: relative;
+}
+
+.textlength {
+	font-size: 14px;
     position: absolute;
-    left: 10px;
-    top: 15px;
-    color: #999;
-    transition: all 0.5s ease;
+    bottom: 10px;
+    right: 10px;
+    color: var(--color-main);
 }
 
-.group_profile input:focus + label,
-.group_profile input:valid + label,
-.group_hashtag input:valid + label,
-.group_hashtag input:focus + label {
-    top: -2px;
-    font-size: 13px;
-    color: #fdb933;
-}
 
-.group_content > textarea {
+#group_textarea {
     resize: none;
     width: 100%;
-    height: 200px;
-    border: 1px solid #999;
+    overflow-y: hidden;
+    font-size: 17px;
+    padding: 20px;
+    color: black;
+    background-color: transparent;
+	border: 2px solid #f0f0f0;
+	border-radius: 5px;
 }
 
-.group_content > textarea:focus {
-    border: 3px solid #fdb933;
-    outline: none;
-}
-
-.group_check {
-    display: flex;
-    justify-content: center;
-}
-
-.group_check input[value='생 성'] {
-    width: 100px;
-    height: 30px;
+.group_check input{
+	margin-top: 30px;
+    width: 100%;
+    height: 60px;
     background-color: #fdb933;
     color: #fff;
     font-size: 15px;
-    margin: 20px 30px 0 0;
     border: none;
-    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.group_check input[value='생 성']:hover {
+.group_check input:hover {
     background-color: #ffcb62;
     color: #fff;
     font-size: 18px;
     font-weight: 800;
 }
-.group_check input[value='취 소'] {
-    width: 100px;
-    height: 30px;
-    border: 2px solid red;
-    color: red;
-    background-color: #fff;
-    margin-top: 20px;
-    font-size: 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
 
-.group_check input[value='취 소']:hover {
-    background-color: red;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 800;
-}
+
+
+
+
+
