@@ -35,11 +35,11 @@
         border-radius: 20px;
         display: grid;
         grid-template-columns: 1fr 2fr;
-        grid-template-rows: 1fr 0.5fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 0.5fr 1fr 0.5fr 1fr;
         padding: 20px;
         align-items: center;
     }
-    input[type=text]{
+    input[type=password]{
         color: black;
         opacity: 1;
         padding-left: 20px;
@@ -47,13 +47,16 @@
     }
     .input{
       font-size: 15px;
-      height: 40px;
+      height: 50px;
       border: 1px solid #dddddd;
       color: #999999;
       background-color: #dddddd;
       opacity: 0.5;
       border-radius: 5px;
     
+    }
+    .result{
+        font-size: 13.5px ;
     }
     .label{
 
@@ -73,64 +76,32 @@
    #submit{
     width: 100%;
     height: 80%;
+   grid-column: span 2;
    }
-   .span2{
-    grid-column: span 2;
+   .red{
+    color: red;
+    border-color: red;
    }
-   #checkPqById{
-    font-size: 13px;
-   }
-   .idInput{
-    width: 200px;
-   }
-   #idCheck{
-    width: 78%;
-   }
-   .flex{
-    display: flex;
-    justify-content: space-between
-
-   }
-   #idCheckBtn{
-    border: 2px solid;
-    background-color: #fff;
-    opacity: 1;
-    margin-left: 10px;
-    font-size: 13px;
-   }
-    .green{  
+    .green{
         color: green;
         border-color: green;
-    }
-    .red {
-        color: red;
-        border-color: red;
-    }
-    .yellow {
-        color: #fdb930;
-        border-color: #fdb930;
-    }
-    .black {
-        color: black;
-        border-color: black;
-    }
-    input[type=fpqNo]{
-        display: none;
     }
 </style>
 </head>
 <body>
 	<div id="mem-header"></div>
     <div id="back">
-        <form action="/omjm/member/findpwd" method="post" onsubmit="return checkAlll();">
+        <form action="/omjm/member/updatepassword" method="post" onsubmit="return checkAll();">
             <div id="main">
                 <div class="span-2">비밀번호</div>
                 <div><input type="password" name="memberPwd1" class="input width-size" placeholder="8 글자이상 특수문자포함"></div>
-                <div id="checkPwd1Result" class="span2 result"></div>
+                <div><input type="hidden" value="${id}" name="memberId"></div>
+                <div id="checkPwd1Result" class=" result"></div>
                 <div>비밀번호 확인</div>
                 <div><input type="password" name="memberPwd2" class="input width-size" placeholder="비밀번호 한번 더 입력부탁드립니다."></div>
-                <div id="checkPwd2Result" class="span2 result"></div>
-                <input type="submit" value="비밀번호 재설정하기" class="label width-size span2" id="submit" >
+                <div></div>
+                <div id="checkPwd2Result" class="span2 result reds"></div>
+                <div id="submit"><input type="submit" value="비밀번호 재설정하기" class="label width-size" ></div>
 
             </div>
         </form>
@@ -143,6 +114,10 @@
 
 //비밀번호 키업하면 나온다
     //패스워드 유효성 검사
+
+    let pwd1CheckReturn = false;
+    let pwd2CheckReturn = false;
+
     $('input[name="memberPwd1"]').keyup(function(){
         
         pwd1CheckReturn = false;
@@ -185,6 +160,14 @@
 
     })
 
+
+    //온서브밋 막아야함 값없을때, 두개의 비밀번호가 다를때
+    function checkAll(){
+        if(!pwd1CheckReturn) { alert('패스워드 1'); return false;}
+        if(!pwd2CheckReturn) { alert('패스워드 2'); return false;}
+
+        return true;
+    }
 </script>
 </body>
 </html>

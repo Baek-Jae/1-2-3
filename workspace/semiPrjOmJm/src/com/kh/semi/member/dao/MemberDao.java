@@ -55,7 +55,7 @@ public class MemberDao {
 		//로그인
 		public MemberVo login(Connection conn, MemberVo vo) {
 			
-			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ?";
+			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ? AND STATUS = 'O'";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -310,7 +310,8 @@ public class MemberDao {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String id = "";
-			System.out.println(phone);
+			
+		
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
@@ -320,7 +321,7 @@ public class MemberDao {
 				
 				if(rs.next()) {
 					id = rs.getString("ID");
-					System.out.println(id);
+
 				}
 			} catch (SQLException e) {
 				
@@ -404,6 +405,59 @@ public class MemberDao {
 			
 			return result;
 
+		}
+
+		public int updatePassword(Connection conn, MemberVo vo) {
+			
+			String sql = "UPDATE MEMBER SET PWD = ? WHERE ID = ?";
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getPwd());
+				pstmt.setString(2, vo.getId());
+				
+				result = pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			
+			
+			
+			return result;
+		}
+
+		public int quitMember(Connection conn, MemberVo vo) {
+			
+			String sql = "UPDATE MEMBER SET STATUS = 'X' WHERE ID = ? AND PWD = ?";
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getId());
+				pstmt.setString(2, vo.getPwd());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
 		}
 		
 

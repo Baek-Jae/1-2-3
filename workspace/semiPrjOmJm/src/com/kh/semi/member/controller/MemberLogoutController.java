@@ -28,9 +28,9 @@ public class MemberLogoutController extends HttpServlet {
 			resp.sendRedirect("/omjm");
 		}else {
 			req.setAttribute("alertMsg", "로그인 하신 후 이용해주세요.");
-			req.getRequestDispatcher("/omjm").forward(req, resp);
+			req.getRequestDispatcher("/").forward(req, resp);
 		}
 		
-		//화면 선택
+		
 	}
 }

@@ -27,14 +27,13 @@ public class MemberFindIdController extends HttpServlet{
 		
 		String fiId = new MemberService().selectIdByPhone(phone);
 		
-		if(fiId != null) {
-			System.out.println("아이디를 찾았습니다");
+		if(fiId != "") {
+			
 			req.setAttribute("id", fiId);
-			System.out.println(fiId);
 			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 		}else {
-			System.out.println("아이디찾기 실패");
-			resp.sendRedirect("/omjm/member/finid");
+			req.setAttribute("alertMsg", "아이디를 찾을 수 없습니다.");
+			req.getRequestDispatcher("/WEB-INF/views/member/findId.jsp").forward(req, resp);
 		}
 		
 	}
