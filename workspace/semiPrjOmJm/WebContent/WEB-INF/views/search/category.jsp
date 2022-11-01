@@ -14,8 +14,10 @@
  */  
   String search = (String)request.getAttribute("search");
   String search2 = (String)request.getAttribute("search2");
+  String jjap = (String)request.getAttribute("jjap");
+  List<GroupVo> groupName = (ArrayList<GroupVo>)request.getAttribute("groupName");
+  List<GroupVo> groupName2 = (ArrayList<GroupVo>)request.getAttribute("groupName2");
  %>
- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,17 +28,116 @@
 <link rel="stylesheet" href="<%= root %>/css/searchCate.css" />
 </head>
 <body>
+<%
+String[] placeArr = null;
+String pla = null;
+if (loginMember != null){
+	placeArr = loginMember.getPlace().split(",");
+	int arrlength = placeArr.length;
+	int arrmath = (int)Math.floor(Math.random() * arrlength);
+	pla =  placeArr[arrmath];	%>
+	
+<script>
+	
+		$.ajax({
+		url :	"<%=root%>/main/membergroup" , 
+        method : "GET",   
+        data :   {
+           "p1" :"<%=pla%>"
+        },//data
+        success : function(x){
+           var o = JSON.parse(x);
+
+           for(var i=0 in o){    
+              alert(o[i].name);
+               $('.group-cnt').eq(i).text(o[i].userCnt); 
+               $('.group-na').eq(i).text(o[i].name); 
+               $('.group-pl').eq(i).text(o[i].place); 
+               $('.group-cate').eq(i).text(o[i].category);
+           }//for
+        },//success
+        error : function(){
+           alert("login-group 통신 에러!");
+        }//error
+     });//ajax
+	
+	//function
+</script>
+	<%}else{%>
+	
+	<script>
+	/* window.onload = function(){ */
+		$.ajax({
+			url : "<%=root%>/main/group" , 
+			method : "GET" ,
+			//data :	
+			success : function(x){
+				o = JSON.parse(x);
+				console.log(o);
+				
+				for(var i=0 in o){    
+		              //alert(o[i].name);
+					var random = Math.floor(Math.random()*o[i].length);
+					 /* alert(random);  */
+		               $('.group-cnt').eq(i).text(o[i].userCnt); 
+		               $('.group-na').eq(i).text(o[i].name); 
+		               $('.group-pl').eq(i).text(o[i].place); 
+		               $('.group-cate').eq(i).text(o[i].category);
+				}
+			},error : function(){
+				alert("logout-group 통신 에러!");
+			}
+		});
+	
+	</script>
+<%}%>
+	<%if(search != null){ 
+		System.out.println(search);%>
+	<script type="text/javascript">
+
+	$(document).ready(function() {  
+		/* alert("dd"); */
+	
+	 <%	for(int i = 0; i < groupName.size(); ++i) {%>
+		 <%-- console.log('<%=groupName.get(0).getName()%>');
+		 console.log($('.group-cate').eq(0)); --%>
+ 	 		
+		$('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
+		$('.group-na').eq(<%=i%>).text('<%= groupName.get(i).getName() %>'); 
+		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
+		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>'); 
+		<%}%>
+	})
+	</script>
+	<%}else if(jjap != null){%> 
+		<script type="text/javascript">
+			alert("해당 모임이 존재하지 않습니다");
+			$(document).ready(function() {  
+			 <%	for(int i = 0; i < groupName.size(); ++i) {%>
+		 console.log('<%=groupName.get(0).getName()%>');
+		 console.log($('.group-cate').eq(0));
+ 	 		
+		$('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
+		$('.group-na').eq(<%=i%>).text('<%= groupName.get(i).getName() %>'); 
+		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
+		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>'); 
+		<% } %>
+	})
+	</script>
+	<% } %> 
+	
 	<div id="ca-search">
-		<form action="<%= root %>/search" class="main-search" method="post" >
+		<form action="<%= root %>/search" class="main-search" method="post">
 			<div class="main-search-group">
 				<span class="material-symbols-outlined">search</span> 
-				<input type="text" id="my_name" name="search2" placeholder="모임을 찾아보세요" value="<% if(search != null){ %> <%= search %>
-                    <% }else if(search2 != null){ %> <%= search2 %>
-                       <%}%>"/>
+				<input type="text" id="my_name" name="search2" placeholder="모임을 찾아보세요" 
+				value="<% if(search != null){ %> <%= search %>
+							<%}else if(search2 != null){ %> <%= search2 %>
+			                       <%}%>"/>
          </div>
-         <input type="submit" id="submit" value="검  색" />
+         <!-- <input type="submit" value="검  색" id="submit"> -->
+         <button type="button" id="submit" onclick="return doAction();">변경</button> 
       </form>
-
 
 		<select name="place" class="ca-option" id="select-pl">
 			<option value="option1">==지역 선택==</option>
@@ -282,7 +383,7 @@
 				</div>
 				<div class="card-bottom">
 						<span>모임명</span>
-                        <span class="group-na">내향인들의 "심야책방"</span>
+                        <span class="group-na">모임</span>
                         <span>카테고리</span>
                         <span class="group-cate"></span>
 					<div>
@@ -308,7 +409,7 @@
 		                    </div>
 		                    <div class="card-bottom">
 		                        <span>모임명</span>
-		                        <span class="group-na">내향인들의 "심야책방"</span>
+		                        <span class="group-na">모임1</span>
 		                        <span>카테고리</span>
 		                        <span class="group-cate"></span>
 		                        <div>
@@ -335,7 +436,7 @@
 		                    </div>
 		                    <div class="card-bottom">
 		                        <span>모임명</span>
-		                        <span class="group-na">내향인들의 "심야책방"</span>
+		                        <span class="group-na">모임2</span>
 		                        <span>카테고리</span>
 		                        <span class="group-cate"></span>
 		                        <div>
@@ -404,7 +505,7 @@ $('#select-pl').change(function(){
 							var sp = JSON.parse(z);
 							for(var i=0 in sp){    
 								/* alert(sp[i].name);   */    
-								       
+								       /* console.log($('.group-cnt').eq(i)); */
 								//for(var i = 0; i < sp.legnth; ++i){
 							 		$('.group-cnt').eq(i).text(sp[i].userCnt); 
 							 		$('.group-na').eq(i).text(sp[i].name); 
@@ -476,49 +577,27 @@ $('#select-pl').change(function(){
 			 /*  $('.main-search').submit(function(event){  */
 				/*  function nameSearch(event){
 					 event.preventDefault();  */
-			  <%-- $(function(){ 
-		        $('#submit').("click",function () {
+			 
+			  /* $(function(){ 
+		        $('#submit').("click",function () { */
 			    /*  var formData =  $("form").serialize();
 			     console.log(formData); */
 			//$('input[name=search2]').attr('value',"search2");
-			 $.ajax({
-					alert("dd3");
-					url : "<%=root%>/search",
-				     method : "POST",   
-				     data :   {
-				        "search2" : search2
-				     },
-				     success : function(x){
-				        var o = JSON.parse(x);
-							
-				        for(var i=0 in o){    
-				           //alert(o[i].name);
-				            $('.group-cnt').eq(i).text(o[i].userCnt); 
-				            $('.group-na').eq(i).text(o[i].name); 
-				            $('.group-pl').eq(i).text(o[i].place); 
-				            $('.group-cate').eq(i).text(o[i].category);
-				        }       
-				     },
-				     error : function(){
-				        alert("num2 통신 에러!");
-				     }
-	  });  
-	  
-	} --%>
+			  
+			  
 	 $('#submit').click(function(){
-		 alert($('input[name=search2]').val())
+		 //alert($('input[name=search2]').val())
 		<%--  alert("<%=search2%>");  --%>
 		 	$.ajax({
-				url : "<%=root%>/search",
-			     method : "POST",   
+				url : "<%=root%>/keywordsearch",
+			     method : "GET",   
 			     data :   {
 			        "key" : $('input[name=search2]').val()
 			     },
 			     success : function(x){
 			        var o = JSON.parse(x);
-						
 			        for(var i=0 in o){    
-			           //alert(o[i].name);
+			        
 			            $('.group-cnt').eq(i).text(o[i].userCnt); 
 			            $('.group-na').eq(i).text(o[i].name); 
 			            $('.group-pl').eq(i).text(o[i].place); 
@@ -526,12 +605,22 @@ $('#select-pl').change(function(){
 			        }       
 			     },
 			     error : function(){
-			        alert("num2 통신 에러!");
+			        alert("keyword 통신 에러!");
 			     }
 });  
 	})
 	
-	 
+	function doAction(form){
+ 		if(form.search.value == ''){
+ 			  /* alert("검색어를 입력하세요~");   */
+ 			  alertify
+		 		.alert("검색어를 입력해 주세요~");  
+ 			form.search.focus();
+ 			return false;
+ 		}
+ 		
+ 		return true;
+ 	}
 	
  /* function test01(){
 	var doc = $("input:text").val();

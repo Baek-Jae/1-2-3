@@ -26,47 +26,30 @@
 
 <%
 String[] placeArr = null;
+String pla = null;
 if (loginMember != null){
 	placeArr = loginMember.getPlace().split(",");
-/* 	System.out.println("placeArr " + placeArr.length);
- */	String p1 = null;
-	switch(placeArr.length){
-	case 1 : 
-		p1 = placeArr[0];
-		System.out.println(p1);
-		 break;
-	case 2 :
-		String p2 = placeArr[0];
-		String p3 = placeArr[1];
-		System.out.println(p2);
-		 break;
-	case 3 : 
-		String p4 = placeArr[0];
-		String p5 = placeArr[1];  
-		String p6 = placeArr[2];  
-		System.out.println(p4);
-		System.out.println(p5);
-		System.out.println(p6);
-		/* f01(); */
-		break;}%>
+	int arrlength = placeArr.length;
+	int arrmath = (int)Math.floor(Math.random() * arrlength);
+	pla =  placeArr[arrmath];
+	
+	System.out.println("placeArr length 배열길이 " + arrlength);
+	System.out.println("arrmath 랜덤 " + arrmath);
+	System.out.println("placeArr 인덱스번호" + pla);%>
+	
 		<script>
-	/* window.onload = function(){ */
+	
 		$.ajax({
 		url :	"<%=root%>/main/membergroup" , 
         method : "GET",   
         data :   {
-           "p1" : "<%=p1%>"
-          /*  "p2" : p2
-           "p3" : p3
-           "p4" : p4
-           "p5" : p5
-           "p6" : p6 */
+           "p1" :"<%=pla%>"
         },//data
         success : function(x){
            var o = JSON.parse(x);
 
            for(var i=0 in o){    
-              //alert(o[i].name);
+              alert(o[i].name);
                $('.group-cnt').eq(i).text(o[i].userCnt); 
                $('.group-na').eq(i).text(o[i].name); 
                $('.group-pl').eq(i).text(o[i].place); 
@@ -81,6 +64,7 @@ if (loginMember != null){
 	//function
 </script>
 	<%}else{%>
+	
 	<script>
 	/* window.onload = function(){ */
 		$.ajax({
@@ -94,14 +78,14 @@ if (loginMember != null){
 				for(var i=0 in o){    
 		              //alert(o[i].name);
 					var random = Math.floor(Math.random()*o[i].length);
-					/* alert(random); */
+					 /* alert(random);  */
 		               $('.group-cnt').eq(i).text(o[i].userCnt); 
 		               $('.group-na').eq(i).text(o[i].name); 
 		               $('.group-pl').eq(i).text(o[i].place); 
 		               $('.group-cate').eq(i).text(o[i].category);
-			}
+				}
 			},error : function(){
-				alert("통신 에러!");
+				alert("logout-group 통신 에러!");
 			}
 		});
 	
@@ -138,7 +122,7 @@ if (loginMember != null){
 	                    </div>
 	                    <div class="card-bottom">
 	                       <span>모임명</span>
-		                        <span class="group-na">내향인들의 "심야책방"</span>
+		                        <span class="group-na">모임</span>
 		                        <span>카테고리</span>
 		                        <span class="group-cate"></span>
 		                        <div>
@@ -165,7 +149,7 @@ if (loginMember != null){
 	                    </div>
 	                    <div class="card-bottom">
 	                        <span>모임명</span>
-		                        <span class="group-na">내향인들의 "심야책방"</span>
+		                        <span class="group-na">모임1</span>
 		                        <span>카테고리</span>
 		                        <span class="group-cate"></span>
 		                        <div>
@@ -192,7 +176,7 @@ if (loginMember != null){
 	                    </div>
 	                    <div class="card-bottom">
 	                        <span>모임명</span>
-		                        <span class="group-na">내향인들의 "심야책방"</span>
+		                        <span class="group-na">모임</span>
 		                        <span>카테고리</span>
 		                        <span class="group-cate"></span>
 		                        <div>
@@ -220,8 +204,20 @@ if (loginMember != null){
         			form.search.focus();
         			return false;
         		}
+        		
         		return true;
         	}
+        	$(document).ready(function(){
+        	$('.group-list').scroll(function(){
+                var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+                var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+                var contentH = $('.group-list').height(); //문서 전체 내용을 갖는 div의 높이
+                if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+                    $('.group-list').append('이거적어줘야댐');
+                }
+            });
+        });
+
         </script>
 </body>
 </html>

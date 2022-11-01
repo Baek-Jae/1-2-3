@@ -25,6 +25,7 @@ public class LoginGroupAjaxController extends HttpServlet{
 		
 		List<GroupVo> loginGroup = new PlaceService().loginGroup(p1);
 		System.out.println(p1);
+		System.out.println(loginGroup.get(0));
 		Gson gson = new Gson();
 		resp.setContentType("text/plain; charset=UTF-8;");
 		PrintWriter out = resp.getWriter();
