@@ -21,13 +21,13 @@ public class LoginGroupAjaxController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/plain; charset=UTF-8;");
 		String p1 = req.getParameter("p1");
 		
 		List<GroupVo> loginGroup = new PlaceService().loginGroup(p1);
-		System.out.println(p1);
-		System.out.println(loginGroup.get(0));
+		//System.out.println(p1);
+		//System.out.println(loginGroup.get(0));
 		Gson gson = new Gson();
-		resp.setContentType("text/plain; charset=UTF-8;");
 		PrintWriter out = resp.getWriter();
 		
 		String str = gson.toJson(loginGroup);
