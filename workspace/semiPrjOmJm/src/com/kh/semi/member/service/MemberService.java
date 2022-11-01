@@ -12,9 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.member.dao.MemberDao;
+import com.kh.semi.member.vo.MemberJoinGroupVo;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.password.PasswordVo;
+
+import kh.semi.omjm.group.vo.GroupVo;
 
 
 
@@ -221,6 +224,19 @@ private final MemberDao dao = new MemberDao();
 			rollback(conn);
 		}
 		return result;
+	}
+
+	
+	public List<MemberJoinGroupVo> selectGroupByNo(String no) {
+		
+		Connection conn = getConnection();
+		
+		List<MemberJoinGroupVo> gList = dao.selectGroupByNo(conn, no);
+		
+		close(conn);
+		
+		
+		return gList;
 	}
 
 	

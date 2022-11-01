@@ -8,10 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.kh.semi.member.vo.MemberJoinGroupVo;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.password.PasswordVo;
+
+import kh.semi.omjm.group.vo.GroupVo;
 
 
 
@@ -458,6 +463,57 @@ public class MemberDao {
 			}
 			
 			return result;
+		}
+
+		//가입한 그룹을 찾아봅쉬다~ 
+		public List<MemberJoinGroupVo> selectGroupByNo(Connection conn, String no) {
+			
+			String sql = "SELECT G.NO GNO,  C.CA_NO CANO, C.CA_NAME CNAME, C.DE_NAME DNAME, G.NAME GNAME, G.USER_CNT GCNT, GM.USER_NO MNO FROM GROUP_MEMBER GM JOIN OMJM_GROUP G ON G.NO = GM.GROUP_NO JOIN CATEGORY C ON C.CA_NO = G.CATE_NO WHERE GM.USER_NO = ? AND GM.QUIT_YN= 'N'";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<MemberJoinGroupVo> jgList = new ArrayList<MemberJoinGroupVo>();
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, no);
+				
+				rs= pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					
+					MemberJoinGroupVo jgVo = new MemberJoinGroupVo();
+					
+					String gNo = rs.getString("GNO");
+					String gName = rs.getString("GNAME");
+					String cNo = rs.getString("CANO");
+					String cName = rs.getString("CNAME");
+					String dName = rs.getString("DNAME");
+					String gCnt = rs.getString("GCNT");
+					String mNo = rs.getString("MNO");
+					
+					jgVo.setmNo(mNo);
+					jgVo.setgNo(gNo);
+					jgVo.setgName(gName);
+					jgVo.setcNo(cNo);
+					jgVo.setcName(cName);
+					jgVo.setdName(dName);
+					jgVo.setgCnt(gCnt);
+					
+					System.out.println(jgVo);
+
+					jgList.add(jgVo);
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt);
+			}
+			
+			return jgList;
 		}
 		
 
