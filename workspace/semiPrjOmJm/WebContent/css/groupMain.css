@@ -28,19 +28,17 @@
 	font-size: 20px;
 }
 
-.user_controller i:nth-child(2){
-	margin-left: 10px;
-}
 
 
 .showMember span{
 	font-size: 30px;
-	margin-left:10px;
+	margin:0 20px;
 }
-.like{
+#like,
+#dontLike{
 	position: relative;
 	cursor: pointer;
-	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .like:hover{
@@ -61,7 +59,8 @@
 }
 
 .joinGroup,
-.quitGroup{
+.quitGroup,
+.deleteGroup{
 	cursor: pointer;
 }
 
@@ -69,7 +68,8 @@
 	color: var(--color-main);
 }
 
-.quitGroup:hover{
+.quitGroup:hover,
+.deleteGroup:hover{
 	color: #e74c3c;
 }
 .group-info {

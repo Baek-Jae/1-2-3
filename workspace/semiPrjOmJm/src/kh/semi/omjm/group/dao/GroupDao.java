@@ -692,6 +692,25 @@ public class GroupDao {
 		return result;
 	}
 
+	public int deleteGroupByGno(Connection conn, String groupNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE OMJM_GROUP SET DELETE_YN = 'Y' WHERE NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, groupNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	
 
 	

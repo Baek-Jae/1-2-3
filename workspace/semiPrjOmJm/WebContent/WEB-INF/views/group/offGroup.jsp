@@ -96,7 +96,7 @@
                         <div class="off_membertemp">매너온도미완성</div>
                     </div>
                 </div>
-               	<c:if test="${empty offMember or offGroup.leaderNo ne loginMember.nick}">
+               	<c:if test="${empty offMember and offGroup.leaderNo ne loginMember.nick}">
                		<div class="off_member_info">
                			<div id="first_member">
                         	<span >첫번째 참여자가 되어보세요!</span>

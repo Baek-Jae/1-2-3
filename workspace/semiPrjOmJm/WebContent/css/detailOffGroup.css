@@ -232,7 +232,8 @@ body::before {
 }
 
 .offGroup_invite,
-.offGroup_edit {
+.offGroup_edit,
+.offGroup_quit {
     width: 700px;
     padding: 24px;
     background-color: var(--color-main);
@@ -246,7 +247,8 @@ body::before {
 }
 
 .offGroup_invite:hover,
-.offGroup_edit:hover {
+.offGroup_edit:hover,
+.offGroup_quit:hover {
     font-size: 18px;
     font-weight: 900;
     border-radius: 0 0 20px 20px;
