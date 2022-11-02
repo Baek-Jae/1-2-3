@@ -1,19 +1,14 @@
 package place.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-import com.kh.semi.notice.service.NoticeService;
 
 import cate.vo.CateVo;
 import kh.semi.omjm.group.vo.GroupVo;
@@ -27,9 +22,11 @@ public class SearchController extends HttpServlet{
 		
 		List<PlaceVo> placeList = new PlaceService().selectPlace();
 		List<CateVo> cateVo = new PlaceService().selectCate();
+		List<GroupVo> GroupList = new PlaceService().logoutGroup();
 
 		req.setAttribute("placeList", placeList);
 		req.setAttribute("cateVo", cateVo);
+		req.setAttribute("groupList", GroupList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
 		
@@ -48,19 +45,22 @@ public class SearchController extends HttpServlet{
 		String search = req.getParameter("search");
 		req.setAttribute("search", search);
 		
-		String jjap = "jjap";
 		List<GroupVo> groupName = new PlaceService().wordSearch(search);
-		if(groupName.size() != 0) {
+		List<GroupVo> GroupList = new PlaceService().logoutGroup();
+		
+		if(groupName.size() > 0) {
 			req.setAttribute("groupName", groupName);
+			req.setAttribute("groupList", new ArrayList<GroupVo>());
 		}else {
-			req.setAttribute("jjap", jjap);
+			req.setAttribute("msg", "검색한 모임이 존재하지 않습니다");
+			req.setAttribute("groupList", GroupList);
 		}
 		/*
 		 * System.out.println("컨트롤러 " + groupName.get(0).getName());
 		 * System.out.println("컨트롤러 " + groupName.get(1).getName());
 		 */
 		 
-		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
+		resp.sendRedirect("/omjm/search");
 
 		}
 	}

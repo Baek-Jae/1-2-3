@@ -113,7 +113,6 @@ public class PlaceDao {
 				vo.setEnrollDate(enrollDate);
 				vo.setModifyDate(modifyDate);
 				vo.setDeleteYn(deleteYn);
-				System.out.println(vo+ "인덱스 서치");
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -177,7 +176,7 @@ public class PlaceDao {
 
 	public List<GroupVo> selectPlace(Connection conn, int temp) {
 		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
-				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE P.P_NO = ?";
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE P.P_NO = ? ORDER BY DBMS_RANDOM.RANDOM";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -279,7 +278,7 @@ public class PlaceDao {
 	public List<GroupVo> selectGroup(Connection conn) {
 		// SQL
 		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME FROM OMJM_GROUP O "
-				+ "JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO";
+				+ "JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO ORDER BY DBMS_RANDOM.RANDOM";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -329,7 +328,7 @@ public class PlaceDao {
 
 	public List<GroupVo> selectList2(Connection conn, String search2) {
 		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME "
-				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE NAME LIKE ?";
+				+ "FROM OMJM_GROUP O JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO WHERE NAME LIKE ? ORDER BY DBMS_RANDOM.RANDOM";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

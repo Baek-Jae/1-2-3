@@ -35,7 +35,6 @@ alert('<%=alertMsg%>');
 		int arrmath = (int)Math.floor(Math.random() * arrlength);
 		pla =  placeArr[arrmath];
 
-
 /*System.out.println("placeArr length 배열길이 " + arrlength);
 System.out.println("arrmath 랜덤 " + arrmath);
 System.out.println("placeArr 인덱스번호" + pla); */
@@ -51,17 +50,10 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		success : function(x){
 		var o = JSON.parse(x);
 
-
-       for(let i = 0; i < 15; i++){
+       for(let i = 0; i < 12; i++){
 			//for(var i=0 in o){
 			let div = $('<div/>');
 			div.addClass("group-card");
-
-			var random = Math.floor(Math.random()*o.length);
-
-			div.append('<div class="group-tag">'
-					+'<span class="material-symbols-outlined">sell</span>'
-					+'<label>서울시 베스트</label></div>');
 
 			div.append('<div class="group-wrap">'
                     +'<div class="card-top">'
@@ -80,7 +72,7 @@ System.out.println("placeArr 인덱스번호" + pla); */
                             +'<span class="material-symbols-outlined" id="group-icon">group</span>'
                             +'<span class="group-cnt">'+o[i].userCnt+'</span>'
                    +'</div>'
-                   +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+                   +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
            	+'</div>'
            +'</div>');
 
@@ -102,17 +94,11 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		var o = JSON.parse(x);
 		console.log(o);
 
-			for(let i = 0; i < 15; i++){
+			for(let i = 0; i < 3; i++){
 				//for(var i=0 in o){
 				let div = $('<div/>');
 				div.addClass("group-card");
-
-				var random = Math.floor(Math.random()*o.length);
-
-				div.append('<div class="group-tag">'
-						+'<span class="material-symbols-outlined">sell</span>'
-						+'<label>서울시 베스트</label></div>');
-
+				
 				div.append('<div class="group-wrap">'
 	                    +'<div class="card-top">'
                         +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
@@ -130,7 +116,7 @@ System.out.println("placeArr 인덱스번호" + pla); */
 	                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 	                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
                         +'</div>'
-                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+                        +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
                 	+'</div>'
                 +'</div>');
 
@@ -142,11 +128,8 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		}
 	});
 
-
-
 </script>
 <%}%>
-
 
 <div class="main-wrap">
         <div class="main-slider">
@@ -170,20 +153,24 @@ System.out.println("placeArr 인덱스번호" + pla); */
         <div class="group-list"></div>
 
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
 
 <script>
-    	function doAction(form){
+    	 function doAction(form){
     		if(form.search.value == ''){
-    			  /* alert("검색어를 입력하세요~");   */
-    			  alertify
-		 		.alert("검색어를 입력해 주세요~");
+    			    alert("검색어를 입력하세요~");  
+    			 /*  alertify
+		 		.alert("검색어를 입력해 주세요~"); */
     			form.search.focus();
     			return false;
     		}
+
+			const str = form.search.value;
+			const trimStr = str.replaceAll(' ','');
+
     		return true;
     	}
-
+    	 
 </script>
 </body>
 </html>

@@ -28,7 +28,7 @@ public class CateAjaxController extends HttpServlet{
 		
 //		ArrayList<GroupVo> list = new ArrayList<GroupVo>();
 //		list.addAll(GroupVo);
-//		
+		
 		Gson gson = new Gson();
 		PrintWriter out = resp.getWriter();
 

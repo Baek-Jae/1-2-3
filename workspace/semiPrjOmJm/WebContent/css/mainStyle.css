@@ -82,13 +82,15 @@
     height: 50vh;
     justify-items: center;
     align-items: center;
+    margin-left: 40%;
+    margin-right: 40%;
 }
 
 .group-card{
 	width: 70%;
     height: 100%;
-    padding: 50px;
-    /* margin-right:100px; */
+    padding-bottom: 50px; 
+     /* margin-right:100px; */
 }
 
 .group-card:last-child{
