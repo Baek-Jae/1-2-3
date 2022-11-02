@@ -26,6 +26,9 @@ public class CateAjaxController extends HttpServlet{
 		int num = Integer.parseInt(req.getParameter("dese"));
 		List<GroupVo> GroupList = new PlaceService().GroupSearch(num);
 		
+//		ArrayList<GroupVo> list = new ArrayList<GroupVo>();
+//		list.addAll(GroupVo);
+		
 		Gson gson = new Gson();
 		PrintWriter out = resp.getWriter();
 

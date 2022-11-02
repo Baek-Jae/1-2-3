@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <% String alertMsg = (String)request.getAttribute("alertMsg"); %>
 <%if(alertMsg != null){ %>
 alert('<%=alertMsg%>');
@@ -11,6 +10,7 @@ alert('<%=alertMsg%>');
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%= root %>/css/mainStyle.css" />
+
 
 </head>
 <body>
@@ -23,20 +23,26 @@ alert('<%=alertMsg%>');
 		int arrlength = placeArr.length;
 		int arrmath = (int)Math.floor(Math.random() * arrlength);
 		pla =  placeArr[arrmath];
+
+/*System.out.println("placeArr length 배열길이 " + arrlength);
+System.out.println("arrmath 랜덤 " + arrmath);
+System.out.println("placeArr 인덱스번호" + pla); */
 %>
 
-	<script>
+<script>
 		$.ajax({
 		url :	"<%=root%>/main/membergroup" ,
 		method : "GET",
 		data :   {
 		"p1" :"<%=pla%>"
-		},
+		},//data
 		success : function(x){
 		var o = JSON.parse(x);
 
+		
 		let j = 0;
        for(let i = 0; i < o.length; i++&&j<3){
+			//for(var i=0 in o){
 			let div = $('<div/>');
 			div.addClass("group-card");
 
@@ -71,16 +77,19 @@ alert('<%=alertMsg%>');
 });
 
 </script>
-	<%}else{%>
-	<script>
+<%}else{%>
+<script>
 		$.ajax({
 		url : "<%=root%>/main/group" ,
 		method : "GET" ,
 		success : function(x){
 		var o = JSON.parse(x);
+		/* console.log(o); */
+
 		
 			let j = 0;
 			for(let i = 0; i < o.length; i++ && j<3){
+				//for(var i=0 in o){
 				let div = $('<div/>');
 				div.addClass("group-card");
 				
@@ -115,48 +124,33 @@ alert('<%=alertMsg%>');
 	});
 
 </script>
-	<%}%>
+<%}%>
 
-	<div class="main-wrap">
-		<div class="main-slider">
-			<div class="main-slider-content">
-				<h2>
-					수 <strong>많은</strong> 사용자들과
-				</h2>
-				<h2>
-					<strong>관심사</strong>를 같이 공유하며 새로운 <strong>모임</strong>을
-				</h2>
-				<h2>
-					다양하게 <strong>생성</strong>하고 <strong>가입</strong>하며
-				</h2>
-				<h2>
-					일상의 <strong>달라짐</strong>을 경험해 보세요
-				</h2>
-				<span>오목조목 에서는 사용자의 지역과 관심사를 통해 여러분 들에게 최적의 모임을 보여줍니다.</span>
-			</div>
-		</div>
-		<div></div>
-		<form action="<%= root %>/search" class="main-search" method="get"
-			onsubmit="return doAction(this);">
-			<div class="main-search-group">
-				<span class="material-symbols-outlined">search</span> <input
-					type="text" name="search" id="text-search" placeholder="모임을 찾아보세요" />
-			</div>
-			<input type="submit" value="검  색" />
-		</form>
+<div class="main-wrap">
+        <div class="main-slider">
+            <div class="main-slider-content">
+                <h2>수 <strong>많은</strong> 사용자들과</h2>
+                <h2><strong>관심사</strong>를 같이 공유하며 새로운 <strong>모임</strong>을</h2>
+                <h2>다양하게 <strong>생성</strong>하고 <strong>가입</strong>하며</h2>
+                <h2>일상의 <strong>달라짐</strong>을 경험해 보세요</h2>
+                <span>오목조목 에서는 사용자의 지역과 관심사를 통해 여러분 들에게 최적의 모임을 보여줍니다.</span>
+            </div>
+        </div>
+        <div></div>
+        <form action="<%= root %>/search" class="main-search" method="get" onsubmit="return doAction(this);">
+            <div class="main-search-group">
+            	<span class="material-symbols-outlined">search</span>
+                <input type="text" name="search" id="text-search" placeholder="모임을 찾아보세요" />
+            </div>
+            <input type="submit" value="검  색" />
+        </form>
 
-		<div class="group-list"></div>
+        <div class="group-list"></div>
 
-	</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+    </div>
+    <br><br><br><br><br><br><br>
 
-	<script>
+<script>
     	 function doAction(form){
     		if(form.search.value == ''){
     			    alert("검색어를 입력하세요~");  

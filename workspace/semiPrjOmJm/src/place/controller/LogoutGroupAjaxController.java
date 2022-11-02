@@ -23,6 +23,19 @@ public class LogoutGroupAjaxController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/plain; charset=UTF-8;");
 		List<GroupVo> GroupList = new PlaceService().logoutGroup();
+		
+		/*
+		 * String[] array = new String[GroupList.size()];
+		 * 
+		 * int size=0; for(String temp : GroupList){  array[size++] = temp; }
+		 */
+		
+		/*
+		 * String[] array = GroupList.toArray(new String[GroupList.size()]);
+		 * System.out.println(array); int arrmath = (int)Math.floor(Math.random() *
+		 * arrlength);
+		 */
+		//System.out.println(GroupList);
 
 		PrintWriter out = resp.getWriter();
 		

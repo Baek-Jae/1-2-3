@@ -22,6 +22,7 @@ public class PlaceAjaxController extends HttpServlet{
 		resp.setContentType("text/plain; charset=UTF-8;");
 		
 		int temp = Integer.parseInt(req.getParameter("temp"));
+		/* System.out.println(temp); */
 		
 		List<GroupVo> placeList = new PlaceService().selectPlace(temp);
 		
