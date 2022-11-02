@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.common.PageVo;
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.password.PasswordController;
@@ -58,6 +59,10 @@ public class MemberEditController extends HttpServlet{
 		//마이페이지 질문 다 가져오기
 		List<PasswordVo> pwdQList = new PasswordController().getQuestion();
 		req.setAttribute("pwdQList", pwdQList);
+		
+		req.setAttribute("pv", new PageVo());
+		req.setAttribute("pvj", new PageVo());
+		
 		
 		if(editMember != null) {
 			s.setAttribute("loginMember", editMember);

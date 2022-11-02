@@ -1,5 +1,7 @@
 package com.kh.semi.member.vo;
 
+import java.util.Arrays;
+
 public class MemberVo {
 
 
@@ -23,11 +25,7 @@ public class MemberVo {
 	private String place;
 	private String [] placeArr;
 	
-
-
 	private String phone;
-	private String catg;
-	private String [] catgArr;
 	private String gender;
 	private String pq;
 	private String pa;
@@ -38,7 +36,6 @@ public class MemberVo {
 	private String nppOff;
 	private String enrollDate;
 	private String modifyDate;
-	private String alarmYn;
 	private String admin;
 	private String sup;
 	private String status;
@@ -74,12 +71,7 @@ public class MemberVo {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getCatg() {
-		return catg;
-	}
-	public void setCatg(String catg) {
-		this.catg = catg;
-	}
+
 	public String getGender() {
 		return gender;
 	}
@@ -134,12 +126,7 @@ public class MemberVo {
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public String getAlarmYn() {
-		return alarmYn;
-	}
-	public void setAlarmYn(String alarmYn) {
-		this.alarmYn = alarmYn;
-	}
+
 	public String getAdmin() {
 		return admin;
 	}
@@ -170,12 +157,7 @@ public class MemberVo {
 	public void setPq(String pq) {
 		this.pq = pq;
 	}
-	public String[] getCatgArr() {
-		return catgArr;
-	}
-	public void setCatgArr(String[] catgArr) {
-		this.catgArr = catgArr;
-	}
+
 	public String[] getlGArr() {
 		return lGArr;
 	}
@@ -201,16 +183,19 @@ public class MemberVo {
 		this.placeArr = placeArr;
 	}
 
-	
 
 	@Override
 	public String toString() {
-		return "MemberVo [no=" + no + ", id=" + id + ", pwd=" + pwd + ", nick=" + nick +"" + ", place="
-				+ place + ", phone=" + phone + ", catg=" + catg + ", gender=" + gender + ", pq=" + pq + ", pa=" + pa
-				+ ", manner=" + manner + ", likeGroup=" + likeGroup + ", ppOff=" + ppOff + ", nppOff=" + nppOff
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", alarmYn=" + alarmYn + ", admin="
-				+ admin + ", sup=" + sup + ", status=" + status + "]";
+		return "MemberVo [no=" + no + ", id=" + id + ", pwd=" + pwd + ", nick=" + nick + ", place=" + place
+				+ ", placeArr=" + Arrays.toString(placeArr) + ", phone=" + phone + ", gender=" + gender + ", pq=" + pq
+				+ ", pa=" + pa + ", manner=" + manner + ", likeGroup=" + likeGroup + ", lGArr=" + Arrays.toString(lGArr)
+				+ ", ppOff=" + ppOff + ", nppOff=" + nppOff + ", enrollDate=" + enrollDate + ", modifyDate="
+				+ modifyDate + ", admin=" + admin + ", sup=" + sup + ", status=" + status + "]";
 	}
+
+	
+
+
 	
 	
 }

@@ -40,7 +40,9 @@ public class MemberQuitController extends HttpServlet{
 		
 		if(result ==1 ) {
 			req.setAttribute("alertMsg", "회원탈퇴 완료되었습니다. 그동안 사용해주셔서 감사합니다.");
+			req.getSession().invalidate();
 			req.getRequestDispatcher("/").forward(req, resp);
+		
 		}else {
 			req.setAttribute("alertMsg", "비밀번호를 잘못 입력하셨습니다. 탈퇴를 원하시면 다시 입력해주세요");
 			req.getRequestDispatcher("/WEB-INF/views/member/quitmember.jsp").forward(req, resp);

@@ -92,7 +92,7 @@ public class MemberMypageController extends HttpServlet{
 		//가입한 그룹 페이징
 		
 		int jlistCount = new MemberService().selectJGLCnt(no);	
-		int jcurrentPage = Integer.parseInt(req.getParameter("jgpno"));; 
+		int jcurrentPage = Integer.parseInt(req.getParameter("jgpno")); 
 		int jpageLimit = 5; // 내가 정함
 		int jboardLimit = 10; // 내가 정함
 		

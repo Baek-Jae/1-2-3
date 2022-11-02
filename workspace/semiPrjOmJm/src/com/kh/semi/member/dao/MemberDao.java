@@ -28,8 +28,8 @@ public class MemberDao {
 	//회원가입
 		public int join(Connection conn, MemberVo vo) {
 			
-			String sql = "INSERT INTO MEMBER ( NO , ID , PWD , NICK , PHONE , PLACE , CATG , GENDER , PQ , PA , LIKE_GROUP )"
-						+ " VALUES ( SEQ_MEMBER_NO.NEXTVAL , ? , ? , ?, ? , ? , ? , ? , ? ,? , ? )";
+			String sql = "INSERT INTO MEMBER ( NO , ID , PWD , NICK , PHONE , PLACE  , GENDER , PQ , PA )"
+						+ " VALUES ( SEQ_MEMBER_NO.NEXTVAL , ? , ? , ? , ? , ? , ? , ? ,? )";
 			
 			PreparedStatement pstmt = null;
 			int result = 0;
@@ -41,11 +41,10 @@ public class MemberDao {
 				pstmt.setString(3, vo.getNick());
 				pstmt.setString(4, vo.getPhone());	
 				pstmt.setString(5, vo.getPlace());
-				pstmt.setString(6, vo.getCatg());
-				pstmt.setString(7, vo.getGender());
-				pstmt.setInt(8, Integer.parseInt(vo.getPq()));
-				pstmt.setString(9, vo.getPa());
-				pstmt.setString(10, vo.getLikeGroup());
+				pstmt.setString(6, vo.getGender());
+				pstmt.setInt(7, Integer.parseInt(vo.getPq()));
+				pstmt.setString(8, vo.getPa());
+				
 				
 				result = pstmt.executeUpdate();
 				
@@ -90,7 +89,6 @@ public class MemberDao {
 					String [] placeArr = place.split(",");
 					loginMember.setPlace(rs.getString("PLACE"));
 					loginMember.setPlaceArr(placeArr);
-					loginMember.setCatg(rs.getString("CATG"));
 					loginMember.setGender(rs.getString("GENDER"));
 					loginMember.setPq(rs.getString("PQ"));
 					loginMember.setPa(rs.getString("PA"));
@@ -100,7 +98,6 @@ public class MemberDao {
 					loginMember.setNppOff(rs.getString("NPP_OFF"));
 					loginMember.setEnrollDate(rs.getString("ENROLL_DATE"));
 					loginMember.setModifyDate(rs.getString("MODIFY_DATE"));
-					loginMember.setAlarmYn(rs.getString("ALARMYN"));
 					loginMember.setAdmin(rs.getString("ADMIN"));
 					loginMember.setSup(rs.getString("SUP"));
 					loginMember.setStatus(rs.getString("STATUS"));
@@ -249,7 +246,8 @@ public class MemberDao {
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					 System.out.println("아이디있다고사용못한다고");// 아이디가 있다.
+					// System.out.println("아이디있다고사용못한다고");// 아이디가 있다.
+					 
 					result = 1; // 아이디를 써도된다~~~
 				}
 			
@@ -277,7 +275,7 @@ public class MemberDao {
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					 System.out.println("닉네임 있다고요");
+					 //System.out.println("닉네임 있다고요");
 					result = 1; //닉네임 쓰면 안돼~ 
 				}
 			
@@ -304,7 +302,7 @@ public class MemberDao {
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					 System.out.println("핸드폰번호 있다고요");
+					 //System.out.println("핸드폰번호 있다고요");
 					result = 1; //폰번호도 쓰면 안돼~ 
 				}
 			
@@ -474,7 +472,7 @@ public class MemberDao {
 			return result;
 		}
 
-		//가입한 그룹을 찾아봅쉬다~ 
+		//가입한 모임 그룹을 찾아봅시다.
 		public List<MemberJoinGroupVo> selectGroupByNo(Connection conn, String no, PageVo pvj) {
 			
 			String sql = "SELECT * FROM( SELECT ROWNUM AS JGNUM , JG.* "
@@ -500,6 +498,8 @@ public class MemberDao {
 				
 				rs= pstmt.executeQuery();
 				
+				
+			
 				while(rs.next()) {
 					
 					
