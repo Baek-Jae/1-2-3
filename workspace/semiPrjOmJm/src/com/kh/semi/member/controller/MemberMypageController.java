@@ -91,10 +91,12 @@ public class MemberMypageController extends HttpServlet{
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//가입한 그룹 페이징
 		
+		
 		int jlistCount = new MemberService().selectJGLCnt(no);	
 		int jcurrentPage = Integer.parseInt(req.getParameter("jgpno")); 
 		int jpageLimit = 5; // 내가 정함
 		int jboardLimit = 10; // 내가 정함
+		
 		
 		int jmaxPage = (int)Math.ceil((double)jlistCount / jboardLimit);
 		int jstartPage = (jcurrentPage -1) / jpageLimit * jpageLimit + 1 ;
@@ -117,7 +119,6 @@ public class MemberMypageController extends HttpServlet{
 		//가입한 모임 뜨게해야한다 . 
 
 		//가입한 모임 리스트 가져온다.
-		
 
 
 		List<MemberJoinGroupVo> jgList = new MemberService().selectGroupByNo(no, pvj);

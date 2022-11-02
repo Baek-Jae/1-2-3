@@ -132,16 +132,16 @@
             <div id="main">
                 
                 <div >아이디</div>
-                <div id="check"><input type="text" name="memberId" class="input width-size" placeholder="영어 / 숫자 8 ~ 12글자"><button type="button" class="label doublecheck yellow" id="idCheckBtn"onclick="idDoubleCheck()">중복체크</button></div>
+                <div id="check"><input type="text" name="memberId" class="input width-size" placeholder="영어 / 숫자 8 ~ 12 자리"><button type="button" class="label doublecheck yellow" id="idCheckBtn"onclick="idDoubleCheck()">중복체크</button></div>
                 <div id="checkIdResult" class="span2 result"></div>
                 <div class="span-2">비밀번호</div>
-                <div><input type="password" name="memberPwd1" class="input width-size" placeholder="영어 + 숫자 + 특수문자 8 ~ 16 글자 "></div>
+                <div><input type="password" name="memberPwd1" class="input width-size" placeholder="영어 + 숫자 + 특수문자 8 ~ 16 자리 "></div>
                 <div id="checkPwd1Result" class="span2 result"></div>
                 <div>비밀번호 확인</div>
                 <div><input type="password" name="memberPwd2" class="input width-size" placeholder="비밀번호 한번 더 입력부탁드립니다."></div>
                 <div id="checkPwd2Result" class="span2 result"></div>
                 <div>별명</div>
-                <div><input type="text" name="memberNick" class="input width-size" placeholder="한글 / 숫자 / 영어 2 ~ 10글자"><button type="button" id="nickCheckBtn" class="label doublecheck yellow"  onclick="nickDoubleCheck()" >중복체크</button></div>
+                <div><input type="text" name="memberNick" class="input width-size" placeholder="한글 / 숫자 / 영어 2 ~ 10 자리"><button type="button" id="nickCheckBtn" class="label doublecheck yellow"  onclick="nickDoubleCheck()" >중복체크</button></div>
                 <div id="checkNickResult"class="span2 result"></div>
                 <div>핸드폰번호</div>
                 <div id="check"><input type="text" name="memberPhone" class="input width-size"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" ><button id="phoneCheckBtn" class="label doublecheck yellow" type="button" onclick="phoneDoubleCheck()">중복체크</button></div>
