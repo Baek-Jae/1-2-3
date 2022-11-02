@@ -50,7 +50,9 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		success : function(x){
 		var o = JSON.parse(x);
 
-       for(let i = 0; i < 12; i++){
+		
+		let j = 0;
+       for(let i = 0; i < o.length; i++&&j<3){
 			//for(var i=0 in o){
 			let div = $('<div/>');
 			div.addClass("group-card");
@@ -77,6 +79,7 @@ System.out.println("placeArr 인덱스번호" + pla); */
            +'</div>');
 
 			$(div).appendTo('.group-list');
+			j++;
 		}
 	},
 	error : function(){
@@ -92,9 +95,11 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		method : "GET" ,
 		success : function(x){
 		var o = JSON.parse(x);
-		console.log(o);
+		/* console.log(o); */
 
-			for(let i = 0; i < 3; i++){
+		
+			let j = 0;
+			for(let i = 0; i < o.length; i++ && j<3){
 				//for(var i=0 in o){
 				let div = $('<div/>');
 				div.addClass("group-card");
@@ -121,6 +126,7 @@ System.out.println("placeArr 인덱스번호" + pla); */
                 +'</div>');
 
 				$(div).appendTo('.group-list');
+				j++;
 			}
 		},
 		error : function(){
@@ -142,7 +148,7 @@ System.out.println("placeArr 인덱스번호" + pla); */
             </div>
         </div>
         <div></div>
-        <form action="<%= root %>/search" class="main-search" method="post" onsubmit="return doAction(this);">
+        <form action="<%= root %>/search" class="main-search" method="get" onsubmit="return doAction(this);">
             <div class="main-search-group">
             	<span class="material-symbols-outlined">search</span>
                 <input type="text" name="search" id="text-search" placeholder="모임을 찾아보세요" />
