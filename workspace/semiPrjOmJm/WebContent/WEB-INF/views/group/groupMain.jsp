@@ -53,14 +53,6 @@
 						            </c:if>
 					            </div>
                             </li>
-                            <li>
-                                <input type="radio" name="off-group" id="off-group" />
-                                <label for="off-group" class="off-btn">오프라인</label>
-                            </li>
-                            <li>
-                                <input type="radio" name="board-group" id="board-group" />
-                                <label for="board-group" class="board-group-btn">게시판</label>
-                            </li>
                         </ul>
                     </div>
                     <div class="group-info">
@@ -85,7 +77,7 @@
                                 </div>
                                 <div class="off-max-member">
                                     <span class="material-symbols-outlined" id="off-maxMember-icon"> group </span>
-                                    <span>${i.userCnt}</span>
+                                    <span>${i.userCnt}명 모집</span>
                                 </div>
                                 <c:if test="${not empty loginMember or gmemberCheck eq 'true'}">
                                 <a href="<%=root %>/group/off?ono=${i.no}">
@@ -127,6 +119,34 @@
         </section>
         <c:if test="${not empty loginMember}">
 	        <script>
+	        
+// 	        $('.expulsion').click(
+// 					function expulsionMember() {
+// 						const no = $('.expulsion').index();
+// 						let gname = confirm("소중한 멤버를 추방하시겠습니까?");
+// 						console.log(gname);
+// 						if(gname == ${groupInfo.name}){
+// 							$.ajax({
+<%-- 								url: "<%= root %>/group/deleteGroup", --%>
+// 								type: "post",
+// 								data:{
+// 									"gmemberNick" : $(('.gMemberNick > span')[no]).text(),
+// 									"groupNo" : ${groupInfo.no}
+// 								},
+// 								success:(result)=>{
+									
+// 								},
+// 								error:()=>{
+// 									alert("추방 실패,...ㄷㄷ");
+// 								}})//ajax
+// 						} else {
+// 							alert("휴... 추방하지 말아주세요..");
+// 						}
+						
+// 					}//fn
+// 				);//event
+	        
+				
 		        $('.deleteGroup').click(
 						function deleteGroup() {
 							let gname = prompt("삭제하시려면 모임명을 입력하세요.");
@@ -149,7 +169,7 @@
 								alert("휴... 삭제하지 말아주세요..");
 							}
 							
-						}//event
+						}//fn
 					);//event
 	        
 	        

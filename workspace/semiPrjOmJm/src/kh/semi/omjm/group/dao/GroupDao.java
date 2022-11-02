@@ -563,7 +563,6 @@ public class GroupDao {
 				ocv.setOffNo(rs.getString("OFF_NO"));
 				ocv.setContent(rs.getString("CONTENT"));
 				ocv.setDeleteYn(rs.getString("DELETE_YN"));
-				
 				offCommentArr.add(ocv);
 			}
 		} catch (SQLException e) {
