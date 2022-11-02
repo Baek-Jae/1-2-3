@@ -535,7 +535,7 @@ public class MemberDao {
 
 		public int selectJGLCnt(Connection conn, String no) {
 			
-			String sql = "SELECT GROUP_NO CNT FROM GROUP_MEMBER WHERE USER_NO = ? AND QUIT_YN = 'N'";
+			String sql = "SELECT COUNT(GROUP_NO) CNT FROM GROUP_MEMBER WHERE USER_NO = ? AND QUIT_YN = 'N'";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
