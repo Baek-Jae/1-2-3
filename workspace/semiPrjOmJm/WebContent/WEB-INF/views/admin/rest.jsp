@@ -16,6 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<div id="main">
         <div id="head"></div>
         <div id="header">
@@ -27,20 +28,21 @@
             </div>
         </div>
         <div id="content">
-        	<div id="restmember2">
-        	
         	<%for(int i =0; i <voListt.size(); ++i){ %>
-        		제제 회원이름 :<input type="text" id="r1" placeholder="내가 수정해야하는곳 제제 회원:" value="<%=voListt.get(i).getNick() %>">
+        	<div id="restmember2">
+        		제제 회원이름 :<input type="text" class="userNick" placeholder="내 제제 회원:"  value="<%=voListt.get(i).getNick() %>">
+        		<input class="restNo" value="<%=voListt.get(i).getNo() %>" style="visibility: hidden;">
         		제제 시키기 : <button type="button" onclick="btn_click(this)" class = 'clickd'>제제</button>
         		<br>
+       		</div>
         	
         	<%} %>
-        	
+        </div>
         		</body>
         		
         		<script>
         			function btn1_click(obj){
-        			const no = $(obj).index();
+        			const no = $(obj).index(obj);
         			console.log(no);
         			$($('clickd')[no])
         			}
@@ -49,17 +51,20 @@
                <script>
                
               function btn_click(obj){
-            	  const no = $(obj).index();
+            	  const no = $(obj).index(obj);
+//             	  alert(no);
+            	  console.log($($('.restNo')[no]).val());
                    $.ajax({
                        url: "/omjm/admin/rest" ,
                        method:"post",			
                        data:{
-                    	   "jeje" : $($('#r1')[no]).val()
-                    	   
+                    	   "jeje" : $($('.restNo')[no]).val(),
+                    	  
    
                        } ,
                        success: function(data){
-                           alert("회원 제제 완료");
+                           alert("회원 제제 완료"); 
+                          
                        } ,
                        error : function(){
                            alert("정보 인식이 안되었습니다.");
@@ -71,8 +76,7 @@
        		
        		};
               </script> 
-        	</div>
-        </div>
+        
 	
 
 

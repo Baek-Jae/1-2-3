@@ -81,6 +81,74 @@ public class AdminService {
 		return restMember;
 	}
 
+	public List<MemberVo> selectMember() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> memberList = dao.selectMember(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return memberList;
+		
+	}
+
+	public List<MemberVo> selectTemp() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> memberTemp = dao.selectTemp(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return memberTemp;
+		
+	}
+
+	public List<MemberVo> selectGender() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> memberGender = dao.selectGender(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return memberGender;
+	}
+
+	public List<MemberVo> selectAdminSupList() {	
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> supList = dao.selectAdminSupList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return supList;
+	}
+
+	public int servive(String no) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new AdminDao().servive(conn,no);
+		
+		if(result ==1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public List<MemberVo> reviceSup() {
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> reviveMember = dao.reviveSup(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return reviveMember;
+		
+	}
+
 	
 	
 	

@@ -208,10 +208,8 @@ li a:hover{
         <div id="content">
             
             <div id="membersyo"> 
-            회원이름: <input type="text" id="in1" placeholder="회원이름" <%=  %> >
             <br><br>
-            회원등급: <input type="text" id="in2" placeholder="회원등급">
-            <br><br>
+            제제할 회원 : <input type="text" id="in1" placeholder="제제 회원">
             회원제제:<input type="button>" id="in3" placeholder= "회원 제제시키기">
             <br><br><br><br>
             <button onclick="printOrder();">정보 출력</button>

@@ -47,6 +47,8 @@ public class CheckTempController  extends HttpServlet{
 		vo.setPpOff(ppoff);
 		vo.setNppOff(nppoff);
 		vo.setManner(manner);
+		
+		
 		//????;
 		
 		
