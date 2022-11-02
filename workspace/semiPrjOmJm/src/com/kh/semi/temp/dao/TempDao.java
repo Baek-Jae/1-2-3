@@ -80,6 +80,109 @@ public class TempDao {
 		
 	}
 
+	public int ppupp(Connection conn, String no) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = "UPDATE MEMBER SET PPOFF = 'PPOFF+1' WHERE NO = ?";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+
+	public static List<MemberVo> tempMemberList(Connection conn) {
+		
+		String sql = "SELECT * FROM MEMBER ORDER BY NO DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVo> tempList = new ArrayList<MemberVo>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String no = rs.getString("NO");
+				String nick = rs.getString("NICK");
+				String ppOff = rs.getString("PPOFF");
+				String manner = rs.getString("MANNER");
+				
+				MemberVo vo = new MemberVo();
+				
+				vo.setNo(no);
+				vo.setNick(nick);
+				vo.setPpOff(ppOff);
+				vo.setManner(manner);
+				
+				tempList.add(vo);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+		}
+		return tempList;
+		
+		
+	}
+
+	public static List<MemberVo> ppUpMember(Connection conn) {
+		
+		String sql ="SELECT PPOFF,MANNER FROM MEMBER WHERE SUP='X' ORDER BY NO DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVo> ppMember = new ArrayList<MemberVo>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				String no = rs.getString("NO");
+				String sup = rs.getString("SUP");
+				String ppOff = rs.getString("PPOFF");
+				String manner = rs.getString("MANNER");
+				
+				MemberVo vo = new MemberVo();
+				vo.setNo(no);
+				vo.setSup(sup);
+				vo.setPpOff(ppOff);
+				vo.setManner(manner);
+				
+				ppMember.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return ppMember;
+		
+	}
+
 //	public List<TempVo> selectTempList(Connection conn) {
 //		
 //		String sql = "SELECT NO ,OFF_NO, MANNER, PP_OFF , NPP_OFF  FROM MANNER";

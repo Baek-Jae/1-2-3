@@ -5,8 +5,8 @@
   	  MemberVo ppOff = (MemberVo)session.getAttribute("ppOff");
 	  MemberVo nppOff = (MemberVo)session.getAttribute("nppOff");
 	  MemberVo manner = (MemberVo)session.getAttribute("manner");
-	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +47,10 @@
 	
 	<div id="aclick">
 	모임참여<input type="button" id="click" value="클릭"></button>
+	
+	
+	
+	
 	<br><br><br><br><br><br>
 	모임불참<input type="button" id="clicks" value="클릭"></button>
 	</div>
@@ -135,6 +139,9 @@
 	
 	
 	</script>
+	
+	
+	
 	
 	
 	

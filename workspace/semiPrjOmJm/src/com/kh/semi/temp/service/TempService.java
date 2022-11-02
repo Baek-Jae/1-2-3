@@ -32,6 +32,44 @@ public class TempService {
 		
 		
 	}
+
+	public int ppupp(String no) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new TempDao().ppupp(conn,no);
+		
+		if(result ==1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
+	}
+
+	public List<MemberVo> tempMemberList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> tempList = TempDao.tempMemberList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return tempList;
+		
+	}
+
+	public List<MemberVo> ppUpMember() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> ppMember = TempDao.ppUpMember(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return ppMember;
+		
+	}
 	
 	
 	/*

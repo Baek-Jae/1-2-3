@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.admin.service.AdminService;
-
+import com.kh.semi.board.service.BoardService;
 import com.kh.semi.member.vo.MemberVo;
 
 
 @WebServlet(urlPatterns = "/admin/rest")
 public class AdminRestController extends HttpServlet{
 
+	private final AdminService as = new AdminService();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -26,8 +28,9 @@ public class AdminRestController extends HttpServlet{
 		List<MemberVo> voListt = new AdminService().selectAdminList();
 		
 		req.setAttribute("voListt", voListt);
+		
 //		req.setAttribute("sup", sup);
-		List<MemberVo> restMember = new AdminService().selectSup();;
+		List<MemberVo> restMember = new AdminService().selectSup();
 //		restMember.setSup("X");
 		req.setAttribute("restMember", restMember);
 		
@@ -36,26 +39,56 @@ public class AdminRestController extends HttpServlet{
 		
 		req.getRequestDispatcher("/WEB-INF/views/admin/rest.jsp").forward(req, resp);
 		
-		
-		
-		
-		
 	}
-	
-	
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String no = req.getParameter("jeje");
 		System.out.println(no);
 		
 		
-		
-		
 		HttpSession session = req.getSession();
 		
-		//데이터 꺼내기
+		int result = new AdminService().quit(no);
 		
+		
+//		MemberVo restMember = (MemberVo)session.getAttribute("restMember");
+//		no = req.getParameter("no");
+//		String sup = req.getParameter("sup");
+//		String Nick = req.getParameter("nick");
+//		
+//		MemberVo vo = new MemberVo();
+//		
+//		vo.setNo(no);
+//		vo.setSup(sup);
+//		vo.setNick(Nick);
+//		
+
+				
+		
+		if(result==1) {
+//			session.invalidate();
+			
+//			resp.sendRedirect("/omjm/");
+			
+			
+			req.getSession().setAttribute("alertMsg", "제제 성공");
+//			req.getRequestDispatcher("/WEB-INF/views/admin/rest.jsp").forward(req, resp);
+			resp.sendRedirect("/omjm/admin/rest");
+			
+			
+		}else {
+			req.setAttribute("msg", "제제 실패");
+			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
+		}
+		
+		///////////////////////
+		
+		
+//		String mno = req.getParameter("mno");
+//		
+//		MemberVo vo = new AdminService().selectOne(mno);
+//		req.setAttribute("vo", vo);
+//		
 //		String no = restMember.getNo();
 //		String nick = restMember.getNick();
 //		String sup = restMember.getSup();
@@ -108,40 +141,7 @@ public class AdminRestController extends HttpServlet{
 //			session.invalidate();
 ////			resp.sendRedirect("/omjm/");
 			
-		String sup = req.getParameter("sup");
 		
-		MemberVo restMember = new MemberVo();
-		restMember.setSup(sup);
-		restMember.setNo(no);
-		
-			
-		int result = new AdminService().quit(no);
-		
-		
-		if(result==1) {
-//			session.invalidate();
-			
-//			resp.sendRedirect("/omjm/");
-			
-			req.getSession().setAttribute("alertMsg", "제제 성공");
-//			req.getRequestDispatcher("/WEB-INF/views/admin/rest.jsp").forward(req, resp);
-			resp.sendRedirect("/omjm/admin/rest");
-			
-			
-		}else {
-			req.setAttribute("msg", "제제 실패");
-			req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, resp);
-		}
-		
-		
-		
-		
-		
-//		String mno = req.getParameter("mno");
-//		
-//		MemberVo vo = new AdminService().selectOne(mno);
-//		req.setAttribute("vo", vo);
-//		
 		
 		
 		
