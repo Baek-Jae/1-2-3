@@ -132,10 +132,10 @@
             <div id="main">
                 
                 <div >아이디</div>
-                <div id="check"><input type="text" name="memberId" class="input width-size" placeholder="8 ~ 12글자 영문 대소문자와 숫자"><button type="button" class="label doublecheck yellow" id="idCheckBtn"onclick="idDoubleCheck()">중복체크</button></div>
+                <div id="check"><input type="text" name="memberId" class="input width-size" placeholder="영어 / 숫자 8 ~ 12글자"><button type="button" class="label doublecheck yellow" id="idCheckBtn"onclick="idDoubleCheck()">중복체크</button></div>
                 <div id="checkIdResult" class="span2 result"></div>
                 <div class="span-2">비밀번호</div>
-                <div><input type="password" name="memberPwd1" class="input width-size" placeholder="8 글자이상 특수문자포함"></div>
+                <div><input type="password" name="memberPwd1" class="input width-size" placeholder="영어 + 숫자 + 특수문자 8 ~ 16 글자 "></div>
                 <div id="checkPwd1Result" class="span2 result"></div>
                 <div>비밀번호 확인</div>
                 <div><input type="password" name="memberPwd2" class="input width-size" placeholder="비밀번호 한번 더 입력부탁드립니다."></div>
@@ -491,13 +491,13 @@
     //온서브밋
     function checkAll(){
     
-        if(!idCheckReturn){ alert('아이디'); return false;}
-        if(!pwd1CheckReturn){ alert('비밀번호1'); return false;}
-        if(!pwd2CheckReturn){ alert('비밀번호2'); return false;}
-        if(!nickCheckReturn){ alert('닉네임'); return false;}
-        if(!phoneCheckReturn){ alert('휴대전화번호') ;return false;}
-        if(!checkGender){alert('젠더선택') ;return false; }
-        if(!checkPA){ alert('PA를입력'); return false; }
+        if(!idCheckReturn){ alert('아이디가 입력되지않았습니다'); return false;}
+        if(!pwd1CheckReturn){ alert('비밀번호가 입력되지않았습니다.'); return false;}
+        if(!pwd2CheckReturn){ alert('비밀번호 확인이 입력되지않았습니다'); return false;}
+        if(!nickCheckReturn){ alert('닉네임이 입력되지 않았습니다.'); return false;}
+        if(!phoneCheckReturn){ alert('휴대전화번호가 입력되지 않았습니다.') ;return false;}
+        if(!checkGender){alert('젠더선택이 되지 않았습니다.') ;return false; }
+        if(!checkPA){ alert('PA를입력하지 않았습니다.'); return false; }
 
         return true;
 

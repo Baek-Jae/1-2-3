@@ -132,7 +132,7 @@ public class MemberCheckController extends HttpServlet{
 				pvj.setStartPage(jstartPage);
 				pvj.setEndPage(jendPage);
 				
-				
+				System.out.println(pvj);
 				//가입한 모임 뜨게해야한다 . 
 
 				//가입한 모임 리스트 가져온다.
@@ -141,7 +141,9 @@ public class MemberCheckController extends HttpServlet{
 
 				List<MemberJoinGroupVo> jgList = new MemberService().selectGroupByNo(no, pvj);
 				
+				
 				if(jgList.size() > 0) {
+				
 					req.setAttribute("jgList", jgList);
 					req.setAttribute("pvj", pvj);
 					

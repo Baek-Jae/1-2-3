@@ -4,9 +4,7 @@
 <%@page import="com.kh.semi.member.vo.MemberVo"%>
 <!DOCTYPE html>
 <% String root = request.getContextPath(); %>
-<%
-	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
-%>
+<%MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");%>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -49,10 +47,11 @@
                             <li><a href="<%= root %>/FAQ/list?fno=1">FAQ</a></li>
                         </ul>
                         <ul>
+                        <%if(loginMember != null) {%>
                             나의 정보
-                            <li><a href="">개인정보 변경</a></li>
-                            <li><a href="">카테고리 변경</a></li>
-                            <li><a href="">관심지역 변경</a></li>
+                            <li><a href="<%= root %>/member/mypage?x=0&lgpno=1&jgpno=1">개인정보 변경</a></li>
+                            <li><a href="<%= root %>/member/mypage?x=4&lgpno=1&jgpno=1">관심지역 변경</a></li>
+                            <%}%>
                         </ul>
                     </div>
                     <div id="logout">
@@ -64,18 +63,24 @@
                 <a href="<%= root %>"><img src="<%= root %>/resources/오목조목.png" alt="로고임" /></a>
             </div>
             <div class="nav_user">
-            	<%if(loginMember != null) {%>
+            	 <% if(loginMember != null && loginMember.getNick().equals("관리자")){%>
             		
 	            		<a href="/omjm/member/mypage" id="mem-nick"><%= loginMember.getNick() %>님</a>
-	            		<a id="mem-temp">매너온도자리</a>
+	            		<a href="/omjm/Tempht/index.html" id="mem-temp">매너온도</a>
 	            		<a href="/omjm/member/check" id="mem-mypage">마이페이지</a>
+	            		<a href="/omjm/admin/rest" id="mem-admin">관리자페이지 </a>
             		
-                <%}else {%>
-                
+                <%}else if(loginMember != null){%>
+                    <a href="/omjm/member/mypage" id="mem-nick"><%= loginMember.getNick() %>님</a>
+                    <a href="/omjm/Tempht/index.html" id="mem-temp">매너온도</a>
+                    <a href="/omjm/member/check" id="mem-mypage">마이페이지</a>
+
+                <%} else{%>
                     <a href="/omjm/member/login" id="login">로그인</a>
                     <a href="/omjm/member/join" id="join">회원가입</a>
-                <%} %>
-            </div>
+
+                <%}%>
+        </div>
         </nav>
         
         <footer>
