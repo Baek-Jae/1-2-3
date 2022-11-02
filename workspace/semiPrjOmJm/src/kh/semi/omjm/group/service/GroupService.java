@@ -358,6 +358,24 @@ public class GroupService {
 		return result;
 	}
 
+
+	public int deleteGroupByGno(String groupNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = gd.deleteGroupByGno(conn, groupNo);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 
 	

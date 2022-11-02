@@ -18,7 +18,7 @@
                 <div class="group_head">
                     <h2>Create your group!</h2>
                 </div>
-         		<form action="<%= root %>/group/create" method="post" enctype="multipart/form-data" class="create_form">
+         		<form action="<%= root %>/group/create" method="post" enctype="multipart/form-data" class="create_form" >
 					<div class="group_pic">
 					     <div id="group_img"><img id="preview" src="<%= root %>/resources/testImg.png" alt="배너사진을 업로드 해주세요" /></div>
 					    <div class="fileUpload"><label for="group_file">배너사진</label></div>

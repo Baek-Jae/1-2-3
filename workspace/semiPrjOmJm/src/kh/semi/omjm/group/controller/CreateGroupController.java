@@ -64,7 +64,6 @@ public class CreateGroupController extends HttpServlet{
 		gv.setPlace(place);
 		gv.setUserCnt(userCnt);
 		gv.setContent(content);
-		
 		int newGroup = new GroupService().insertGroup(gv, groupAttVo);
 		String gno = new GroupService().selectGroupByName(name);
 		int firstMember = new GroupService().insertGroupMember(gno ,mno);

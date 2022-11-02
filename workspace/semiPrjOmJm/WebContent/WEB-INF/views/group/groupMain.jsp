@@ -46,6 +46,11 @@
 						            	<i class="fa-solid fa-arrow-right-from-bracket"></i>
 						            </div>
 						            </c:if>
+						            <c:if test="${groupInfo.leader eq loginMember.nick}">
+					            	<div class="deleteGroup">
+						            	<i class="fa-solid fa-x"></i>
+						            </div>
+						            </c:if>
 					            </div>
                             </li>
                             <li>
@@ -122,8 +127,37 @@
         </section>
         <c:if test="${not empty loginMember}">
 	        <script>
+		        $('.deleteGroup').click(
+						function deleteGroup() {
+							let gname = prompt("삭제하시려면 모임명을 입력하세요.");
+							console.log(gname);
+							if(gname == ${groupInfo.name}){
+								$.ajax({
+									url: "<%= root %>/group/deleteGroup",
+									type: "post",
+									data:{
+										"groupNo" : ${groupInfo.no}
+									},
+									success:(result)=>{
+										alert("다음에 또 만나요 멤버들이 많이 아쉬울거에요");
+										location.href="<%=root%>";
+									},
+									error:()=>{
+										alert("삭제 실패,...ㄷㄷ");
+									}})//ajax
+							} else {
+								alert("휴... 삭제하지 말아주세요..");
+							}
+							
+						}//event
+					);//event
+	        
+	        
+	        
 	      		$('.joinGroup').click(
 					function joinGroup() {
+						let checkJoin = confirm(${groupInfo.name}+"에 참여하시겠습니까?");
+						if(checkJoin != 'false'){
 						$.ajax({
 							url: "<%= root %>/group/joinMember",
 							type: "post",
@@ -132,20 +166,22 @@
 								"groupNo" : ${groupInfo.no}
 							},
 							success:(result)=>{
-								alert("로그인 성공");
-// 								$('.joinGroup').remove();
+								alert(${groupInfo.name}+"에 오신걸 환영합니다");
 								location.reload();
 							},
 							error:()=>{
 								alert("가입 실패,...ㄷㄷ");
 							}
 						})//ajax
-					}//event
+						}//if
+					}//fn
 				);//event
 				
 				
 				$('.quitGroup').click(
 					function quitGroup() {
+						let checkQuit = confirm("한번 탈퇴한 모임에는 참여가 불가능합니다. 신중하게 생각해주세요");
+						if(checkQuit != 'false'){ 
 						$.ajax({
 							url: "<%= root %>/group/quitMember",
 							type: "post",
@@ -154,14 +190,14 @@
 								"groupNo" : ${groupInfo.no}
 							},
 							success:(result)=>{
-								alert("그룹에서 탈퇴되었습니다.");
+								alert("모임에서 탈퇴하였습니다");
 								location.reload();
 							},
 							error:()=>{
 								alert("탈퇴 실패,...ㄷㄷ");
 							}
 						})//ajax
-					}//event
+					}}//event
 				);//event
 			
 	        </script>
