@@ -11,6 +11,7 @@ import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.common.PageVo;
 import com.kh.semi.qna.vo.QnAAttachment;
 import com.kh.semi.qna.vo.QnAVo;
+import com.kh.semi.qna.vo.TotalQnAVo;
 
 public class QnADao {
 
@@ -46,6 +47,7 @@ public class QnADao {
 	public int selectCount(Connection conn) {
 		
 		String sql = "SELECT COUNT(*) AS CNT FROM QNA WHERE DELETE_YN = 'O'";
+//		SELECT SUM(CNT) FROM ( SELECT COUNT(*) AS CNT FROM QNA WHERE DELETE_YN = 'O' UNION SELECT COUNT(*) AS CNT FROM REQNA WHERE DELETE_YN = 'O' )
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -71,13 +73,13 @@ public class QnADao {
 	}//selectCount
 
 	//QnA 글 목록조회
-	public List<QnAVo> selectList(Connection conn, PageVo pv) {
+	public List<TotalQnAVo> selectList(Connection conn, PageVo pv) {
 		
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , M.NICK AS WRITER , Q.PWD , Q.TITLE , Q.CONTENT , Q.ENROLL_DATE , Q.DELETE_YN , Q.HIT , Q.ANS_CONTENT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO WHERE Q.DELETE_YN = 'O' ORDER BY Q.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ? ";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , R.NO AS R_NO , R.B_NO , M.NICK AS WRITER , M2.NICK AS REWRITER , Q.PWD , Q.TITLE , R.TITLE AS RETITLE , Q.CONTENT , R.CONTENT AS RECONTENT , Q.ENROLL_DATE , R.ENROLL_DATE AS REENROLL_DATE , Q.DELETE_YN , R.DELETE_YN AS REDELETE_YN , Q.HIT , R.HIT AS REHIT FROM QNA Q JOIN MEMBER M ON Q.WRITER = M.NO LEFT OUTER JOIN REQNA R ON R.B_NO = Q.NO LEFT OUTER JOIN MEMBER M2 ON M2.NO = R.WRITER WHERE Q.DELETE_YN = 'O' ORDER BY Q.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<QnAVo> voList = new ArrayList<QnAVo>();
+		List<TotalQnAVo> trvoList = new ArrayList<TotalQnAVo>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -88,39 +90,54 @@ public class QnADao {
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			
-			rs= pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				String no = rs.getString("NO");
+				String rNo = rs.getString("R_NO");
+				String bNo = rs.getString("B_NO");
 				String writer = rs.getString("WRITER");
+				String rewriter = rs.getString("REWRITER");
 				String pwd = rs.getString("PWD");
 				String title = rs.getString("TITLE");
+				String retitle = rs.getString("RETITLE");
 				String content = rs.getString("CONTENT");
+				String recontent = rs.getString("RECONTENT");
 				String enrollDate = rs.getString("ENROLL_DATE");
+				String reenrollDate = rs.getString("REENROLL_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
+				String redeleteYn = rs.getString("REDELETE_YN");
 				String hit = rs.getString("HIT");
-				String ansContent = rs.getString("ANS_CONTENT");
+				String rehit = rs.getString("REHIT");
 
-				QnAVo vo = new QnAVo();
+				TotalQnAVo vo = new TotalQnAVo();
 				vo.setNo(no);
+				vo.setRno(rNo);
+				vo.setBno(bNo);
 				vo.setWriter(writer);
+				vo.setRewriter(rewriter);
 				vo.setPwd(pwd);
 				vo.setTitle(title);
+				vo.setRetitle(retitle);
 				vo.setContent(content);
+				vo.setRecontent(recontent);
 				vo.setEnrollDate(enrollDate);
+				vo.setReenrollDate(reenrollDate);
 				vo.setDeleteYn(deleteYn);
+				vo.setRedeleteYn(redeleteYn);
 				vo.setHit(hit);
-				vo.setAnsContent(ansContent);
+				vo.setRehit(rehit);
+								
+				trvoList.add(vo);
 				
-				voList.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rs, pstmt);
 		}
-		
-		return voList;
+				
+		return trvoList;
 		
 	}//selectList
 
@@ -196,6 +213,7 @@ public class QnADao {
 		
 	}//selectOne
 
+	//QnA 수정하기
 	public int updateOneByNo(Connection conn, QnAVo vo) {
 		
 		String sql = "UPDATE QNA SET TITLE = ? , CONTENT = ? WHERE NO = ?";
@@ -273,7 +291,7 @@ public class QnADao {
 	public int delete(Connection conn, String no) {
 		//SQL (준비 , 완성 , 실행)
 		
-		String sql = "UPDATE QNA SET DELETE_YN = 'X' WHERE NO = ?";	//확인
+		String sql = "UPDATE QNA SET DELETE_YN = 'X' WHERE NO = ?";
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
