@@ -24,8 +24,6 @@ public class AdminController  extends HttpServlet{
 		req.setAttribute("memberList", memberList);
 		
 		
-		
-		
 		List<MemberVo> memberTemp = new AdminService().selectTemp();
 		
 		req.setAttribute("memberTemp", memberTemp);
@@ -34,9 +32,14 @@ public class AdminController  extends HttpServlet{
 		
 		req.setAttribute("memberGender", memberGender);
 		
-		List<MemberVo> voList = new AdminService().selectList();
+		List<MemberVo> supMemberList = new AdminService().selectSupMemberList();
 		
-		req.setAttribute("voList", voList);
+		req.setAttribute("supMemberList", supMemberList);
+		
+		
+		List<MemberVo> normalMember = new AdminService().selectNormal();
+		
+		req.setAttribute("normalMember", normalMember);
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/admin/memberSit.jsp").forward(req, resp);

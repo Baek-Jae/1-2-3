@@ -149,15 +149,28 @@ public class AdminService {
 		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public List<MemberVo> selectNormal() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> normalMember = dao.selectNormal(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return normalMember;
+		
+	}
+
+	public List<MemberVo> selectSupMemberList() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		List<MemberVo> supMemberList = dao.selectSupMemberList(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return supMemberList;
+		
+	}
+
 
 
 //	public MemberVo restt(MemberVo vo) {
