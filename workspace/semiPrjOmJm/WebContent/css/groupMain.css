@@ -1,10 +1,35 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Island+Moments&family=Montserrat:wght@500;700&family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Oleo+Script+Swash+Caps&family=Permanent+Marker&family=Playfair+Display:ital,wght@1,500&family=Prata&family=Silkscreen&display=swap');
 .content-wrap {
     padding-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.fontfamily{
+	font-family: 'Dancing Script', cursive;
+	font-family: 'Fraunces', serif;
+	font-family: 'Island Moments', cursive;
+	font-family: 'Montserrat', sans-serif;
+	font-family: 'Nanum Brush Script', cursive;
+	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Oleo Script Swash Caps', cursive;
+	font-family: 'Permanent Marker', cursive;
+	font-family: 'Playfair Display', serif;
+}
+.group_name{
+	height: 50px;
+}
+.name{
+	display: flex;
+}
+.name .like{
+	align-items:flex-end;
+	font-size: 20px;
+}
+.welcome h2{
+	font-family: 'Playfair Display', serif;
 }
 
 .group-profile-pic {
@@ -20,25 +45,83 @@
 	display: flex;
 	justify-content:center;
 	align-content:center;
+	flex-direction:column;
 	width: 100%;
 }
 
 .user_controller i{
-	padding-top:5px;
 	font-size: 20px;
 }
 
-
-
 .showMember span{
 	font-size: 30px;
-	margin:0 20px;
+}
+
+.like{
+	margin-left: 10px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.category,
+.location,
+.joinGroup,
+.quitGroup,
+.deleteGroup{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	width: 100%;
+}
+
+.category{
+	margin-top:20px;
+}
+.category span,
+.location span{
+	padding-bottom: 10px 0 20px 0;
+	font-size: 23px;
+	font-weight: 500;
+	margin-left: 10px;
+	font-family: 'Nanum Brush Script', cursive;
+}
+
+
+.joinGroup span,
+.quitGroup span,
+.deleteGroup span{
+	font-size: 20px;
+	font-weight: 600;
+	font-family: 'Dancing Script', cursive;
+	margin-left: 10px;
+}
+
+.showMember{
+	padding: 20px 0;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	width: 100%;
+}
+
+
+.like span{
+	font-size: 17px;
+	font-weight: 600;
+	font-family: 'Dancing Script', cursive;
+	margin-left: 10px;
+}
+
+.showMember span:last-child{
+	font-size: 17px;
+	font-weight: 600;
+	font-family: 'Dancing Script', cursive;
+	margin-left: 10px;
 }
 #like,
 #dontLike{
 	position: relative;
 	cursor: pointer;
-	margin-left: 10px;
 }
 
 .like:hover{
@@ -270,7 +353,7 @@
 
 .gmember_wrap {
     position: fixed;
-    left: 50%;
+    left: 30%;
     top: 50%;
     width:400px;
     background-color: rgb(0, 128, 128, 0.5);
@@ -344,7 +427,7 @@
     font-size: 15px;
     position: absolute;
     top: -50px;
-    right: 50%;
+    right: 47%;
     text-align: center;
     border: none;
     cursor: pointer;

@@ -22,13 +22,15 @@ public class WriteCommentOffGroupController extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8;");
 		
 		String offNo = req.getParameter("offNo");
-		String myGMemberNo = req.getParameter("myGMemberNo");
+		String gmemberNick = req.getParameter("gmemberNick");
 		String content = req.getParameter("content");
+		
+		String gmemberNo = new GroupService().selectGmemberNoByNick(gmemberNick);
 		
 		OffCommentVo ocv = new OffCommentVo();
 		
 		ocv.setOffNo(offNo);
-		ocv.setGmemberNo(myGMemberNo);
+		ocv.setGmemberNo(gmemberNo);
 		ocv.setContent(content);
 		
 		

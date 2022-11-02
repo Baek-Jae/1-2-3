@@ -61,9 +61,10 @@ section::before {
 .off_cnt {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
 }
+
 .off_memberCnt {
+	position:relative;
     padding-top: 15px;
     display: flex;
     justify-content: flex-end;
@@ -72,9 +73,13 @@ section::before {
     align-items: center;
     border-bottom: 1px solid #999;
 }
-.off_memberCnt > label {
-    font-size: 17px;
-    color: #999;
+.off_memberCnt #value {
+    font-size: 18px;
+    color: #fff;
+    position: absolute;
+    left:54%;
+    right: 46%;
+    font-weight: 700;
 }
 .off_memberCnt > input {
     text-align: center;
@@ -86,6 +91,10 @@ section::before {
     outline: none;
     background-color: transparent;
     accent-color:var(--color-main);
+}
+
+#showValue{
+	font-size: 40px;
 }
 
 .material-symbols-outlined {

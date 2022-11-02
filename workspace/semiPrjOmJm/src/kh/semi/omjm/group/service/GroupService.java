@@ -113,11 +113,11 @@ public class GroupService {
 	}
 
 
-	public int ExcludeGroupMember(String groupMemberNo) {
+	public int ExcludeGroupMember(GroupMemberVo gmv) {
 		
 		Connection conn = getConnection();
 		
-		int result = gd.ExcludeGroupMember(conn, groupMemberNo);
+		int result = gd.ExcludeGroupMember(conn, gmv);
 		
 		if(result != 1) {
 			rollback(conn);
@@ -364,6 +364,34 @@ public class GroupService {
 		Connection conn = getConnection();
 		
 		int result = gd.deleteGroupByGno(conn, groupNo);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public String selectGmemberNoByNick(String gmemberNick) {
+		Connection conn = getConnection();
+		
+		String gmemberNo = gd.selectGmemberNoByNick(conn, gmemberNick);
+					
+		close(conn);
+		
+		return gmemberNo;
+	}
+
+
+	public int deleteOffGroupByNo(String offNo) {
+		Connection conn = getConnection();
+		
+		int result = gd.deleteOffGroupByNo(conn, offNo);
 		
 		if(result != 1) {
 			rollback(conn);

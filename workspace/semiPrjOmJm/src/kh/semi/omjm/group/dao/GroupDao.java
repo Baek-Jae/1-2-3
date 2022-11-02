@@ -127,7 +127,7 @@ public class GroupDao {
 		ArrayList<GroupMemberVo> groupMemberList = new ArrayList<GroupMemberVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND B.NO = ? AND C.NICK != ?";
+		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.EXCLUDE_YN = 'N' AND A.QUIT_YN = 'N' AND B.NO = ? AND C.NICK != ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -224,15 +224,16 @@ public class GroupDao {
 		return result;
 	}
 
-	public int ExcludeGroupMember(Connection conn, String groupMemberNo) {
+	public int ExcludeGroupMember(Connection conn, GroupMemberVo gmv) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE GROUP_MEMBER SET EXCLUDE_YN = 'Y' WHERE USER_NO = ?";
+		String sql = "UPDATE GROUP_MEMBER SET EXCLUDE_YN = 'Y' WHERE USER_NO = ? AND GROUP_NO = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, groupMemberNo);
+			pstmt.setString(1, gmv.getUserNo());
+			pstmt.setString(2, gmv.getGroupNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -710,7 +711,49 @@ public class GroupDao {
 		return result;
 	}
 
-	
+	public String selectGmemberNoByNick(Connection conn, String gmemberNick) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String gmemberNo = "";
+		String sql = "SELECT NO FROM MEMBER WHERE STATUS = 'O' AND NICK = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gmemberNick);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				gmemberNo = rs.getString("NO");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return gmemberNo;
+	}
+
+	public int deleteOffGroupByNo(Connection conn, String offNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE OFF_GROUP SET DELETE_YN = 'Y' WHERE NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, offNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 }
