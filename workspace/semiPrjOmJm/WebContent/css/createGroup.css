@@ -1,5 +1,8 @@
 
 /* ------------------------------------------------------------------------------ */
+:root{
+    accent-color :#fdb930;
+}
 .group_wrap {
   display: flex;
   align-items: center;
@@ -83,7 +86,6 @@
 }
 .groupcheck {
     margin-bottom: 10px;
-  	padding-bottom: 20px;
   	position: relative;
 }
 
@@ -178,7 +180,6 @@
 }
 
 .group_check input{
-	margin-top: 30px;
     width: 100%;
     height: 60px;
     background-color: #fdb933;

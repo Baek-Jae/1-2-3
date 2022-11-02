@@ -287,6 +287,7 @@ body::before {
 .off_member_info
  {
     display: flex;
+    justify-content: center;
     font-size: 13px;
     margin: 5px;
 }
@@ -307,31 +308,29 @@ body::before {
 	padding: 10px 10px;
 	text-align: center;
 }
-
+.gmember_info{
+	display: flex;
+	justify-content: center;
+}
 .member_controller {
     display: flex;
     justify-content: center;
-    border-left : 1px solid black;
 }
 
-
-.expulsion,
-.absence,
-.participation{
-	padding: 0 5px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+.member_controller label{
+	font-size: 13px;
+	cursor: pointer;
+	color: #e74c3c;
 }
 
-.expulsion:hover,
-.absence:hover {
-    color: rgba(255, 82, 82, 0.864);
+.member_controller label:has(input:checked){
+	color: #00AB75;
 }
 
-.participation:hover {
-    color: #46a15e;
+.member_controller input{
+	display: none;
 }
+
 
 .memberlist_close {
     background-color: transparent;

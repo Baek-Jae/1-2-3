@@ -24,5 +24,29 @@ for (let i = 0; i < offModalArr.length; ++i) {
 //      offContent[i].style.height = offContent[i].scrollHeight + 'px';
 //      offInfo[i].style.height = 300 + offContent[i].scrollHeight + 'px';
 //  });
+
 }
 
+$('#like').click(()=>{
+	$('#dontLike').removeClass("close");
+	$('#like').addClass("close")
+	
+});
+
+ $('#dontLike').click(()=>{
+	$('#like').removeClass("close");
+	$('#dontLike').addClass("close")
+	
+});
+
+$('.memberlist_close').click(()=>{
+	$('.gmember_wrap').addClass("close");
+});
+	
+$('#groupMember').click(()=>{
+	$('.gmember_wrap').toggleClass("close");	
+})	
+
+$('#group-menu-content').click(()=>{
+	$('.gmember_wrap').removeClass("close");	
+})

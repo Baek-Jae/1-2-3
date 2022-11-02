@@ -24,23 +24,24 @@ public class DetailGroupController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
-		String loginNo = loginMember.getNo();
-		
 		String groupNo = req.getParameter("gno");
 		
 		GroupVo groupInfo = new GroupService().selectGroupByNo(groupNo);
+		
 		GroupAttachmentVo groupAttachmentVo = new GroupService().selectGfileByNo(groupNo);
 		List<OffGroupVo> offlistArr = new GroupService().OffGroupListByGno(groupNo);
-		List<GroupMemberVo> groupMemberList = new GroupService().GroupMemberByGno(groupNo);
+		List<GroupMemberVo> groupMemberList = new GroupService().GroupMemberByGno(groupInfo);
 		List<String> gSeq = new ArrayList<String>();
 		
-		for(int i = 0; i < groupMemberList.size(); ++i) {
-			gSeq.add(groupMemberList.get(i).getNo());
+		if(loginMember != null) {
+			String loginNo = loginMember.getNick();
+			for(int i = 0; i < groupMemberList.size(); ++i) {
+				gSeq.add(groupMemberList.get(i).getUserNo());
+			}
+			boolean gmemberCheck = gSeq.contains(loginNo);
+			req.setAttribute("gmemberCheck", gmemberCheck);
 		}
 		
-		boolean gmemberCheck = gSeq.contains(loginNo);
-		
-		req.setAttribute("gmemberCheck", gmemberCheck);
 		req.setAttribute("groupMemberList", groupMemberList);
 		req.setAttribute("offList", offlistArr);
 		req.getSession().setAttribute("groupInfo", groupInfo);

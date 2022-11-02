@@ -18,6 +18,24 @@
 }
 .user_controller{
 	display: flex;
+	justify-content:center;
+	align-content:center;
+	width: 100%;
+}
+
+.user_controller i{
+	padding-top:5px;
+	font-size: 20px;
+}
+
+.user_controller i:nth-child(2){
+	margin-left: 10px;
+}
+
+
+.showMember span{
+	font-size: 30px;
+	margin-left:10px;
 }
 .like{
 	position: relative;
@@ -42,12 +60,17 @@
     width: 75vw;
 }
 
-.joinGroup{
+.joinGroup,
+.quitGroup{
 	cursor: pointer;
 }
 
 .joinGroup:hover{
 	color: var(--color-main);
+}
+
+.quitGroup:hover{
+	color: #e74c3c;
 }
 .group-info {
     width: 80%;
@@ -99,6 +122,7 @@
 	color: var(--color-2green);
 }
 .group-content {
+	position:relative;
     display: flex;
     box-sizing: border-box;
 }
@@ -293,7 +317,6 @@
 .member_controller {
     display: flex;
     justify-content: center;
-    border-left : 1px solid black;
 }
 
 

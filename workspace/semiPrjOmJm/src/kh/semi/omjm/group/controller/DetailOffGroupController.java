@@ -33,25 +33,26 @@ public class DetailOffGroupController extends HttpServlet{
 		String offNo = req.getParameter("ono");
 
 		OffGroupVo offGroup = gs.selectOffGroupByNo(offNo);
-		List<OffMemberVo> offMember = gs.selectOffMemeberByOno(offNo);
+		List<OffMemberVo> offMember = gs.selectOffMemeberByOno(offGroup);
 		List<OffCommentVo> offComment = gs.selectOffCommentByOno(offNo);
 		String OffCommentCnt = gs.selectOffCommentCnt(offNo);
 		String myGMemberNo = gs.selectmyGMemberNoByLno(lno, gno);
-		
 		List<String> offSeq = new ArrayList<String>();
 		
-		for(int i = 0; i < offMember.size(); ++i) {
-			offSeq.add(offMember.get(i).getNo());
+		if(loginMember != null) {
+			String loginNo = loginMember.getNick();
+			for(int i = 0; i < offMember.size(); ++i) {
+				offSeq.add(offMember.get(i).getUserNo());
+			}
+			boolean offMemberCheck = offSeq.contains(loginNo);
+			req.setAttribute("offMemberCheck", offMemberCheck);
 		}
 		
-		boolean offMemberCheck = offSeq.contains(lno);
-		
-		req.setAttribute("offMemberCheck", offMemberCheck);
 		req.setAttribute("myGMemberNo", myGMemberNo);
 		req.setAttribute("offCommentCnt", OffCommentCnt);
 		req.setAttribute("offCommentList", offComment);
-		req.getSession().setAttribute("offMember", offMember);
-		req.getSession().setAttribute("offGroup", offGroup);
+		req.setAttribute("offMember", offMember);
+		req.setAttribute("offGroup", offGroup);
 		req.getRequestDispatcher("/WEB-INF/views/group/offGroup.jsp").forward(req, resp);
 		
 	}

@@ -41,11 +41,10 @@ public class CreateGroupController extends HttpServlet{
 		String mno = loginMember.getNo();
 		
 		String name = req.getParameter("group_name");
-		String category = req.getParameter("group_category");
+		String category = req.getParameter("cate_no");
 		String place = req.getParameter("group_place");
 		String userCnt = req.getParameter("userCnt");
 		String content = req.getParameter("group_content");
-		String hashTag = req.getParameter("group_hash");
 		
 		
 		Part f = req.getPart("group_file");
@@ -65,7 +64,6 @@ public class CreateGroupController extends HttpServlet{
 		gv.setPlace(place);
 		gv.setUserCnt(userCnt);
 		gv.setContent(content);
-		gv.setHashTag(hashTag);
 		
 		int newGroup = new GroupService().insertGroup(gv, groupAttVo);
 		String gno = new GroupService().selectGroupByName(name);
@@ -74,10 +72,9 @@ public class CreateGroupController extends HttpServlet{
 		
 		if(newGroup*firstMember != 1) {
 			resp.sendRedirect("/omjm/views/notice/list2.jsp");
-		} 
-		
-		resp.sendRedirect("/omjm");
-		
+		} else {
+			resp.sendRedirect("/omjm");
+		}
 		
 	}
 }
