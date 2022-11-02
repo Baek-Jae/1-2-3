@@ -12,14 +12,20 @@
   
 /*   List<GroupVo> keyword = (ArrayList<GroupVo>)request.getAttribute("keyword");
  */  
-  String search = (String)request.getAttribute("search");
-  String search2 = (String)request.getAttribute("search2");
+  //String search = (String)request.getAttribute("search");
+  String search = (String)session.getAttribute("search");
   
+  String search2 = (String)request.getAttribute("search2");
+  /* String mainsearch = (String)session.getAttribute("search"); */
+
   List<GroupVo> groupList = (ArrayList<GroupVo>)request.getAttribute("groupList");
 
   List<GroupVo> groupName = (ArrayList<GroupVo>)request.getAttribute("groupName");
+  
   List<GroupVo> groupName2 = (ArrayList<GroupVo>)request.getAttribute("groupName2");
   String msg = (String)request.getAttribute("msg");
+  
+  System.out.println("야되라고~" + groupName);
  %>
  
 <!DOCTYPE html>
@@ -42,6 +48,9 @@ if (loginMember != null){
 	pla =  placeArr[arrmath];	%>
 	
 <script>
+
+console.log(${search});
+
 		$.ajax({
 		url :	"<%=root%>/main/membergroup" , 
         method : "GET",   
@@ -51,7 +60,9 @@ if (loginMember != null){
         success : function(x){
            var o = JSON.parse(x);
 
-           for(let i = 0; i < 3; i++){
+           
+           /* let j = 0; */
+           for(let i = 0; i < 3; i++;){
 				//for(var i=0 in o){ 
 				let div = $('<div/>');
 				div.addClass("group-card");
@@ -82,6 +93,7 @@ if (loginMember != null){
                 +'</div>');
 				
 				$(div).appendTo('.group-list');	
+				
 			}
 		},
 		error : function(){
@@ -97,8 +109,13 @@ if (loginMember != null){
 			success : function(x){
 				var o = JSON.parse(x);
 				/* console.log(o); */
+				/* 
+				const xarr = $('.group-list');
+				$('#tempList').empty();
+				console.log(xarr[0]); */
 				
-				for(let i = 0; i < 3; i++){
+				let j = 0;
+				for(let i = 0; i < o.length; i++ && j < 3){
 					let div = $('<div/>');
 					div.addClass("group-card");
 					
@@ -124,6 +141,7 @@ if (loginMember != null){
 	                +'</div>');
 					
 					$(div).appendTo('.group-list');	
+					j++;
 				}
 			},
 			error : function(){
@@ -234,7 +252,7 @@ $(document).ready(function() {
 				value="<% if(search != null){ %> <%= search %>
 							<%}else if(search2 != null){ %> <%= search2 %>
 			                       <%}%>"/>
-         </div>
+         </div> 
          <input type="button" id="submit" onclick="return doAction();" value="검  색">
       </form>
 
@@ -470,7 +488,7 @@ $(document).ready(function() {
 		<div id="group-place"></div>
 		<div id="group-list">의 모임 리스트</div>
 	
-	<div class="group-list"></div>
+	<div id="tempList" class="group-list"></div>
   
 		<%-- <table border="1" id="recomm">
 		<tr id="tr1">
@@ -521,7 +539,11 @@ $('#select-pl').change(function(){
 						},
 						success : function(z){
 							var sp = JSON.parse(z);
-							for(let i = 0; i < 3; i++){
+							
+							$('.group-list').empty();
+							
+							let j = 0;
+							for(let i = 0; i < sp.length; i++ && j<4){
 								//for(var i=0 in o){ 
 								let div = $('<div/>');
 								div.addClass("group-card");
@@ -532,22 +554,23 @@ $('#select-pl').change(function(){
 				                   +'</div>'
 				                   +'<div class="card-bottom">'
 				                      +'<span>모임명</span>'
-					                        +'<span class="group-na">'+o[i].name+'</span>'
+					                        +'<span class="group-na">'+sp[i].name+'</span>'
 					                        +'<span>카테고리</span>'
-					                        +'<span class="group-cate">'+o[i].category+'</span>'
+					                        +'<span class="group-cate">'+sp[i].category+'</span>'
 					                        +'<div>'
 					                            +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
-					                            +'<span class="group-pl">'+o[i].place+'</span>'
+					                            +'<span class="group-pl">'+sp[i].place+'</span>'
 					                        +'</div>'
 					                        +'<div id="group-info">'
 					                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
-					                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
+					                            +'<span class="group-cnt">'+sp[i].userCnt+'</span>'
 				                       +'</div>'
-				                       +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+				                       +'<a href="/omjm/group/main?gno='+sp[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
 				               	+'</div>'
 				               +'</div>');
 								
 								$(div).appendTo('.group-list');	
+								j++;
 							}
 						},
 						error : function(){
@@ -590,7 +613,8 @@ $('#select-pl').change(function(){
 		         success : function(x){
 		            var o = JSON.parse(x);
 
-		            for(let i = 0; i < 3; i++){
+					$('.group-list').empty();
+		            for(let i = 0; i < o.length; i++ && j < 4){
 						//for(var i=0 in o){
 						let div = $('<div/>');
 						div.addClass("group-card");
@@ -617,6 +641,7 @@ $('#select-pl').change(function(){
 		                +'</div>');
 
 						$(div).appendTo('.group-list');
+						j++;
 					}
 				},
 		         error : function(){
@@ -636,7 +661,10 @@ $('#select-pl').change(function(){
 			     },
 			     success : function(x){
 			        var o = JSON.parse(x);
-			        for(let i = 0; i < 3; i++){
+
+					$('.group-list').empty();
+					let j = 0;
+			        for(let i = 0; i < o.length; i++ && j <3){
 						//for(var i=0 in o){ 
 						let div = $('<div/>');
 						div.addClass("group-card");
@@ -663,6 +691,7 @@ $('#select-pl').change(function(){
 		                +'</div>');
 						
 						$(div).appendTo('.group-list');	
+						j++;
 					}
 				},
 			     error : function(){
