@@ -71,7 +71,7 @@ public class FaqDao {
 	public List<FaqVo> selectFaqList(Connection conn) {
 		
 		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.ANS_CONTENT , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.DELETE_YN = 'O' ORDER BY NO DESC";
-		//여기부터
+	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<FaqVo> voList = new ArrayList<FaqVo>();

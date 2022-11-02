@@ -42,7 +42,12 @@ public class ReQnAWriteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		//세션 가져오기
 		HttpSession s = req.getSession();
+		
+		//로그인멤버 가져오기
+		MemberVo loginMembr = (MemberVo)s.getAttribute("loginMember");
+		
 		//글번호 && 글제목 가져오기
 //		QnAVo bno = (QnAVo)s.getAttribute("bno");
 //		QnAVo title = (QnAVo)s.getAttribute("title");
@@ -55,7 +60,8 @@ public class ReQnAWriteController extends HttpServlet{
 //		String content = req.getParameter("content");
 		
 		//데이터 뭉치기
-		ReQnAVo vo = new ReQnAVo();		
+		ReQnAVo vo = new ReQnAVo();	
+		vo.setWriter(loginMembr.getNo());
 		vo.setbNo(no);
 		vo.setTitle(title);
 		vo.setContent(content);

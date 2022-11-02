@@ -1,14 +1,18 @@
 package com.kh.semi.qna.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
-import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.common.PageVo;
-import com.kh.semi.notice.vo.NoticeAttachment;
 import com.kh.semi.qna.dao.QnADao;
 import com.kh.semi.qna.vo.QnAAttachment;
 import com.kh.semi.qna.vo.QnAVo;
+import com.kh.semi.qna.vo.TotalQnAVo;
 
 public class QnAService {
 
@@ -53,11 +57,11 @@ public class QnAService {
 	}//selectCount
 
 	//게시글 목록 조회
-	public List<QnAVo> selectList(PageVo pv) {
+	public List<TotalQnAVo> selectList(PageVo pv) {
 		
 		Connection conn = getConnection();
 		
-		List<QnAVo> x = Qao.selectList(conn , pv);
+		List<TotalQnAVo> x = Qao.selectList(conn , pv);
 		
 		close(conn);
 		
@@ -83,7 +87,7 @@ public class QnAService {
 				
 	}//selectQnAOne
 
-	//공지사항 수정하기
+	//QnA 수정하기
 	public int edit(QnAVo vo) {
 		
 		Connection conn = getConnection();

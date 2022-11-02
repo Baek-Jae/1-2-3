@@ -3,7 +3,7 @@ package com.kh.semi.reQnA.vo;
 public class ReQnAVo {
 	
 	public ReQnAVo(String no, String title, String writer, String bNo, String content, String enrollDate,
-			String modifyDate, String deleteYn) {
+			String modifyDate, String deleteYn, String hit) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -13,14 +13,13 @@ public class ReQnAVo {
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.deleteYn = deleteYn;
+		this.hit = hit;
 	}
-	
 	
 	public ReQnAVo() {
 		super();
 	}
 
-	
 	private String no; 
 	private String title;
 	private String writer;
@@ -29,7 +28,7 @@ public class ReQnAVo {
 	private String enrollDate;
 	private String modifyDate;
 	private String deleteYn;
-	
+	private String hit;
 	
 	public String getNo() {
 		return no;
@@ -95,11 +94,19 @@ public class ReQnAVo {
 		this.deleteYn = deleteYn;
 	}
 
-	
+	public String getHit() {
+		return hit;
+	}
+
+	public void setHit(String hit) {
+		this.hit = hit;
+	}
+
 	@Override
 	public String toString() {
 		return "ReQnAVo [no=" + no + ", title=" + title + ", writer=" + writer + ", bNo=" + bNo + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", deleteYn=" + deleteYn + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", deleteYn=" + deleteYn + ", hit="
+				+ hit + "]";
 	}
 	
 }

@@ -1,3 +1,5 @@
+<%@page import="com.kh.semi.qna.vo.TotalQnAVo"%>
+<%@page import="com.kh.semi.reQnA.vo.ReQnAVo"%>
 <%@page import="com.kh.semi.common.PageVo"%>
 <%@page import="com.kh.semi.qna.vo.QnAVo"%>
 <%@page import="java.util.List"%>
@@ -6,7 +8,9 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<QnAVo> voList = (List<QnAVo>)request.getAttribute("voList");
-	PageVo pv = (PageVo)request.getSession().getAttribute("pv");
+	List<ReQnAVo> rvoList = (List<ReQnAVo>)request.getAttribute("rvoList");
+	List<TotalQnAVo> trvoList = (List<TotalQnAVo>)request.getAttribute("trvoList");
+	PageVo pv = (PageVo)request.getAttribute("pv");
 %>
 <!DOCTYPE html>
 <html>
@@ -113,25 +117,31 @@
             </div>
         
         	<div class="boardlistbody">
-	        <%for(int i = 0; i < voList.size(); ++i){%>
-	        
+        	<%-- console.log(<%= rvoList %>);
+        	console.log(<%= voList %>); --%>
+	        <%for(int i = 0; i < trvoList.size(); ++i){%>
         		<div class="item">
-	                <div class="num"><%= voList.get(i).getNo() %></div>
-	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
-	                <div class="writer"><%= voList.get(i).getWriter() %></div>
-	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
-	                <div class="view"><%= voList.get(i).getHit() %></div>
-	            </div>
-
-             	<div class="item">
-	                <div class="num"><%= voList.get(i).getNo() %></div>
-	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
-	                <div class="writer"><%= voList.get(i).getWriter() %></div>
-	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
-	                <div class="view"><%= voList.get(i).getHit() %></div>
-	            </div>
+	                <div class="num"><%= trvoList.get(i).getNo() %></div>
+	                <div class="title"><a href="<%= root %>/QnA/detail?no=<%= trvoList.get(i).getNo() %>"><%= trvoList.get(i).getTitle() %></a></div>
+	                <div class="writer"><%= trvoList.get(i).getWriter() %></div>
+	                <div class="date"><%= trvoList.get(i).getEnrollDate() %></div>
+	                <div class="view"><%= trvoList.get(i).getHit() %></div>
+	            </div>    
+	            <% if(trvoList.get(i).getRno() != null){ %>
+	             	<div class="item">
+		                <div class="num"><%= trvoList.get(i).getBno() %></div>
+		                <div class="title"><a href="<%= root %>/reQnA/detail?no=<%= trvoList.get(i).getBno() %>"><%= trvoList.get(i).getRetitle() %></a></div>
+		                <div class="writer"><%= trvoList.get(i).getRewriter() %></div>
+		                <div class="date"><%= trvoList.get(i).getReenrollDate() %></div>
+		                <div class="view"><%= trvoList.get(i).getRehit() %></div>
+		            </div>
+	            <%}%>
+			<%}%>            							
 	            
-	        <%}%>        
+<%-- 	        <%for(int i = 0; i < rvoList.size(); ++i){%>        
+				<!-- if(rvoList.get(i).getbNo() == voList.get(i).getNo()){ -->
+				<!-- } -->
+			<%}%> --%>
 	        </div>
             
             <div id="page-area">

@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.common.PageVo;
 import com.kh.semi.qna.service.QnAService;
 import com.kh.semi.qna.vo.QnAVo;
+import com.kh.semi.qna.vo.TotalQnAVo;
+import com.kh.semi.reQnA.service.ReQnAService;
+import com.kh.semi.reQnA.vo.ReQnAVo;
 
 @WebServlet(urlPatterns = "/QnA/list")
 @MultipartConfig
@@ -56,11 +59,21 @@ public class QnAListController extends HttpServlet{
 		pv.setStartPage(startPage);
 		pv.setEndPage(endPage);
 		
-		//디비다녀오기
-		List<QnAVo> x = new QnAService().selectList(pv);
 		
-		req.setAttribute("voList", x);
-		req.getSession().setAttribute("pv", pv);
+		
+		//디비다녀오기
+//		List<QnAVo> x = new QnAService().selectList(pv);
+		List<ReQnAVo> rvoList = new ReQnAService().selectList();
+		
+		List<TotalQnAVo> trvoList = new QnAService().selectList(pv);
+		
+//		req.setAttribute("voList", x);
+//		req.setAttribute("rvoList", rvoList);
+		
+		req.setAttribute("trvoList", trvoList);
+		System.out.println(trvoList);
+		
+		req.setAttribute("pv", pv);
 		
 		//화면선택
 		req.getRequestDispatcher("/WEB-INF/views/QnA/list.jsp").forward(req, resp);
