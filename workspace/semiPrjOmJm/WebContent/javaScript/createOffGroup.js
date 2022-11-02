@@ -36,5 +36,8 @@ function textbyte(obj, maxByte) {
   } else {
       document.getElementById('byteInfo').innerText = rbyte; 
   }
-} 
+}
+
+
+
 

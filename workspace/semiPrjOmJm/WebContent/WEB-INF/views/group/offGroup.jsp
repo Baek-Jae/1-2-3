@@ -130,7 +130,25 @@
         </main>
 <c:if test="${not empty loginMember}">        
 	<script>
-	
+		$('.offGroup_edit').click(()=>{
+			let gname = confirm("모임을 정말 삭제하시겠습니까? 불이익이 있을 수 있습니다.");
+			if(gname){
+				$.ajax({
+					url:"<%=root%>/delete/offgroup",
+					data:{
+						"offNo" : ${offGroup.no}
+					},
+					type:"post",
+					success:()=>{
+							alert("사람들이 아쉬워 합니다ㅜㅜ");
+							location.href="<%=root%>/group/main?gno=${groupInfo.no}";
+					},
+					error:()=>{
+						alert("아쉽지만 모임 삭제 실패!!");
+					}
+				});//ajax
+			}//if
+		})//event+fn
 		function inviteYes(obj) {
 			const no = $(obj).index(obj);
 			$.ajax({
@@ -198,7 +216,7 @@
 	            type: "post",
 	            data: {
 	            	"offNo" : ${offGroup.no},
-	                "myGMemberNo" : ${myGMemberNo},
+	                "gmemberNick" : $('.my_comment > span').text(),
 	                "content" : $('#my_commemt').val()
 		                },
                	success: function (result) {
