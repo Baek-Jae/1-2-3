@@ -18,7 +18,7 @@
                 <div class="group_head">
                     <h2>Create your group!</h2>
                 </div>
-         		<form action="" method="post" enctype="multipart/form-data" class="create_form">
+         		<form action="<%= root %>/group/create" method="post" enctype="multipart/form-data" class="create_form">
 					<div class="group_pic">
 					     <div id="group_img"><img id="preview" src="<%= root %>/resources/testImg.png" alt="배너사진을 업로드 해주세요" /></div>
 					    <div class="fileUpload"><label for="group_file">배너사진</label></div>
@@ -35,7 +35,7 @@
 					        </div>
 					        <div class="groupcheck">
 					            <label for="group_category">CATEGORY</label>
-					            <input type="text" name="group_category" id="categori" required readonly placeholder="모임의 카테고리는 무엇인가요?"/>
+					            <input type="text" name="group_category" id="category" required readonly placeholder="모임의 카테고리는 무엇인가요?"/>
 					            <i class="material-symbols-outlined" id="green">task_alt</i>
                         		<i class="material-symbols-outlined" id="red"> error </i>
                         		<small>모임의 카테고리를 설정해주세요.</small>
@@ -74,8 +74,8 @@
 					        <i class="material-symbols-outlined" id="green">task_alt</i>
                        		<i class="material-symbols-outlined" id="red"> error </i>
                        		<small>모임소개를 작성해 많은사람들과 함께하세요.</small>
-					    
 					</div>
+					<input type="text" value="" name="cate_no" id="categoryNo" style="visibility: hidden;">
 					<div class="group_check">
 					    <input type="submit" value="생 성" />
 					</div>

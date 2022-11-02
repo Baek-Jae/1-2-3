@@ -27,7 +27,12 @@
                     </div>
                     <button class="offGroup_MemberList">
                         <span class="material-symbols-outlined" id="offGroup_member"> group </span>
-                        <span>1 / ${offGroup.userCnt}</span>
+                        <c:if test="${empty offMember}">
+                        	<span>1 / ${offGroup.userCnt}</span>
+                        </c:if>
+                        <c:if test="${not empty offMember}">
+                        <span>${offMember.size() + 1} / ${offGroup.userCnt}</span>
+                        </c:if>
                     </button>
                 </div>
                 <div class="offGroup_content_">
@@ -74,14 +79,14 @@
                     </button>
                 </div>
             </div>
-            <c:if test="${offMemberCheck ne 'true'}">
+            <c:if test="${offMemberCheck ne 'true' and loginMember.nick ne offGroup.leaderNo}">
            	<button class="offGroup_invite">가 입</button>
            	</c:if>
-           	<c:if test="${offMemberCheck eq 'true'}">
-           	<button class="offGroup_invite">탈 퇴</button>
+           	<c:if test="${offMemberCheck eq 'true' and offGroup.leaderNo ne loginMember.nick}">
+           	<button class="offGroup_quit">탈 퇴</button>
            	</c:if>
            	<c:if test="${loginMember.nick eq offGroup.leaderNo}">
-           	<button class="offGroup_edit">수 정</button>
+           	<button class="offGroup_edit">모임 삭제</button>
            	</c:if>
             <div class="offModal_member_wrap close">
                 <div class="offMember_info">
@@ -91,35 +96,82 @@
                         <div class="off_membertemp">매너온도미완성</div>
                     </div>
                 </div>
-<!-- 				오프참여 멤버 공란시                 -->
-               	<c:if test="${empty offMember or offGroup.leaderNo eq loginMember.nick}">
+               	<c:if test="${empty offMember or offGroup.leaderNo ne loginMember.nick}">
                		<div class="off_member_info">
                			<div id="first_member">
                         	<span >첫번째 참여자가 되어보세요!</span>
                			</div>
                     </div>
                	</c:if>
-<!--                오프멤버 반복문 -->
 					<c:forEach items="${offMember}" var="i">
                     <div class="off_member_info">
                         <span>${i.userNo}</span>
                         <div class="off_membertemp">매너온도미완성</div>
                     </div>
-<!--                     리더랑 로그인 멤버 동일한가  -->
                     <c:if test="${offGroup.leaderNo eq loginMember.nick}">
-                    <div class="member_controller">
-                        <button class="expulsion">추 방</button>
-                        <button class="participation">참 가</button>
-                        <button class="absence">불 참</button>
-                    </div>
+	                    <c:if test="${i.inviteYn eq 'Y'}">
+		                    <div class="member_controller">
+		                    	<label>참 가
+		                        <input type="checkbox" class="participation" onclick="inviteYes(this)" checked>
+		                        </label>
+		                    </div>
+	                    </c:if>
+	                    <c:if test="${i.inviteYn eq 'N'}">
+		                    <div class="member_controller">
+		                    	<label>참 가
+		                        <input type="checkbox" class="participation" onclick="inviteYes(this)">
+		                        </label>
+		                    </div>
+	                    </c:if>
                     </c:if>
                     </c:forEach>
                 <button class="memberlist_close"><span class="material-symbols-outlined"> close </span></button>
             </div>
         </main>
-        
-	<script>	
+<c:if test="${not empty loginMember}">        
+	<script>
 	
+		function inviteYes(obj) {
+			const no = $(obj).index(obj);
+			$.ajax({
+				url:"<%=root%>/offgroup/invite/check",
+				data:{
+					"offMember" : $($('.off_member_info > span')[no]).text(),
+					"offNo" : ${offGroup.no}
+				},
+				type:"post",
+				success:(result)=>{
+					if(result==1){
+						alert("참가성공!")
+					}
+				},
+				error:(result)=>{
+				}
+			});//ajax
+		}//fn	
+			
+		
+		//오프멤버 참가
+		
+		//오프그룹 탈퇴
+		$('.offGroup_quit').click(()=>{
+			$.ajax({
+				url:"<%=root%>/offgroup/member/quit",
+				data:{
+					"offMember" : ${loginMember.no},
+					"offNo" : ${offGroup.no}
+				},
+				type:"post",
+				success:(result)=>{
+						location.reload();
+				},
+				error:(result)=>{
+					alert(result);
+				}
+			});//ajax
+		});//event
+		
+		
 		function upDateCommentCnt() {
 			$.ajax({
 				url: "<%= root %>/offgroup/comment/cnt",
@@ -166,7 +218,7 @@
               		
               		const checkCommentClass = $('.comment_count').attr('class');
               		const checkComment = checkCommentClass.search('close');
-              		
+              		console.log(checkComment);
               		if(checkComment != -1){
               			$('.comment_count').removeClass('close');
               		}
@@ -241,7 +293,11 @@
 						"offNo" : ${offGroup.no}
 					},
 					success:(result)=>{
-						alert(result);
+						if(result ==1){
+							location.reload();
+						} else{
+							alert("한번 탈퇴한 모임은 재가입이 불가합니다!")
+						}
 					},
 					error:()=>{
 						alert("가입 실패...");
@@ -257,5 +313,6 @@
 		//4. 비동기 컨트롤러에서 setAttribute를 할수있고 그걸 겟으로 받아올수 있는지도 여쭤봐야겠다.
 		//5. 질문이 잘 정리가 안되다 보니 머리가 깨질것 같다..
 	</script>
+	</c:if>
 </body>
 </html>

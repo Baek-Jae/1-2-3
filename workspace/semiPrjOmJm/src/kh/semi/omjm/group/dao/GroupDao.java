@@ -121,18 +121,18 @@ public class GroupDao {
 		return AttVo;
 	}
 	
-	public ArrayList<GroupMemberVo> GroupMemberByGno(String groupNo, Connection conn) {
+	public ArrayList<GroupMemberVo> GroupMemberByGno(GroupVo groupInfo, Connection conn) {
 		
 		PreparedStatement pstmt = null;
 		ArrayList<GroupMemberVo> groupMemberList = new ArrayList<GroupMemberVo>();
 		ResultSet rs = null;
 		
-		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND B.NO = ?";
+		String sql = "SELECT A.NO , B.NAME AS GROUP_NO , C.NICK AS USER_NO , A.ENROLL_DATE , A.EXCLUDE_YN , A.QUIT_YN FROM GROUP_MEMBER A JOIN OMJM_GROUP B ON B.NO = A.GROUP_NO JOIN MEMBER C ON C.NO = A.USER_NO WHERE A.QUIT_YN = 'N' AND B.NO = ? AND C.NICK != ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, groupNo);
-			
+			pstmt.setString(1, groupInfo.getNo());
+			pstmt.setString(2, groupInfo.getLeader());
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -202,16 +202,17 @@ public class GroupDao {
 		return result;
 	}
 
-	public int quitGroup(Connection conn, String userNo) {
+	public int quitGroupByNo(Connection conn, GroupMemberVo gmv) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE GROUP_MEMBER SET QUIT_YN = 'Y' WHERE USER_NO = ?";
+		String sql = "UPDATE GROUP_MEMBER SET QUIT_YN = 'Y' WHERE USER_NO = ? AND GROUP_NO = ?";
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userNo);
-			
+			pstmt.setString(1, gmv.getUserNo());
+			pstmt.setString(2, gmv.getGroupNo());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -398,15 +399,16 @@ public class GroupDao {
 		return offGroup;
 	}
 
-	public List<OffMemberVo> selectOffMemeberByOno(Connection conn, String offNo) {
-		String sql = "SELECT O.NO, O.OFF_NO, M.NICK AS USER_NO, O.QUIT_YN, O.INVITE_YN FROM OFF_MEMBER O JOIN MEMBER M ON O.USER_NO = M.NO WHERE OFF_NO = ?";
+	public List<OffMemberVo> selectOffMemeberByOno(Connection conn, OffGroupVo offGroup) {
+		String sql = "SELECT O.NO, O.OFF_NO, M.NICK AS USER_NO, O.QUIT_YN, O.INVITE_YN FROM OFF_MEMBER O JOIN MEMBER M ON O.USER_NO = M.NO WHERE OFF_NO = ? AND M.NICK != ? AND QUIT_YN = 'N'";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<OffMemberVo> memberArr = new ArrayList<OffMemberVo>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, offNo);
+			pstmt.setString(1, offGroup.getNo());
+			pstmt.setString(2, offGroup.getLeaderNo());
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -625,6 +627,70 @@ public class GroupDao {
 		return myGroupNo;
 	}
 
+	public int QuitOffMemberByLno(Connection conn, OffMemberVo omv) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE OFF_MEMBER SET QUIT_YN = 'Y' WHERE USER_NO = ? AND OFF_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, omv.getUserNo());
+			pstmt.setString(2, omv.getOffNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public String checkMemberNoByNick(Connection conn, String inviteMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT NO FROM MEMBER WHERE NICK = ?";
+		
+		String inviteMemberNo = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inviteMember);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				inviteMemberNo = rs.getString("NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		
+		return inviteMemberNo;
+	}
+
+	public int changeInviteByMemberNo(Connection conn, OffMemberVo omv) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE OFF_MEMBER SET INVITE_YN = 'Y' WHERE USER_NO = ? AND OFF_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, omv.getUserNo());
+			pstmt.setString(2, omv.getOffNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 

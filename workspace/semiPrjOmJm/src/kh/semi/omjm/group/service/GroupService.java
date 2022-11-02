@@ -68,11 +68,11 @@ public class GroupService {
 	}
 
 
-	public ArrayList<GroupMemberVo> GroupMemberByGno(String groupNo) {
+	public ArrayList<GroupMemberVo> GroupMemberByGno(GroupVo groupInfo) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<GroupMemberVo> GroupMemberByGno = gd.GroupMemberByGno(groupNo, conn);
+		ArrayList<GroupMemberVo> GroupMemberByGno = gd.GroupMemberByGno(groupInfo, conn);
 		
 		return GroupMemberByGno;
 	}
@@ -95,11 +95,11 @@ public class GroupService {
 	}
 
 
-	public int quitGroupByNo(String userNo) {
+	public int quitGroupByNo(GroupMemberVo gmv) {
 		
 		Connection conn = getConnection();
 		
-		int result = gd.quitGroup(conn, userNo);
+		int result = gd.quitGroupByNo(conn, gmv);
 		
 		if(result != 1) {
 			rollback(conn);
@@ -199,10 +199,10 @@ public class GroupService {
 	}
 
 
-	public List<OffMemberVo> selectOffMemeberByOno(String offNo) {
+	public List<OffMemberVo> selectOffMemeberByOno(OffGroupVo offGroup) {
 		Connection conn = getConnection();
 		
-		List<OffMemberVo> OffMember = gd.selectOffMemeberByOno(conn, offNo);
+		List<OffMemberVo> OffMember = gd.selectOffMemeberByOno(conn, offGroup);
 		
 		close(conn);
 		
@@ -314,6 +314,51 @@ public class GroupService {
 	}
 
 
+	public int QuitOffMemberByLno(OffMemberVo omv) {
+		Connection conn = getConnection();
+		
+		int result = gd.QuitOffMemberByLno(conn, omv);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public String checkMemberNoByNick(String inviteMember) {
+		Connection conn = getConnection();
+		
+		String inviteMemberNo = gd.checkMemberNoByNick(conn, inviteMember);
+					
+		close(conn);
+		
+		return inviteMemberNo;
+	}
+
+
+	public int changeInviteByMemberNo(OffMemberVo omv) {
+		Connection conn = getConnection();
+		
+		int result = gd.changeInviteByMemberNo(conn, omv);
+		
+		if(result != 1) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
 
 	
 
