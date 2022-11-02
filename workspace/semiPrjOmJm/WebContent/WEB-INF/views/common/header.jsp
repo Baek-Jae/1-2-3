@@ -36,9 +36,9 @@
                         <ul>
                             모임
                             <li><a href="<%= root %>/group/create">생성</a></li>
-                            <li><a href="<%= root %>/group/list">가입한 모임</a></li> <!-- 테스트 -->
+                            <li><a href="<%= root %>/member/mypage?x=2&lgpno=1&jgpno=1">가입한 모임</a></li> <!-- 테스트 -->
                             <li><a href="<%= root %>/group/main?gno=2">모임메인</a></li>   <!-- 테스트 -->
-                            <li><a href="<%= root %>/member/mypage?x=1&lgpno=1">찜한 모임</a></li>
+                            <li><a href="<%= root %>/member/mypage?x=1&lgpno=1&jgpno=1">찜한 모임</a></li>
                             <li><a href="<%= root %>/search">검색</a></li>
                             <span></span>
                         </ul>

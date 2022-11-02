@@ -7,9 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%	String alertMsg = (String)request.getAttribute("alertMsg");%>
 <% List<PasswordVo> pwdQList = (List<PasswordVo>)request.getAttribute("pwdQList"); %>
-
-
-<% PageVo pv = (PageVo)request.getAttribute("pv");%>
+<% PageVo pv = (PageVo)request.getAttribute("pv");
+   PageVo pvj = (PageVo)request.getAttribute("pvj");%>
 
 
 
@@ -270,7 +269,10 @@
         font-size: 20px;
         text-align: center;
     }
-
+    #pageGroup{
+        text-decoration: none;
+        color : #fdb930;
+    }
 </style>
 </head>
 <body>
@@ -344,8 +346,9 @@
              <div class="mp-main2 main">
                 <div class="back4">
                     <div class="mem-mp-info">
-                        
-                            <div id="mp-login-info"><h1>찜한모임</h1></div>        
+                            
+                            <div id="mp-login-info"><h1>찜한모임</h1></div>   
+                            <div id="mp-id">아이디 <div><input type="text" value="${loginMember.id}" class="input" readonly name="memberId"></div></div>    
                                            
                     </div>
                     <div id="mem-mp2-content">
@@ -357,22 +360,21 @@
                         <div>그룹이름</div>
                        
 
-                            <c:forEach items="${ likeVo }" var="like" >
+                            <c:forEach items="${ lgList }" var="like" >
                             
                                     <div>${like.bCate }</div>
                                     <div>${like.sCate }</div>
                                     <div>${like.pName }</div>
-                                    <div><a href="/omjm/group/main?gno=${like.gNo}">${like.gName}</a></div>
+                                    <div><a href="/omjm/group/main?gno=${like.gNo}" id="pageGroup">${like.gName}</a></div>
                                 
                             </c:forEach>
                             
                             <div class="span4">
 
                                
-                            
-                                <%for(int i = pv.getStartPage(); i <=pv.getEndPage() ; i++) {%>
-                                    <a href="/omjm/member/mypage?x=1&lgpno=<%=i%>" class="btn"><%=i%></a> 
-                                <%}%>
+                                 <%for(int i = pv.getStartPage(); i <=pv.getEndPage() ; i++) {%>
+                                    <a href="/omjm/member/mypage?x=1&lgpno=<%=i%>&jgpno=1" class="btn"><%=i%></a> 
+                                <%}%> 
                             
                             </div>
 
@@ -390,7 +392,8 @@
                 <div class="back4">
                     <div class="mem-mp-info">
                        
-                            <div id="mp-login-info"><h1>가입한모임</h1></div>                       
+                            <div id="mp-login-info"><h1>가입한모임</h1></div>      
+                            <div id="mp-id">아이디 <div><input type="text" value="${loginMember.id}" class="input" readonly name="memberId"></div></div>                     
                     </div>
                     <div id="mem-mp2-content">
                         <!-- 반복 가입한 모임 보이게 해야함 반복문으로--> 
@@ -402,12 +405,17 @@
                             
                                     <div>${join.cName }</div>
                                     <div>${join.dName }</div>
-                                    <div><a href="/omjm/group/main?gno=${join.gNo}">${join.gName}</a></div>
+                                    <div><a href="/omjm/group/main?gno=${join.gNo}" id="pageGroup">${join.gName}</a></div>
                                     <div>${join.gCnt }</div>
                                 
                             </c:forEach>
                             
                             <div class="span4">
+                                <%for(int j = pvj.getStartPage(); j <=pvj.getEndPage() ; j++) {%>
+                                    <a href="/omjm/member/mypage?x=2&jgpno=<%=j%>&lgpno=1" class="btn"><%=j%></a> 
+                                <%}%> 
+                            
+                            </div>
                        	
                     </div>
                 </div>

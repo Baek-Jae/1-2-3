@@ -11,12 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.common.JDBCTemplate;
+import com.kh.semi.common.PageVo;
 import com.kh.semi.member.vo.MemberJoinGroupVo;
 import com.kh.semi.member.vo.MemberLikeVo;
 import com.kh.semi.member.vo.MemberVo;
 import com.kh.semi.password.PasswordVo;
 
 import kh.semi.omjm.group.vo.GroupVo;
+import oracle.sql.ARRAY;
 
 
 
@@ -60,7 +63,7 @@ public class MemberDao {
 		//로그인
 		public MemberVo login(Connection conn, MemberVo vo) {
 			
-			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ? AND STATUS = 'O'";
+			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ? AND STATUS = 'O' AND SUP = 'X'";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -169,30 +172,34 @@ public class MemberDao {
 		}
 
 		//찜한그룹 가져오기
-		public MemberLikeVo selectLikeGroupByNo(Connection conn, String gNo) {
-			
-			String sql = "SELECT C.CA_NAME BCATE, C.DE_NAME SCATE, G.NAME GNAME, P.P_NAME PNAME, M.NICK MNICK , G.NO GNO "
-						+ "FROM MEMBER M JOIN LIKE_GROUP LG ON LG.USER_NO = M.NO "
-						+ "JOIN OMJM_GROUP G ON G.NO = LG.GROUP_NO "
-						+ "JOIN CATEGORY C ON G.CATE_NO = C.CA_NO "
-						+ "JOIN PLACE P ON P.P_NO = G.PLACE_NO "
-						+ " WHERE G.NO = ?";
+		public List<MemberLikeVo> selectLikeGroupByNo(Connection conn, MemberVo vo, PageVo pv) {
+
+			String sql = "SELECT * FROM "
+					+ "( SELECT ROWNUM AS LGNUM , T.* FROM "
+					+ "(SELECT   C.CA_NAME BCATE, C.DE_NAME SCATE, G.NAME GNAME , P.P_NAME PNAME, M.NICK MNICK , G.NO GNO FROM MEMBER M "
+					+ "JOIN LIKE_GROUP LG ON LG.USER_NO = M.NO JOIN OMJM_GROUP G ON G.NO = LG.GROUP_NO "
+					+ "JOIN CATEGORY C ON G.CATE_NO = C.CA_NO JOIN PLACE P ON P.P_NO = G.PLACE_NO  "
+					+ "WHERE G.NO IN (+"+vo.getLikeGroup()+") ) T ) WHERE LGNUM BETWEEN ? AND ?";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			MemberLikeVo likeVo = null;
-			
+			List<MemberLikeVo> lgList = new ArrayList<MemberLikeVo>();
+					
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
+
+				int start =  (pv.getCurrentPage() -1) * pv.getBoardLimit() + 1;
+				int end = start +pv.getBoardLimit() -1;
 				
-				pstmt.setInt(1, Integer.parseInt(gNo));
-			
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
+				
 				rs = pstmt.executeQuery();
-				
-				
-				
+	
 				while(rs.next()) {
+					
 					likeVo = new MemberLikeVo();
 					
 					String bCate = rs.getString("BCATE");
@@ -211,6 +218,8 @@ public class MemberDao {
 					likeVo.setgNo(gno);
 					
 					
+					lgList.add(likeVo);
+					
 					
 				}
 			} catch (SQLException e) {
@@ -221,7 +230,7 @@ public class MemberDao {
 				
 			}
 			
-			return likeVo;
+			return lgList;
 		}
 		
 		//아이디 더블체크
@@ -466,9 +475,13 @@ public class MemberDao {
 		}
 
 		//가입한 그룹을 찾아봅쉬다~ 
-		public List<MemberJoinGroupVo> selectGroupByNo(Connection conn, String no) {
+		public List<MemberJoinGroupVo> selectGroupByNo(Connection conn, String no, PageVo pvj) {
 			
-			String sql = "SELECT G.NO GNO,  C.CA_NO CANO, C.CA_NAME CNAME, C.DE_NAME DNAME, G.NAME GNAME, G.USER_CNT GCNT, GM.USER_NO MNO FROM GROUP_MEMBER GM JOIN OMJM_GROUP G ON G.NO = GM.GROUP_NO JOIN CATEGORY C ON C.CA_NO = G.CATE_NO WHERE GM.USER_NO = ? AND GM.QUIT_YN= 'N'";
+			String sql = "SELECT * FROM( SELECT ROWNUM AS JGNUM , JG.* "
+					+ "FROM ( SELECT G.NO GNO,  C.CA_NO CANO, C.CA_NAME CNAME, C.DE_NAME DNAME, G.NAME GNAME, G.USER_CNT GCNT, GM.USER_NO MNO "
+					+ "FROM GROUP_MEMBER GM "
+					+ "JOIN OMJM_GROUP G ON G.NO = GM.GROUP_NO JOIN CATEGORY C ON C.CA_NO = G.CATE_NO "
+					+ "WHERE GM.USER_NO = ? AND GM.QUIT_YN= 'N' ) JG ) WHERE JGNUM BETWEEN ? AND ? ";
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -476,8 +489,14 @@ public class MemberDao {
 			
 			
 			try {
+				
+				int start =  (pvj.getCurrentPage() -1) * pvj.getBoardLimit() + 1;
+				int end = start +pvj.getBoardLimit() -1;
+				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, no);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
 				
 				rs= pstmt.executeQuery();
 				
@@ -501,8 +520,6 @@ public class MemberDao {
 					jgVo.setcName(cName);
 					jgVo.setdName(dName);
 					jgVo.setgCnt(gCnt);
-					
-					System.out.println(jgVo);
 
 					jgList.add(jgVo);
 
@@ -515,6 +532,40 @@ public class MemberDao {
 			
 			return jgList;
 		}
+
+		public int selectJGLCnt(Connection conn, String no) {
+			
+			String sql = "SELECT GROUP_NO CNT FROM GROUP_MEMBER WHERE USER_NO = ? AND QUIT_YN = 'N'";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+			
+				pstmt.setString(1, no);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					result = rs.getInt("CNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rs);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+
+		
+	
+
+	
 		
 
 }

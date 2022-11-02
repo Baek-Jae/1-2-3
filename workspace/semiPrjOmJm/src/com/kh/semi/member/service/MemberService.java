@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.common.PageVo;
 import com.kh.semi.member.dao.MemberDao;
 import com.kh.semi.member.vo.MemberJoinGroupVo;
 import com.kh.semi.member.vo.MemberLikeVo;
@@ -91,38 +92,35 @@ private final MemberDao dao = new MemberDao();
 		return editMember;
 	}
 
-	public List<MemberLikeVo> selectLikeGroupByNo(MemberVo vo) {
+	public List<MemberLikeVo> selectLikeGroupByNo(MemberVo vo, PageVo pv) {
+		
 		Connection conn = getConnection();
 		
-		List<MemberLikeVo> likeVo = new ArrayList<MemberLikeVo>();
-		
+		List<MemberLikeVo> lgList = dao.selectLikeGroupByNo(conn, vo, pv);
 				
-				int cnt = 0;
-				
-		for(int i = 0; i< vo.getlGArr().length; i++) {
-			
-			
-			String gNo = vo.getlGArr()[i];
-			
-			
-			MemberLikeVo gvo = dao.selectLikeGroupByNo(conn, gNo);
-			
-			if(gvo != null) {
-				likeVo.add(gvo);
-				cnt += 1;
-
-				
-			}else {
-				continue;
-			}
-		}
-		System.out.println("카운트는 :"  + cnt);
+//		for(int i = 0; i< vo.getlGArr().length; i++) {
+//			
+//			
+//			String gNo = vo.getlGArr()[i];
+//			
+//			
+//			
+//			if(gvo != null) {
+//				likeVo.add(gvo);
+//
+//				
+//			}else {
+//				continue;
+//			}
+//		}
 		
 		close(conn);
 		
 		 
-		return likeVo;
+		return lgList;
 	}
+	
+	
 	//아이디 중복확인
 	public int doubleCheckbyId(String id) {
 		
@@ -227,11 +225,12 @@ private final MemberDao dao = new MemberDao();
 	}
 
 	
-	public List<MemberJoinGroupVo> selectGroupByNo(String no) {
+	//가입한그룹
+	public List<MemberJoinGroupVo> selectGroupByNo(String no, PageVo pvj) {
 		
 		Connection conn = getConnection();
 		
-		List<MemberJoinGroupVo> gList = dao.selectGroupByNo(conn, no);
+		List<MemberJoinGroupVo> gList = dao.selectGroupByNo(conn, no, pvj);
 		
 		close(conn);
 		
@@ -239,6 +238,19 @@ private final MemberDao dao = new MemberDao();
 		return gList;
 	}
 
+	//가입한 그룹의 갯수가 떠야한다.
+	public int selectJGLCnt(String no) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.selectJGLCnt(conn, no);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
 	
 
 	
