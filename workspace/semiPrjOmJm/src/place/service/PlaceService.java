@@ -84,7 +84,7 @@ public class PlaceService {
 		List<GroupVo> list = new PlaceDao().selectGroup(conn);
 
 		JDBCTemplate.close(conn);
-		
+
 		return list;
 	}
 

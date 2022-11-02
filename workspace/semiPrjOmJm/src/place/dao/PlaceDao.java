@@ -43,7 +43,6 @@ public class PlaceDao {
 	}
 
 	public List<CateVo> selectCate(Connection conn) {
-		// SQL
 		String sql = "SELECT * FROM CATEGORY";
 
 		PreparedStatement pstmt = null;
@@ -276,7 +275,6 @@ public class PlaceDao {
 	}
 	
 	public List<GroupVo> selectGroup(Connection conn) {
-		// SQL
 		String sql = "SELECT O. NO, O.NAME, O.LEADER_NO, O.PLACE_NO, O.CATE_NO, O.USER_CNT, O.RANK_NO, O.EXP, O.CONTENT, O.ENROLL_DATE, O.MODIFY_DATE, O.DELETE_YN, C.CA_NAME, P.P_NAME FROM OMJM_GROUP O "
 				+ "JOIN CATEGORY C ON O.CATE_NO = C.CA_NO JOIN PLACE P ON O.PLACE_NO = P.P_NO ORDER BY DBMS_RANDOM.RANDOM";
 
