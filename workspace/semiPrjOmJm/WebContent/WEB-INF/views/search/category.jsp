@@ -14,10 +14,14 @@
  */  
   String search = (String)request.getAttribute("search");
   String search2 = (String)request.getAttribute("search2");
-  String jjap = (String)request.getAttribute("jjap");
+  
+  List<GroupVo> groupList = (ArrayList<GroupVo>)request.getAttribute("groupList");
+
   List<GroupVo> groupName = (ArrayList<GroupVo>)request.getAttribute("groupName");
   List<GroupVo> groupName2 = (ArrayList<GroupVo>)request.getAttribute("groupName2");
+  String msg = (String)request.getAttribute("msg");
  %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,16 +51,14 @@ if (loginMember != null){
         success : function(x){
            var o = JSON.parse(x);
 
-           for(let i = 0; i < 15; i++){
+           for(let i = 0; i < 3; i++){
 				//for(var i=0 in o){ 
 				let div = $('<div/>');
 				div.addClass("group-card");
 		
-				var random = Math.floor(Math.random()*o.length);
-
-				div.append('<div class="group-tag">'
-						+'<span class="material-symbols-outlined">sell</span>'
-						+'<label>서울시 베스트</label></div>');
+				// div.append('<div class="group-tag">'
+				// 		+'<span class="material-symbols-outlined">sell</span>'
+				// 		+'<label>서울시 베스트</label></div>');
 				
 				div.append('<div class="group-wrap">'
 	                    +'<div class="card-top">'
@@ -75,7 +77,7 @@ if (loginMember != null){
 	                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 	                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
                         +'</div>'
-                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+                        +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
                 	+'</div>'
                 +'</div>');
 				
@@ -96,15 +98,9 @@ if (loginMember != null){
 				var o = JSON.parse(x);
 				/* console.log(o); */
 				
-				for(let i = 0; i < 15; i++){
+				for(let i = 0; i < 3; i++){
 					let div = $('<div/>');
 					div.addClass("group-card");
-			
-					var random = Math.floor(Math.random()*o.length);
-
-					div.append('<div class="group-tag">'
-							+'<span class="material-symbols-outlined">sell</span>'
-							+'<label>서울시 베스트</label></div>');
 					
 					div.append('<div class="group-wrap">'
 		                    +'<div class="card-top">'
@@ -123,7 +119,7 @@ if (loginMember != null){
 		                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 		                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
 	                        +'</div>'
-	                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+	                        +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
 	                	+'</div>'
 	                +'</div>');
 					
@@ -136,26 +132,25 @@ if (loginMember != null){
 		});
 </script>
 <%}%>
-	<%if(search != null){ 
-		System.out.println(search);%>
-	<script type="text/javascript">
 
-	$(document).ready(function() {  
+<script>
+
+		<%if(search != null){ 
+			System.out.println(search);%>
+
+	$(document).ready(function() {
 		/* alert("dd"); */
 	
-	 <%	for(int i = 0; i < 15; ++i) {%>
+	  <%	for(int i = 0; i < 3; ++i) {%> 
+	 /* for(let i = 0; i < 3; i++){ */
 		 <%-- console.log('<%=groupName.get(0).getName()%>');
 		 console.log($('.group-cate').eq(0)); --%>
  	 		
-		/*  for(let i = 0; i < o.length; i++){ */
+	//	/*  for(let i = 0; i < o.length; i++){ */
 				//for(var i=0 in o){ 
 				let div = $('<div/>');
 				div.addClass("group-card");
 		
-				div.append('<div class="group-tag">'
-						+'<span class="material-symbols-outlined">sell</span>'
-						+'<label>서울시 베스트</label></div>');
-				
 				div.append('<div class="group-wrap">'
 	                    +'<div class="card-top">'
                     +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
@@ -173,25 +168,52 @@ if (loginMember != null){
 	                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 	                            +'<span class="group-cnt">'+<%= groupName.get(i).getUserCnt() %>+'</span>'
                     +'</div>'
-                    +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+                    +'<a href="/omjm/group/main?gno='+<%= groupList.get(i).getNo() %>'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
             	+'</div>'
             +'</div>');
 				
 				$(div).appendTo('.group-list');	
-			}
-		 
-		<%-- $('.group-cate').eq(<%=i%>).text('<%= groupName.get(i).getCategory() %>');
-		$('.group-na').eq(<%=i%>).text('<%= groupName.get(i).getName() %>'); 
-		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
-		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>');  --%>
-		<%}%>
+		<%}%>	
 	})
 </script>
-	<%}else if(jjap != null){%> 
+	<% } else{ %>
 <script>
-			alert("해당 모임이 존재하지 않습니다");
+$(document).ready(function() { 
+	<%if(msg != null){%>
+	 alert('<%=msg%>');
+	<%}%>
+	alert("검색어 없음!");
+	  <%for(int i = 0; i < 3; ++i){ %>
+			//for(var i=0 in o){ 
+			let div = $('<div/>');
+			div.addClass("group-card");
+			
+			div.append('<div class="group-wrap">'
+                   +'<div class="card-top">'
+               +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
+           +'</div>'
+           +'<div class="card-bottom">'
+              +'<span>모임명</span>'
+                       +'<span class="group-na">'+<%= groupList.get(i).getName() %>+'</span>'
+                       +'<span>카테고리</span>'
+                       +'<span class="group-cate">'+<%= groupList.get(i).getCategory() %>+'</span>'
+                       +'<div>'
+                           +'<span class="material-symbols-outlined" id="location-icon">location_on</span>'
+                           +'<span class="group-pl">'+<%= groupList.get(i).getPlace() %>+'</span>'
+                       +'</div>'
+                       +'<div id="group-info">'
+                           +'<span class="material-symbols-outlined" id="group-icon">group</span>'
+                           +'<span class="group-cnt">'+<%= groupList.get(i).getUserCnt() %>+'</span>'
+               +'</div>'
+               +'<a href="/omjm/group/main?gno='+<%= groupList.get(i).getNo() %>'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+       	+'</div>'
+       +'</div>');
+			
+			$(div).appendTo('.group-list');	
+		}
+			
 			<%-- $(document).ready(function() {  
-			 <%	for(int i = 0; i < 15; ++i) {%>
+			 <%	for(int i = 0; i < 3; ++i) {%>
 		 console.log('<%=groupName.get(0).getName()%>');
 		 console.log($('.group-cate').eq(0));
  	 		
@@ -200,9 +222,9 @@ if (loginMember != null){
 		$('.group-pl').eq(<%=i%>).text('<%= groupName.get(i).getPlace() %>');
 		$('.group-cnt').eq(<%=i%>).text('<%= groupName.get(i).getUserCnt() %>');  --%>
 		<% } %>
-	/* }) */
+	 }) 
 </script>
-<%-- <% } %>  --%>
+ <% } %> 
 	
 	<div id="ca-search">
 		<form action="<%= root %>/search" class="main-search" method="post">
@@ -213,7 +235,7 @@ if (loginMember != null){
 							<%}else if(search2 != null){ %> <%= search2 %>
 			                       <%}%>"/>
          </div>
-         <input type="button" id="submit" onclick="return doAction();" value="변경">
+         <input type="button" id="submit" onclick="return doAction();" value="검  색">
       </form>
 
 		<select name="place" class="ca-option" id="select-pl">
@@ -465,7 +487,7 @@ if (loginMember != null){
 			<td>29명</td>
 		</tr>
 	</table> --%>
-
+	<br><br><br><br><br><br><br>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -499,16 +521,10 @@ $('#select-pl').change(function(){
 						},
 						success : function(z){
 							var sp = JSON.parse(z);
-							for(let i = 0; i < 15; i++){
+							for(let i = 0; i < 3; i++){
 								//for(var i=0 in o){ 
 								let div = $('<div/>');
 								div.addClass("group-card");
-						
-								var random = Math.floor(Math.random()*o.length);
-
-								div.append('<div class="group-tag">'
-										+'<span class="material-symbols-outlined">sell</span>'
-										+'<label>서울시 베스트</label></div>');
 								
 								div.append('<div class="group-wrap">'
 					                    +'<div class="card-top">'
@@ -527,7 +543,7 @@ $('#select-pl').change(function(){
 					                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 					                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
 				                       +'</div>'
-				                       +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+				                       +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
 				               	+'</div>'
 				               +'</div>');
 								
@@ -574,16 +590,10 @@ $('#select-pl').change(function(){
 		         success : function(x){
 		            var o = JSON.parse(x);
 
-		            for(let i = 0; i < 15; i++){
+		            for(let i = 0; i < 3; i++){
 						//for(var i=0 in o){
 						let div = $('<div/>');
 						div.addClass("group-card");
-
-						var random = Math.floor(Math.random()*o.length);
-
-						div.append('<div class="group-tag">'
-								+'<span class="material-symbols-outlined">sell</span>'
-								+'<label>서울시 베스트</label></div>');
 
 						div.append('<div class="group-wrap">'
 			                    +'<div class="card-top">'
@@ -602,7 +612,7 @@ $('#select-pl').change(function(){
 			                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 			                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
 		                        +'</div>'
-		                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+		                        +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
 		                	+'</div>'
 		                +'</div>');
 
@@ -614,24 +624,6 @@ $('#select-pl').change(function(){
 		         }
 		      });
 		   } 
-
-
-		   /*검색 페이지에서 모임명 검색*/
-			/*  function nameSearch(){
-				 alert("dd");
-				 var form = $("form")[0];        
-			     var formData = new FormData(form); */
-			     
-			 /*  $('.main-search').submit(function(event){  */
-				/*  function nameSearch(event){
-					 event.preventDefault();  */
-			 
-			  /* $(function(){ 
-		        $('#submit').("click",function () { */
-			    /*  var formData =  $("form").serialize();
-			     console.log(formData); */
-			//$('input[name=search2]').attr('value',"search2");
-			  
 			  
 	 $('#submit').click(function(){
 		 //alert($('input[name=search2]').val())
@@ -644,17 +636,11 @@ $('#select-pl').change(function(){
 			     },
 			     success : function(x){
 			        var o = JSON.parse(x);
-			        for(let i = 0; i < 15; i++){
+			        for(let i = 0; i < 3; i++){
 						//for(var i=0 in o){ 
 						let div = $('<div/>');
 						div.addClass("group-card");
 				
-						var random = Math.floor(Math.random()*o.length);
-
-						div.append('<div class="group-tag">'
-								+'<span class="material-symbols-outlined">sell</span>'
-								+'<label>서울시 베스트</label></div>');
-						
 						div.append('<div class="group-wrap">'
 			                    +'<div class="card-top">'
 		                        +'<img src="<%= root %>/resources/testImg.png" alt="그룹사진"/>'
@@ -672,7 +658,7 @@ $('#select-pl').change(function(){
 			                            +'<span class="material-symbols-outlined" id="group-icon">group</span>'
 			                            +'<span class="group-cnt">'+o[i].userCnt+'</span>'
 		                        +'</div>'
-		                        +'<a href="">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
+		                        +'<a href="/omjm/group/main?gno='+o[i].no+'">들어가기 <i class="fa-solid fa-angles-right fa-beat-fade"></i></a>'
 		                	+'</div>'
 		                +'</div>');
 						
@@ -715,6 +701,9 @@ $('#select-pl').change(function(){
 	  const name = document.getElementById('my_name').value;
 	  document.getElementById("my_name").value = name;
 	} */
+	
+	 
+ 	
 </script>
 </body>
 </html>
