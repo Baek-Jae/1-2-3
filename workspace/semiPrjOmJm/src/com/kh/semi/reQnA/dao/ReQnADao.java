@@ -89,24 +89,24 @@ public class ReQnADao {
 	}//selectList
 
 	//조회수 증가
-	public int increaseHit(Connection conn, String reqnaNo) {
+	public int increaseHit(Connection conn, String no) {
 		String sql = "UPDATE REQNA SET HIT = HIT + 1 WHERE NO = ? AND DELETE_YN='O'";
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+		System.out.println(no);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, reqnaNo);
+			pstmt.setString(1, no);
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}
-		
 		return result;
 		
 	}//increaseHit

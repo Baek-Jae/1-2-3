@@ -117,8 +117,6 @@
             </div>
         
         	<div class="boardlistbody">
-        	<%-- console.log(<%= rvoList %>);
-        	console.log(<%= voList %>); --%>
 	        <%for(int i = 0; i < trvoList.size(); ++i){%>
         		<div class="item">
 	                <div class="num"><%= trvoList.get(i).getNo() %></div>
@@ -138,10 +136,6 @@
 	            <%}%>
 			<%}%>            							
 	            
-<%-- 	        <%for(int i = 0; i < rvoList.size(); ++i){%>        
-				<!-- if(rvoList.get(i).getbNo() == voList.get(i).getNo()){ -->
-				<!-- } -->
-			<%}%> --%>
 	        </div>
             
             <div id="page-area">

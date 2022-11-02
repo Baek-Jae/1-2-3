@@ -3,6 +3,7 @@ package com.kh.semi.reQnA.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import com.kh.semi.reQnA.service.ReQnAService;
 import com.kh.semi.reQnA.vo.ReQnAVo;
 
 @WebServlet(urlPatterns = "/reQnA/detail")
+@MultipartConfig
 public class ReQnADetailController extends HttpServlet{
 
 	@Override

@@ -71,7 +71,6 @@ public class QnAListController extends HttpServlet{
 //		req.setAttribute("rvoList", rvoList);
 		
 		req.setAttribute("trvoList", trvoList);
-		System.out.println(trvoList);
 		
 		req.setAttribute("pv", pv);
 		

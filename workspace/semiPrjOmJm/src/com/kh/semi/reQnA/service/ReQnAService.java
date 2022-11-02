@@ -52,14 +52,14 @@ public class ReQnAService {
 		Connection conn = getConnection();
 		ReQnAVo vo = null;
 		
+		System.out.println(no);
+		
 		int result = Rqd.increaseHit(conn, no);
 		if(result == 1) {
 			commit(conn);
 			vo = Rqd.selectQnAOne(conn, no);
 		}
-		
 		close(conn);
-		
 		return vo;
 				
 	}//selectQnAOne

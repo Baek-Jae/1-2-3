@@ -70,7 +70,7 @@ public class FaqDao {
 	//FAQ 목록 조회
 	public List<FaqVo> selectFaqList(Connection conn) {
 		
-		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.ANS_CONTENT , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.DELETE_YN = 'O' ORDER BY NO DESC";
+		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.DELETE_YN = 'O' ORDER BY NO DESC";
 	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,7 +89,6 @@ public class FaqDao {
 				String writer = rs.getString("WRITER");
 				String enrollDate = rs.getString("ENROLL_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
-				String ansContent = rs.getString("ANS_CONTENT");
 				
 				FaqVo vo = new FaqVo();
 				vo.setNo(no);
@@ -99,7 +98,6 @@ public class FaqDao {
 				vo.setWriter(writer);
 				vo.setEnrollDate(enrollDate);
 				vo.setDeleteYn(deleteYn);
-				vo.setAnsContent(ansContent);
 				
 				voList.add(vo);
 			}
@@ -167,7 +165,7 @@ public class FaqDao {
 	public FaqVo selectFaqOne(Connection conn, String no) {
 		
 		
-		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.ANS_CONTENT , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.NO = ? AND F.DELETE_YN = 'O'";
+		String sql = "SELECT F.NO , F.TITLE , F.CONTENT , F.HIT , F.ENROLL_DATE , F.DELETE_YN , M.NICK AS WRITER FROM FAQ F JOIN MEMBER M ON F.WRITER = M.NO WHERE F.NO = ? AND F.DELETE_YN = 'O'";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -187,7 +185,6 @@ public class FaqDao {
 				String writer = rs.getString("WRITER");
 				String enrollDate = rs.getString("ENROLL_DATE");
 				String deleteYn = rs.getString("DELETE_YN");
-				String ansContent = rs.getString("ANS_CONTENT");
 				
 				vo = new FaqVo();
 				vo.setNo(no);
@@ -197,7 +194,6 @@ public class FaqDao {
 				vo.setHit(hit);
 				vo.setEnrollDate(enrollDate);
 				vo.setDeleteYn(deleteYn);
-				vo.setAnsContent(ansContent);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
