@@ -1,11 +1,14 @@
 package com.kh.semi.reQnA.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
-import com.kh.semi.qna.vo.QnAVo;
+import com.kh.semi.qna.vo.TotalQnAVo;
 import com.kh.semi.reQnA.dao.ReQnADao;
 import com.kh.semi.reQnA.vo.ReQnAVo;
 
@@ -47,12 +50,10 @@ public class ReQnAService {
 	}//selectList
 
 	//QnA 댓글 상세조회
-	public ReQnAVo selectQnAOne(String no) {
+	public TotalQnAVo selectQnAOne(String no) {
 		
 		Connection conn = getConnection();
-		ReQnAVo vo = null;
-		
-		System.out.println(no);
+		TotalQnAVo vo = null;
 		
 		int result = Rqd.increaseHit(conn, no);
 		if(result == 1) {
@@ -84,10 +85,10 @@ public class ReQnAService {
 	}//delete
 
 	//QnA 답글 수정하기
-	public int edit(ReQnAVo vo) {
+	public int edit(TotalQnAVo vo) {
 		
 		Connection conn = getConnection();
-		
+		System.out.println("vo:::" + vo);
 		int result = Rqd.updateOneByNo(conn, vo);
 		
 		if(result == 1) {

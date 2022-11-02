@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.common.JDBCTemplate;
-import com.kh.semi.qna.vo.QnAVo;
+import com.kh.semi.qna.vo.TotalQnAVo;
 import com.kh.semi.reQnA.vo.ReQnAVo;
 
 public class ReQnADao {
@@ -94,10 +94,9 @@ public class ReQnADao {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
-		System.out.println(no);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setString(1, no);
 			
 			result = pstmt.executeUpdate();
@@ -112,12 +111,12 @@ public class ReQnADao {
 	}//increaseHit
 
 	//QnA 답글 상세조회
-	public ReQnAVo selectQnAOne(Connection conn, String no) {
-		String sql = "SELECT R.NO , M.NICK AS WRITER , R.TITLE , R.CONTENT , R.ENROLL_DATE , R.DELETE_YN , R.HIT FROM REQNA R LEFT OUTER JOIN MEMBER M ON R.WRITER = M.NO WHERE R.NO = ? AND R.DELETE_YN = 'O'";
+	public TotalQnAVo selectQnAOne(Connection conn, String no) {
+		String sql = "SELECT R.NO AS R_NO , M.NICK AS REWRITER , R.TITLE AS RETITLE , R.CONTENT AS RECONTENT , R.ENROLL_DATE AS REENROLL_DATE , R.DELETE_YN AS REDELETE_YN , R.HIT AS REHIT FROM REQNA R LEFT OUTER JOIN MEMBER M ON M.NO = R.WRITER WHERE R.NO = ? ";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ReQnAVo vo = null;
+		TotalQnAVo vo = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -127,16 +126,20 @@ public class ReQnADao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println("알에스다음");
-				String writer = rs.getString("WRITER");
-				String title = rs.getString("TITLE");
-				String content = rs.getString("CONTENT");
-				String enrollDate = rs.getString("ENROLL_DATE");
-				String deleteYn = rs.getString("DELETE_YN");
-				String hit = rs.getString("HIT");
+				String reWriter = rs.getString("REWRITER");
+				String reTitle = rs.getString("RETITLE");
+				String reContent = rs.getString("RECONTENT");
+				String reEnrollDate = rs.getString("REENROLL_DATE");
+				String reDeleteYn = rs.getString("REDELETE_YN");
+				String reHit = rs.getString("REHIT");
 				
-				System.out.println(vo);
-				vo = new ReQnAVo();
+				vo = new TotalQnAVo();
+				vo.setRewriter(reWriter);
+				vo.setRetitle(reTitle);
+				vo.setRecontent(reContent);
+				vo.setReenrollDate(reEnrollDate);
+				vo.setRedeleteYn(reDeleteYn);
+				vo.setRehit(reHit);
 				
 			}
 		} catch (SQLException e) {
@@ -144,7 +147,7 @@ public class ReQnADao {
 		} finally {
 			JDBCTemplate.close(rs, pstmt);
 		}
-		
+		System.out.println("vo:::" + vo);
 		return vo;
 		
 	}//selectQnAOne
@@ -175,7 +178,7 @@ public class ReQnADao {
 	}//delete
 
 	//QnA 답글 수정하기
-	public int updateOneByNo(Connection conn, ReQnAVo vo) {
+	public int updateOneByNo(Connection conn, TotalQnAVo vo) {
 		
 		String sql = "UPDATE REQNA SET TITLE = ? , CONTENT = ? WHERE NO = ?";
 		
@@ -185,9 +188,9 @@ public class ReQnADao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContent());
-			pstmt.setString(3, vo.getNo());
+			pstmt.setString(1, vo.getRetitle());
+			pstmt.setString(2, vo.getRecontent());
+			pstmt.setString(3, vo.getRno());
 			
 			result = pstmt.executeUpdate();
 			

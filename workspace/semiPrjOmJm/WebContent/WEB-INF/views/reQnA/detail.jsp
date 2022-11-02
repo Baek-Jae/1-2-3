@@ -1,9 +1,9 @@
-<%@page import="com.kh.semi.reQnA.vo.ReQnAVo"%>
+<%@page import="com.kh.semi.qna.vo.TotalQnAVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <% 
-	ReQnAVo vo = (ReQnAVo)request.getAttribute("vo");
+	TotalQnAVo vo = (TotalQnAVo)request.getAttribute("vo");
 %>    
 <!DOCTYPE html>
 <html>
@@ -19,19 +19,21 @@
     } 
     
 	#main{
-		width: 60vw;
+		width: 80vw;
 		height: 60vh;
-		margin: 0 auto;
+		margin: 100px auto;
 		border: 1px solid black;
-		background: #008676;
+		background: #fff;
 		display: grid;
 		grid-template-columns: 4fr 2fr 2fr 1fr;
-		grid-template-rows: 30px;
-		padding-top: 100px;
+		grid-template-rows: 2fr 8fr;
+		border: 3px solid #fdb930;
 	}
 	
 	#main > div{
-		border: 1px solid black;
+		padding: 30px;
+		border-bottom: 1px solid #fdb930;
+		border-left: 1px solid #fdb930;
 	}
 	
 	#notice-content{
@@ -44,6 +46,10 @@
 		margin : 0 auto;
 		text-align : center;
 	}
+
+	#enrollDate {
+		width: 100%;
+	}
 </style>
 </head>
 <body>
@@ -51,22 +57,33 @@
 	<h1 align="center">QnA 답글 상세조회</h1>
 	
 	<div id="main">
-
-		<div><%= vo.getTitle() %></div>
-
-		<div><%= vo.getWriter() %></div>
-
-		<div><%= vo.getEnrollDate() %></div>
-
-		<div><%= vo.getHit() %></div>
-
-		<div id="notice-content"><%= vo.getContent() %></div>
+	
+		<div>
+			<div>제목 : </div>
+			<div><%= vo.getRetitle() %></div>
+		</div>
+		<div>
+			<div>작성자 : </div>
+			<div><%= vo.getRewriter() %></div>
+		</div>
+		<div id="enrollDate">
+			<div>작성일시 : </div>
+			<div><%= vo.getReenrollDate() %></div>
+		</div>
+		<div>
+			<div>조회수 : </div>
+			<div><%= vo.getRehit() %></div>
+		</div>
+		<div>
+			<div>내용 : </div>
+			<div id="notice-content"><%= vo.getRecontent() %></div>
+		</div>
 
 	</div>
 		
 	<div id="main-bot">
 		<%if(loginMember != null && loginMember.getId().equals("admin")){%>
-			<a href="/omjm/reQnA/edit?no=<%= vo.getNo() %>">수정하기</a>
+			<a href="/omjm/reQnA/edit?no=<%= vo.getRno() %>">수정하기</a>
 			<a href="/omjm/reQnA/delete?no=<%= vo.getNo() %>">삭제하기</a>		
 		<%}%>
 	</div>
