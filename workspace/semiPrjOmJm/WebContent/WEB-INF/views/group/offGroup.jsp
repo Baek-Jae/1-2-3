@@ -163,7 +163,7 @@
 				},
 				type:"post",
 				success:(result)=>{
-						location.reload();
+					location.reload();
 				},
 				error:(result)=>{
 					alert(result);
@@ -182,7 +182,6 @@
 				success:(result)=>{
 					const totalComment = JSON.parse(result);
 					$('.comment_count span').text(totalComment);
-					
 				},
 				error:(result)=>{
 					alert("작성실패..");
@@ -212,16 +211,10 @@
               		"<button class=\"comment_modify\" onclick=\"readyModify(this)\">수 정</button>"+
               		"<button class=\"complate close\" onclick=\"modifyComment(this)\">완 료</button>"+
               		"<button class=\"comment_delete\" onclick=\"deleteComment(this)\">삭 제</button></div>"+
-              		"<div class=\"commentNo close\">"+myComment.no+"</div></div>";
+              		"<div class=\"commentNo close\">"+myComment.no+"</div>"+
+              		"<div class=\"gmemberNo close\">"+myComment.userNo+"</div></div>";
               		$('#offGroup_comment_list').append(newComment);
               		$('#my_commemt').val("");
-              		
-              		const checkCommentClass = $('.comment_count').attr('class');
-              		const checkComment = checkCommentClass.search('close');
-              		console.log(checkComment);
-              		if(checkComment != -1){
-              			$('.comment_count').removeClass('close');
-              		}
               		
               		upDateCommentCnt();
 				},
