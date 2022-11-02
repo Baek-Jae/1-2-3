@@ -108,7 +108,7 @@
         <div class="boardlist">
             <div class="boardlisthead">
                 <div class="num">번호</div>
-                <div class="title">제목</div>
+                <div class="title">내용</div>
                 <div class="writer">글쓴이</div>
                 <div class="date">작성일</div>
                 <div class="view">조회</div>
@@ -118,7 +118,7 @@
 	        <%for(int i = 0; i < voList.size(); ++i){%>
         	<div class="item">
 	                <div class="num"><%= voList.get(i).getNo() %></div>
-	                <div class="title"><a href="<%= root %>/notice/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getTitle() %></a></div>
+	                <div class="title"><a href="<%= root %>/notice/detail?no=<%= voList.get(i).getNo() %>"><%= voList.get(i).getContent() %></a></div>
 	                <div class="writer"><%= voList.get(i).getWriter() %></div>
 	                <div class="date"><%= voList.get(i).getEnrollDate() %></div>
 	                <div class="view"><%= voList.get(i).getHit() %></div>

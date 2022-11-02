@@ -21,9 +21,10 @@
 	#main{
 		width: 60vw;
 		height: 60vh;
-		margin: 0 auto;
+		margin-top: 100px;
+		margin-left: 150px;
 		border: 1px solid black;
-		background: #008676;
+		background: #fdb930;
 		display: grid;
 		grid-template-columns: 4fr 2fr 2fr 1fr;
 		grid-template-rows: 30px;
