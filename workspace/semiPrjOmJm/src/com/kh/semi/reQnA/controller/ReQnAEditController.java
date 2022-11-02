@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.qna.service.QnAService;
+import com.kh.semi.qna.vo.TotalQnAVo;
 import com.kh.semi.reQnA.service.ReQnAService;
 import com.kh.semi.reQnA.vo.ReQnAVo;
 
@@ -23,7 +23,7 @@ public class ReQnAEditController extends HttpServlet{
 		String no = req.getParameter("no");
 		
 		//디비 다녀오기
-		ReQnAVo vo = new ReQnAService().selectQnAOne(no);
+		TotalQnAVo vo = new ReQnAService().selectQnAOne(no);
 		
 		//화면 선택
 		req.setAttribute("vo", vo);
@@ -41,7 +41,7 @@ public class ReQnAEditController extends HttpServlet{
 		String no = req.getParameter("no");
 		
 		//데이터 뭉치기
-		ReQnAVo vo = new ReQnAVo();
+		TotalQnAVo vo = new TotalQnAVo();
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setNo(no);

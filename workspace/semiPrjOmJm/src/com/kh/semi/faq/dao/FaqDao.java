@@ -17,7 +17,7 @@ public class FaqDao {
 	//FAQ 작성
 	public int insertFaq(Connection conn, FaqVo vo) {
 		
-		String sql = "INSERT INTO FAQ ( NO ,TITLE ,CONTENT ,WRITER ) VALUES ( SEQ_NOTICE_NO.NEXTVAL , ? , ? , ? )";
+		String sql = "INSERT INTO FAQ ( NO ,TITLE ,CONTENT ,WRITER ) VALUES ( SEQ_FAQ_NO.NEXTVAL , ? , ? , ? )";
 		
 		PreparedStatement pstmt = null;
 		int result = 0;

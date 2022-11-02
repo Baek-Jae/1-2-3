@@ -127,8 +127,12 @@
 	            </div>    
 	            <% if(trvoList.get(i).getRno() != null){ %>
 	             	<div class="item">
-		                <div class="num"><%= trvoList.get(i).getBno() %></div>
-		                <div class="title"><a href="<%= root %>/reQnA/detail?no=<%= trvoList.get(i).getBno() %>"><%= trvoList.get(i).getRetitle() %></a></div>
+		                <div class="num">
+		                <%if(trvoList.get(i).getBno() == trvoList.get(i).getRno()) {%>
+		                	
+		                <%}%>
+		                </div>
+		                <div class="title"><a href="<%= root %>/reQnA/detail?no=<%= trvoList.get(i).getRno() %>"><%= trvoList.get(i).getRetitle() %></a></div>
 		                <div class="writer"><%= trvoList.get(i).getRewriter() %></div>
 		                <div class="date"><%= trvoList.get(i).getReenrollDate() %></div>
 		                <div class="view"><%= trvoList.get(i).getRehit() %></div>

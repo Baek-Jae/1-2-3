@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.qna.vo.TotalQnAVo;
 import com.kh.semi.reQnA.service.ReQnAService;
-import com.kh.semi.reQnA.vo.ReQnAVo;
 
 @WebServlet(urlPatterns = "/reQnA/detail")
 @MultipartConfig
@@ -23,7 +23,7 @@ public class ReQnADetailController extends HttpServlet{
 		String no = req.getParameter("no");
 		
 		//디비 다녀오기
-		ReQnAVo vo = new ReQnAService().selectQnAOne(no);
+		TotalQnAVo vo = new ReQnAService().selectQnAOne(no);
 		
 		//화면선택
 		req.setAttribute("vo", vo);

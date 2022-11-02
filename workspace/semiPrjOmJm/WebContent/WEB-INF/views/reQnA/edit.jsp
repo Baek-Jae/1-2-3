@@ -1,9 +1,10 @@
+<%@page import="com.kh.semi.qna.vo.TotalQnAVo"%>
 <%@page import="com.kh.semi.reQnA.vo.ReQnAVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
-	ReQnAVo vo = (ReQnAVo)request.getAttribute("vo");
+	TotalQnAVo vo = (TotalQnAVo)request.getAttribute("vo");
 %>
 <!DOCTYPE html>
 <html>
@@ -33,13 +34,13 @@
 	
 		<h1 align="center">QnA 답글 수정하기</h1>
 
-	<form action="/omjm/reQnA/edit?no=<%= vo.getNo() %>" method="post">
+	<form action="/omjm/reQnA/edit?no=<%= vo.getRno() %>" method="post">
 		<div id="main">
 			<div>제목</div>
-			<div><input type="text" name="title" value="<%= vo.getTitle() %>"></div>
+			<div><input type="text" name="title" value="<%= vo.getRetitle() %>"></div>
 
 			<div>내용</div>
-			<div><textarea name="content"><%= vo.getContent() %></textarea></div>
+			<div><textarea name="content"><%= vo.getRecontent() %></textarea></div>
 			
 			<div></div>
 			<div><input type="submit" value="수정하기"></div>
