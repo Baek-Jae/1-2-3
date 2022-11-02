@@ -37,6 +37,8 @@ public class AdminRestController extends HttpServlet{
 		
 		
 		
+		
+		
 		req.getRequestDispatcher("/WEB-INF/views/admin/rest.jsp").forward(req, resp);
 		
 	}

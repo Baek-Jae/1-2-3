@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.ldap.PagedResultsResponseControl;
+
 import com.kh.semi.common.JDBCTemplate;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -492,6 +494,73 @@ String sql = "SELECT SUP FROM MEMBER WHERE SUP ='O' ORDER BY NO DESC";
 		return reviveMember;
 		
 		
+	}
+
+	public List<MemberVo> selectNormal(Connection conn) {
+		
+		String sql = "SELECT NICK FROM MEMBER WHERE SUP='X' ";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVo> normalMember = new ArrayList<MemberVo>();
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+
+				String nick = rs.getString("NICK");
+				
+				
+				MemberVo vo = new MemberVo();
+				
+				vo.setNick(nick);
+				
+				normalMember.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return normalMember;
+	}
+
+	public List<MemberVo> selectSupMemberList(Connection conn) {
+		
+		String sql="SELECT NICK FROM MEMBER WHERE SUP='O'";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVo> supMemberList = new ArrayList<MemberVo>();
+		
+		try {
+			pstmt =conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				String nick = rs.getString("NICK");
+				
+				
+				MemberVo vo = new MemberVo();
+				
+				vo.setNick(nick);
+				
+				
+				supMemberList.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return supMemberList;
 	}
 		
 	}
