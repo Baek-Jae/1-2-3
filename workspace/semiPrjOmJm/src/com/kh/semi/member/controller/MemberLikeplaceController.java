@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.common.PageVo;
 import com.kh.semi.member.service.MemberService;
 import com.kh.semi.member.vo.MemberVo;
 
@@ -49,7 +50,8 @@ public class MemberLikeplaceController extends HttpServlet{
 		vo.setPwd(pwd);
 		
 		MemberVo editMember = new MemberService().editPlace(vo);
-		
+		req.setAttribute("pv", new PageVo());
+		req.setAttribute("pvj", new PageVo());
 		
 		
 		if(editMember != null) {
