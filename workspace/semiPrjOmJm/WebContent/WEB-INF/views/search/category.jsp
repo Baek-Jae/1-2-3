@@ -59,10 +59,12 @@ console.log(${search});
         },//data
         success : function(x){
            var o = JSON.parse(x);
-
+			alert("야야");
            
            /* let j = 0; */
-           for(let i = 0; i < 3; i++;){
+           let j = 0;
+			for(let i = 0; i < o.length; i++ && j < 3){
+           /* for(let i = 0; i < 3; i++;){ */
 				//for(var i=0 in o){ 
 				let div = $('<div/>');
 				div.addClass("group-card");
@@ -93,7 +95,7 @@ console.log(${search});
                 +'</div>');
 				
 				$(div).appendTo('.group-list');	
-				
+				j++;
 			}
 		},
 		error : function(){
@@ -114,8 +116,8 @@ console.log(${search});
 				$('#tempList').empty();
 				console.log(xarr[0]); */
 				
-				let j = 0;
-				for(let i = 0; i < o.length; i++ && j < 3){
+				 let j = 0;
+				for(let i = 0; i < o.length; i++ && j < 3){ 
 					let div = $('<div/>');
 					div.addClass("group-card");
 					
@@ -141,7 +143,7 @@ console.log(${search});
 	                +'</div>');
 					
 					$(div).appendTo('.group-list');	
-					j++;
+					/* j++; */
 				}
 			},
 			error : function(){
@@ -317,21 +319,20 @@ $(document).ready(function() {
 			<%}}%>
 			</ul>
 		</div>
-		
 		<div id="box">
-			<input type="checkbox" class="" id="collapsible" name="cs_biz_form">
-			<label for="collapsible"> 
-			 <img src="<%= root %>/resources/예술1.png" alt="카테고리" width="80%" height="70%">
-			 <div>문화/예술</div> 
-			 </label>
+		<input type="checkbox" class="" id="collapsible15" name="cs_biz_form">
+			<label for="collapsible15">
+			<img src="<%= root %>/resources/반려동물2.jpg" alt="카테고리" width="80%" height="70%">
+			<div>반려동물</div>
+				</label>
 			<ul class="menuitems">
-				<% for(int i = 0; i < cateVo.size(); ++i){
-					String cate = cateVo.get(i).getCaName();
-          				if("문화/예술".equals(cate)){ %>
-				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
-				<%}}%>
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("반려동물".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
 			</ul>
 		</div>
+		
 
 		<div id="box">
 			<input type="checkbox" class="" id="collapsible2" name="cs_biz_form">
@@ -407,6 +408,19 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<div id="box">
+		<input type="checkbox" class="" id="collapsible13" name="cs_biz_form">
+			<label for="collapsible13">
+			<img src="<%= root %>/resources/게임오락.jpg" alt="카테고리" width="80%" height="70%">
+			<div>게임/오락</div>
+				</label>
+			<ul class="menuitems">
+			<% for(int i = 0; i < cateVo.size(); ++i){
+         				if("게임/오락".equals(cateVo.get(i).getCaName())){ %>
+			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+			<%}}%>
+			</ul>
+		</div>
+		<div id="box">
 		<input type="checkbox" class="" id="collapsible11" name="cs_biz_form">
 			<label for="collapsible11">
 			<img src="<%= root %>/resources/차오토바이.jpg" alt="카테고리" width="80%" height="70%">
@@ -433,19 +447,6 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<div id="box">
-		<input type="checkbox" class="" id="collapsible13" name="cs_biz_form">
-			<label for="collapsible13">
-			<img src="<%= root %>/resources/게임오락.jpg" alt="카테고리" width="80%" height="70%">
-			<div>게임/오락</div>
-				</label>
-			<ul class="menuitems">
-			<% for(int i = 0; i < cateVo.size(); ++i){
-         				if("게임/오락".equals(cateVo.get(i).getCaName())){ %>
-			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
-			<%}}%>
-			</ul>
-		</div>
-		<div id="box">
 		<input type="checkbox" class="" id="collapsible14" name="cs_biz_form">
 			<label for="collapsible14">
 			<img src="<%= root %>/resources/요리.jpg" alt="카테고리" width="80%" height="70%">
@@ -459,18 +460,21 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<div id="box">
-		<input type="checkbox" class="" id="collapsible15" name="cs_biz_form">
-			<label for="collapsible15">
-			<img src="<%= root %>/resources/반려동물2.jpg" alt="카테고리" width="80%" height="70%">
-			<div>반려동물</div>
-				</label>
+			<input type="checkbox" class="" id="collapsible" name="cs_biz_form">
+			<label for="collapsible"> 
+			 <img src="<%= root %>/resources/예술1.png" alt="카테고리" width="80%" height="70%">
+			 <div>문화/예술</div> 
+			 </label>
 			<ul class="menuitems">
-			<% for(int i = 0; i < cateVo.size(); ++i){
-         				if("반려동물".equals(cateVo.get(i).getCaName())){ %>
-			<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
-			<%}}%>
+				<% for(int i = 0; i < cateVo.size(); ++i){
+					String cate = cateVo.get(i).getCaName();
+          				if("문화/예술".equals(cate)){ %>
+				<li class="li-click" onclick="searchcate(<%=cateVo.get(i).getCaNo()%>);"><%=cateVo.get(i).getDeName() %></li>
+				<%}}%>
 			</ul>
 		</div>
+		
+		
 		<div id="box">
 		<input type="checkbox" class="" id="collapsible16" name="cs_biz_form">
 			<label for="collapsible16">
