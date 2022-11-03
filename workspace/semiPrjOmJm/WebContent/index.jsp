@@ -11,7 +11,6 @@ alert('<%=alertMsg%>');
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%= root %>/css/mainStyle.css" />
 
-
 </head>
 <body>
 
@@ -24,9 +23,6 @@ alert('<%=alertMsg%>');
 		int arrmath = (int)Math.floor(Math.random() * arrlength);
 		pla =  placeArr[arrmath];
 
-/*System.out.println("placeArr length 배열길이 " + arrlength);
-System.out.println("arrmath 랜덤 " + arrmath);
-System.out.println("placeArr 인덱스번호" + pla); */
 %>
 
 <script>
@@ -35,14 +31,13 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		method : "GET",
 		data :   {
 		"p1" :"<%=pla%>"
-		},//data
+		},
 		success : function(x){
 		var o = JSON.parse(x);
 
 		
 		let j = 0;
        for(let i = 0; i < o.length; i++&&j<3){
-			//for(var i=0 in o){
 			let div = $('<div/>');
 			div.addClass("group-card");
 
@@ -89,7 +84,6 @@ System.out.println("placeArr 인덱스번호" + pla); */
 		
 			let j = 0;
 			for(let i = 0; i < o.length; i++ && j<3){
-				//for(var i=0 in o){
 				let div = $('<div/>');
 				div.addClass("group-card");
 				

@@ -43,7 +43,7 @@ public class PlaceDao {
 	}
 
 	public List<CateVo> selectCate(Connection conn) {
-		// SQL
+		
 		String sql = "SELECT * FROM CATEGORY";
 
 		PreparedStatement pstmt = null;
