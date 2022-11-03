@@ -21,17 +21,18 @@ public class SearchController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String search = req.getParameter("search");
+        HttpSession s = req.getSession();
+        s.setAttribute("search", search);
+        
 		List<PlaceVo> placeList = new PlaceService().selectPlace();
 		List<CateVo> cateVo = new PlaceService().selectCate();
 		List<GroupVo> GroupList = new PlaceService().logoutGroup();
 		List<GroupVo> groupName = new PlaceService().wordSearch(search);
-		System.out.println(search);
+		
 		req.setAttribute("placeList", placeList);
 		req.setAttribute("cateVo", cateVo);
 		req.setAttribute("groupList", GroupList);
 		req.setAttribute("groupName", groupName);
-		
-		System.out.println(groupName);
 		
 		req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
 		

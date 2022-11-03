@@ -42,7 +42,5 @@ public class KeywordController extends HttpServlet{
 			
 			PrintWriter out = resp.getWriter();
 			out.write(str2);
-			
-			//req.getRequestDispatcher("/WEB-INF/views/search/category.jsp").forward(req, resp);
 }
 }
